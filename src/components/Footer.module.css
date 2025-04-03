@@ -1,0 +1,233 @@
+.footer {
+  background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+  color: #fff;
+  padding: 40px 20px;
+}
+
+.footerContent {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.footerGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  justify-content: space-between;
+}
+
+.footerSection {
+  flex: 1;
+  min-width: 200px;
+}
+
+.logo {
+  margin-bottom: 16px;
+}
+
+.footerTitle {
+  font-family: var(--font-playfair);
+  font-size: 20px;
+  color: #d4a373;
+  margin-bottom: 16px;
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
+}
+
+.footerText {
+  font-family: var(--font-inter);
+  font-size: 14px;
+  color: #fff;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.footerText:hover {
+  color: #d4a373;
+}
+
+.footerLinks {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footerLink {
+  font-family: var(--font-inter);
+  font-size: 14px;
+  color: #fff;
+  text-decoration: none;
+  display: block;
+  margin-bottom: 8px;
+  transition: color 0.3s ease-in-out;
+}
+
+.footerLink:hover {
+  color: #d4a373;
+}
+
+.footerCta {
+  display: inline-block;
+  margin-top: 16px;
+  padding: 10px 20px;
+  position: relative;
+  background: linear-gradient(to right, #d4a373, #e6b800, #f5d100);
+  color: #fff;
+  text-decoration: none;
+  border-radius: 25px;
+  font-family: var(--font-inter);
+  font-size: 16px;
+  font-weight: 500;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 15px rgba(212, 163, 115, 0.5);
+  overflow: hidden;
+  z-index: 1;
+  width: fit-content;
+}
+
+.footerCta::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.5s ease;
+  z-index: -1;
+}
+
+.footerCta:hover::before {
+  left: 100%;
+}
+
+.footerCta:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(212, 163, 115, 0.7);
+}
+
+.footerCta:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(212, 163, 115, 0.3);
+}
+
+.footerCta:active {
+  transform: translateY(1px);
+}
+
+.socials {
+  display: flex;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.socialIcon {
+  font-size: 20px;
+  color: #d4a373;
+  transition: color 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.socialIcon:hover {
+  color: #fff;
+  transform: scale(1.2);
+}
+
+.mapIframe {
+  border-radius: 10px;
+  margin-top: 10px;
+  width: 100%;
+}
+
+.mapButtons {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+  justify-content: center;
+}
+
+.mapButton {
+  padding: 8px 16px;
+  position: relative;
+  background: linear-gradient(to right, #d4a373, #e6b800, #f5d100);
+  color: #fff;
+  text-decoration: none;
+  border-radius: 20px;
+  font-family: var(--font-inter);
+  font-size: 14px;
+  font-weight: 500;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 15px rgba(212, 163, 115, 0.5);
+  overflow: hidden;
+  z-index: 1;
+  width: fit-content;
+}
+
+.mapButton::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.5s ease;
+  z-index: -1;
+}
+
+.mapButton:hover::before {
+  left: 100%;
+}
+
+.mapButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(212, 163, 115, 0.7);
+}
+
+.mapButton:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(212, 163, 115, 0.3);
+}
+
+.mapButton:active {
+  transform: translateY(1px);
+}
+
+.footerPolicyLinks {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.footerBottom {
+  margin-top: 40px;
+  text-align: center;
+}
+
+.footerBottomText {
+  font-family: var(--font-inter);
+  font-size: 14px;
+  color: #ccc;
+}
+
+@media (max-width: 768px) {
+  .footerGrid { flex-direction: column; gap: 24px; }
+  .footerSection { text-align: center; }
+  .socials { justify-content: center; }
+  .footerPolicyLinks { flex-direction: column; gap: 10px; }
+}
+
+@media (max-width: 480px) {
+  .footer { padding: 30px 10px; }
+  .footerTitle { font-size: 18px; }
+  .footerText { font-size: 12px; }
+  .footerLink { font-size: 12px; }
+  .footerCta { padding: 8px 16px; font-size: 14px; }
+  .socialIcon { font-size: 18px; }
+  .mapIframe { height: 150px; }
+  .mapButton { padding: 6px 12px; font-size: 12px; }
+}

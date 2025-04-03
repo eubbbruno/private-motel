@@ -1,0 +1,192 @@
+.container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+    width: 100%;
+  }
+  
+  .main {
+    flex: 1;
+    width: 100%;
+  }
+  
+  .section {
+    max-width: 1400px;
+    margin: 60px auto;
+    padding: 60px 20px;
+    padding-top: 120px;
+    position: relative;
+    background: transparent;
+    text-align: center;
+  }
+  
+  .sectionDivider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 3px;
+    background: linear-gradient(to right, #d4a373, transparent);
+  }
+  
+  .sectionTitle {
+    font-family: var(--font-playfair);
+    font-size: 48px;
+    font-weight: 700;
+    color: #d4a373;
+    margin-bottom: 30px;
+    text-shadow: 0 4px 15px rgba(212, 163, 115, 0.6);
+    text-transform: uppercase;
+    font-style: italic;
+  }
+  
+  .contactContainer {
+    display: flex;
+    gap: 40px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  
+  .contactInfo {
+    flex: 1;
+    min-width: 300px;
+    text-align: left;
+  }
+  
+  .infoTitle {
+    font-family: var(--font-playfair);
+    font-size: 24px;
+    color: #d4a373;
+    margin-bottom: 20px;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
+  }
+  
+  .infoText {
+    font-family: var(--font-inter);
+    font-size: 16px;
+    color: #fff;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .mapIframe {
+    border-radius: 10px;
+    margin-top: 20px;
+  }
+  
+  .formContainer {
+    flex: 1;
+    min-width: 300px;
+  }
+  
+  .formTitle {
+    font-family: var(--font-playfair);
+    font-size: 24px;
+    color: #d4a373;
+    margin-bottom: 20px;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
+  }
+  
+  .contactForm {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .formInput,
+  .formTextarea {
+    padding: 10px;
+    border: 1px solid #d4a373;
+    border-radius: 5px;
+    background: rgba(42, 42, 42, 0.8);
+    color: #fff;
+    font-family: var(--font-inter);
+    font-size: 14px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .formInput:focus,
+  .formTextarea:focus {
+    border-color: #fff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(212, 163, 115, 0.5);
+  }
+  
+  .formTextarea {
+    min-height: 150px;
+    resize: vertical;
+  }
+  
+  .formButton {
+    padding: 10px 20px;
+    position: relative;
+    background: linear-gradient(to right, #d4a373, #e6b800, #f5d100);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-family: var(--font-inter);
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 15px rgba(212, 163, 115, 0.5);
+    overflow: hidden;
+    z-index: 1;
+  }
+  
+  .formButton::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s ease;
+    z-index: -1;
+  }
+  
+  .formButton:hover::before {
+    left: 100%;
+  }
+  
+  .formButton:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(212, 163, 115, 0.7);
+  }
+  
+  .formButton:focus {
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(212, 163, 115, 0.3);
+  }
+  
+  .formButton:active {
+    transform: translateY(1px);
+  }
+  
+  .successMessage {
+    font-family: var(--font-inter);
+    font-size: 16px;
+    color: #d4a373;
+    text-align: center;
+  }
+  
+  @media (max-width: 768px) {
+    .section { padding: 40px 20px; padding-top: 100px; }
+    .sectionTitle { font-size: 36px; }
+    .infoTitle, .formTitle { font-size: 20px; }
+    .infoText { font-size: 14px; }
+    .contactContainer { flex-direction: column; gap: 20px; }
+  }
+  
+  @media (max-width: 480px) {
+    .section { padding: 30px 10px; padding-top: 80px; }
+    .sectionTitle { font-size: 28px; }
+    .infoTitle, .formTitle { font-size: 18px; }
+    .infoText { font-size: 12px; }
+    .formInput, .formTextarea { font-size: 12px; }
+    .formButton { font-size: 14px; padding: 8px 16px; }
+    .successMessage { font-size: 14px; }
+  }

@@ -1,0 +1,143 @@
+.container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+  width: 100%;
+  /* Removido overflow-x: hidden para evitar conflito com a barra de rolagem */
+  position: relative;
+}
+
+.main {
+  flex: 1;
+  width: 100%;
+}
+
+/* Partículas Globais (Diamantes) */
+.particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.particle {
+  position: absolute;
+  background: #d4a373;
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%); /* Forma de diamante */
+  opacity: 0.6;
+  animation: floatParticles 20s infinite linear;
+  z-index: 0;
+  box-shadow: 0 0 10px rgba(212, 163, 115, 0.5);
+}
+
+/* Aumentando a quantidade de partículas */
+.particle:nth-child(1) { width: 12px; height: 12px; top: 20%; left: 10%; animation-delay: 0s; }
+.particle:nth-child(2) { width: 8px; height: 8px; top: 60%; left: 80%; animation-delay: 2s; }
+.particle:nth-child(3) { width: 14px; height: 14px; top: 40%; left: 30%; animation-delay: 4s; }
+.particle:nth-child(4) { width: 6px; height: 6px; top: 80%; left: 50%; animation-delay: 6s; }
+.particle:nth-child(5) { width: 10px; height: 10px; top: 10%; left: 70%; animation-delay: 8s; }
+.particle:nth-child(6) { width: 9px; height: 9px; top: 50%; left: 20%; animation-delay: 10s; }
+.particle:nth-child(7) { width: 11px; height: 11px; top: 70%; left: 40%; animation-delay: 12s; }
+.particle:nth-child(8) { width: 7px; height: 7px; top: 30%; left: 60%; animation-delay: 14s; }
+.particle:nth-child(9) { width: 13px; height: 13px; top: 90%; left: 15%; animation-delay: 16s; }
+.particle:nth-child(10) { width: 5px; height: 5px; top: 15%; left: 85%; animation-delay: 18s; }
+.particle:nth-child(11) { width: 15px; height: 15px; top: 25%; left: 65%; animation-delay: 3s; }
+.particle:nth-child(12) { width: 10px; height: 10px; top: 75%; left: 35%; animation-delay: 7s; }
+.particle:nth-child(13) { width: 9px; height: 9px; top: 35%; left: 5%; animation-delay: 1s; }
+.particle:nth-child(14) { width: 11px; height: 11px; top: 55%; left: 90%; animation-delay: 5s; }
+.particle:nth-child(15) { width: 7px; height: 7px; top: 85%; left: 25%; animation-delay: 9s; }
+.particle:nth-child(16) { width: 13px; height: 13px; top: 5%; left: 45%; animation-delay: 11s; }
+.particle:nth-child(17) { width: 6px; height: 6px; top: 65%; left: 15%; animation-delay: 13s; }
+.particle:nth-child(18) { width: 8px; height: 8px; top: 45%; left: 75%; animation-delay: 15s; }
+.particle:nth-child(19) { width: 12px; height: 12px; top: 95%; left: 55%; animation-delay: 17s; }
+.particle:nth-child(20) { width: 10px; height: 10px; top: 15%; left: 35%; animation-delay: 19s; }
+
+.section {
+  max-width: 1400px;
+  margin: 60px auto;
+  padding: 0 20px;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.sobre-nos,
+.refeicoes,
+.promocoes,
+.galeria,
+.experiences,
+.depoimentos,
+.como-chegar {
+  background: linear-gradient(135deg, rgba(26, 26, 26, 0.95), rgba(42, 42, 42, 0.95));
+  border-radius: 15px;
+  padding: 40px 20px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+}
+
+.sectionTitle {
+  font-family: var(--font-playfair);
+  font-size: 48px;
+  font-weight: 700;
+  color: #d4a373;
+  margin-bottom: 30px;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: slideUp 1s ease forwards;
+  text-transform: uppercase;
+  text-shadow: 0 4px 15px rgba(212, 163, 115, 0.6);
+}
+
+.sectionTitle span {
+  font-style: italic;
+}
+
+.sectionText {
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  line-height: 1.8;
+  color: #fff;
+  text-align: center;
+  opacity: 0;
+  animation: fadeIn 1s ease forwards;
+  animation-delay: 0.3s;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes floatParticles {
+  0% { transform: translate(0, 0) rotate(0deg); opacity: 0.6; }
+  25% { transform: translate(20px, -30px) rotate(90deg); opacity: 0.8; }
+  50% { transform: translate(-15px, 20px) rotate(180deg); opacity: 0.6; }
+  75% { transform: translate(10px, -10px) rotate(270deg); opacity: 0.8; }
+  100% { transform: translate(0, 0) rotate(360deg); opacity: 0.6; }
+}
+
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@media (max-width: 768px) {
+  .section { margin: 40px auto; padding: 20px 10px; }
+  .sectionTitle { font-size: 36px; }
+  .sectionText { font-size: 16px; }
+}
+
+@media (max-width: 480px) {
+  .sectionTitle { font-size: 28px; }
+  .sectionText { font-size: 14px; }
+}

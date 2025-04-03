@@ -1,0 +1,79 @@
+[debug] [2025-04-02T10:28:02.155Z] ----------------------------------------------------------------------
+[debug] [2025-04-02T10:28:02.157Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Bruno\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy --only functions
+[debug] [2025-04-02T10:28:02.157Z] CLI Version:   14.0.1
+[debug] [2025-04-02T10:28:02.157Z] Platform:      win32
+[debug] [2025-04-02T10:28:02.157Z] Node Version:  v20.14.0
+[debug] [2025-04-02T10:28:02.157Z] Time:          Wed Apr 02 2025 07:28:02 GMT-0300 (Brasilia Standard Time)
+[debug] [2025-04-02T10:28:02.157Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-04-02T10:28:02.258Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-04-02T10:28:02.259Z] > authorizing via signed-in user (diasbruno0110@gmail.com)
+[debug] [2025-04-02T10:28:02.259Z] [iam] checking project private-reservas for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]
+[debug] [2025-04-02T10:28:02.259Z] Checked if tokens are valid: false, expires at: 1743561957954
+[debug] [2025-04-02T10:28:02.259Z] Checked if tokens are valid: false, expires at: 1743561957954
+[debug] [2025-04-02T10:28:02.260Z] > refreshing access token with scopes: []
+[debug] [2025-04-02T10:28:02.260Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2025-04-02T10:28:02.261Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-04-02T10:28:02.653Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2025-04-02T10:28:02.653Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-04-02T10:28:02.659Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/private-reservas:testIamPermissions [none]
+[debug] [2025-04-02T10:28:02.659Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/private-reservas:testIamPermissions x-goog-quota-user=projects/private-reservas
+[debug] [2025-04-02T10:28:02.660Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/private-reservas:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]}
+[debug] [2025-04-02T10:28:03.790Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/private-reservas:testIamPermissions 200
+[debug] [2025-04-02T10:28:03.790Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/private-reservas:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]}
+[debug] [2025-04-02T10:28:03.791Z] Checked if tokens are valid: true, expires at: 1743593281653
+[debug] [2025-04-02T10:28:03.791Z] Checked if tokens are valid: true, expires at: 1743593281653
+[debug] [2025-04-02T10:28:03.791Z] >>> [apiv2][query] POST https://iam.googleapis.com/v1/projects/private-reservas/serviceAccounts/private-reservas@appspot.gserviceaccount.com:testIamPermissions [none]
+[debug] [2025-04-02T10:28:03.791Z] >>> [apiv2][body] POST https://iam.googleapis.com/v1/projects/private-reservas/serviceAccounts/private-reservas@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2025-04-02T10:28:04.944Z] <<< [apiv2][status] POST https://iam.googleapis.com/v1/projects/private-reservas/serviceAccounts/private-reservas@appspot.gserviceaccount.com:testIamPermissions 200
+[debug] [2025-04-02T10:28:04.944Z] <<< [apiv2][body] POST https://iam.googleapis.com/v1/projects/private-reservas/serviceAccounts/private-reservas@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[info] 
+[info] === Deploying to 'private-reservas'...
+[info] 
+[info] i  deploying functions 
+[debug] [2025-04-02T10:28:04.947Z] Checked if tokens are valid: true, expires at: 1743593281653
+[debug] [2025-04-02T10:28:04.947Z] Checked if tokens are valid: true, expires at: 1743593281653
+[debug] [2025-04-02T10:28:04.947Z] >>> [apiv2][query] GET https://cloudresourcemanager.googleapis.com/v1/projects/private-reservas [none]
+[debug] [2025-04-02T10:28:05.188Z] <<< [apiv2][status] GET https://cloudresourcemanager.googleapis.com/v1/projects/private-reservas 200
+[debug] [2025-04-02T10:28:05.188Z] <<< [apiv2][body] GET https://cloudresourcemanager.googleapis.com/v1/projects/private-reservas {"projectNumber":"854952992105","projectId":"private-reservas","lifecycleState":"ACTIVE","name":"Private Reservas","labels":{"firebase":"enabled","firebase-core":"disabled"},"createTime":"2025-03-30T14:55:51.418740Z"}
+[info] i  functions: preparing codebase default for deployment 
+[info] i  functions: ensuring required API cloudfunctions.googleapis.com is enabled... 
+[debug] [2025-04-02T10:28:05.189Z] Checked if tokens are valid: true, expires at: 1743593281653
+[debug] [2025-04-02T10:28:05.189Z] Checked if tokens are valid: true, expires at: 1743593281653
+[debug] [2025-04-02T10:28:05.189Z] Checked if tokens are valid: true, expires at: 1743593281653
+[debug] [2025-04-02T10:28:05.189Z] Checked if tokens are valid: true, expires at: 1743593281653
+[info] i  functions: ensuring required API cloudbuild.googleapis.com is enabled... 
+[debug] [2025-04-02T10:28:05.189Z] Checked if tokens are valid: true, expires at: 1743593281653
+[debug] [2025-04-02T10:28:05.189Z] Checked if tokens are valid: true, expires at: 1743593281653
+[info] i  artifactregistry: ensuring required API artifactregistry.googleapis.com is enabled... 
+[debug] [2025-04-02T10:28:05.190Z] Checked if tokens are valid: true, expires at: 1743593281653
+[debug] [2025-04-02T10:28:05.190Z] Checked if tokens are valid: true, expires at: 1743593281653
+[debug] [2025-04-02T10:28:05.190Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/private-reservas/services/cloudfunctions.googleapis.com [none]
+[debug] [2025-04-02T10:28:05.190Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/private-reservas/services/cloudfunctions.googleapis.com x-goog-quota-user=projects/private-reservas
+[debug] [2025-04-02T10:28:05.190Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/private-reservas/services/runtimeconfig.googleapis.com [none]
+[debug] [2025-04-02T10:28:05.190Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/private-reservas/services/runtimeconfig.googleapis.com x-goog-quota-user=projects/private-reservas
+[debug] [2025-04-02T10:28:05.191Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/private-reservas/services/cloudbuild.googleapis.com [none]
+[debug] [2025-04-02T10:28:05.191Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/private-reservas/services/cloudbuild.googleapis.com x-goog-quota-user=projects/private-reservas
+[debug] [2025-04-02T10:28:05.191Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/private-reservas/services/artifactregistry.googleapis.com [none]
+[debug] [2025-04-02T10:28:05.192Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/private-reservas/services/artifactregistry.googleapis.com x-goog-quota-user=projects/private-reservas
+[debug] [2025-04-02T10:28:06.449Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/private-reservas/services/runtimeconfig.googleapis.com 200
+[debug] [2025-04-02T10:28:06.449Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/private-reservas/services/runtimeconfig.googleapis.com [omitted]
+[debug] [2025-04-02T10:28:06.450Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/private-reservas/services/cloudbuild.googleapis.com 200
+[debug] [2025-04-02T10:28:06.450Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/private-reservas/services/cloudbuild.googleapis.com [omitted]
+[info] +  functions: required API cloudbuild.googleapis.com is enabled 
+[debug] [2025-04-02T10:28:06.451Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/private-reservas/services/artifactregistry.googleapis.com 200
+[debug] [2025-04-02T10:28:06.451Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/private-reservas/services/artifactregistry.googleapis.com [omitted]
+[info] +  artifactregistry: required API artifactregistry.googleapis.com is enabled 
+[debug] [2025-04-02T10:28:06.451Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/private-reservas/services/cloudfunctions.googleapis.com 200
+[debug] [2025-04-02T10:28:06.451Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/private-reservas/services/cloudfunctions.googleapis.com [omitted]
+[info] +  functions: required API cloudfunctions.googleapis.com is enabled 
+[debug] [2025-04-02T10:28:06.452Z] Checked if tokens are valid: true, expires at: 1743593281653
+[debug] [2025-04-02T10:28:06.452Z] Checked if tokens are valid: true, expires at: 1743593281653
+[debug] [2025-04-02T10:28:06.452Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/private-reservas/adminSdkConfig [none]
+[debug] [2025-04-02T10:28:07.105Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/private-reservas/adminSdkConfig 200
+[debug] [2025-04-02T10:28:07.106Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/private-reservas/adminSdkConfig {"projectId":"private-reservas","storageBucket":"private-reservas.firebasestorage.app"}
+[debug] [2025-04-02T10:28:07.106Z] Checked if tokens are valid: true, expires at: 1743593281653
+[debug] [2025-04-02T10:28:07.106Z] Checked if tokens are valid: true, expires at: 1743593281653
+[debug] [2025-04-02T10:28:07.106Z] >>> [apiv2][query] GET https://runtimeconfig.googleapis.com/v1beta1/projects/private-reservas/configs [none]
+[debug] [2025-04-02T10:28:07.902Z] <<< [apiv2][status] GET https://runtimeconfig.googleapis.com/v1beta1/projects/private-reservas/configs 200
+[debug] [2025-04-02T10:28:07.902Z] <<< [apiv2][body] GET https://runtimeconfig.googleapis.com/v1beta1/projects/private-reservas/configs {}

@@ -1,0 +1,215 @@
+.section {
+  max-width: 1400px;
+  margin: 60px auto;
+  padding: 60px 20px;
+  padding-top: 120px;
+  position: relative;
+  background: transparent;
+  text-align: center;
+}
+
+.sectionDivider {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(to right, #d4a373, transparent);
+}
+
+.sectionTitle {
+  font-family: var(--font-playfair);
+  font-size: 48px;
+  font-weight: 700;
+  color: #d4a373;
+  margin-bottom: 30px;
+  text-shadow: 0 4px 15px rgba(212, 163, 115, 0.6);
+  text-transform: uppercase;
+  font-style: italic;
+}
+
+.gridContainer {
+  display: flex; /* Alterado para flex */
+  flex-wrap: nowrap; /* Garante que os cards fiquem em uma única linha */
+  gap: 30px;
+  margin-top: 20px;
+  overflow-x: auto; /* Permite rolagem horizontal em telas menores */
+  padding-bottom: 10px; /* Espaço para a barra de rolagem */
+}
+
+.card {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 350px; /* Largura fixa para cada card */
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(212, 163, 115, 0.3);
+}
+
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+}
+
+.cardImage {
+  transition: transform 0.5s ease, filter 0.5s ease;
+}
+
+.card:hover .cardImage {
+  transform: scale(1.05);
+  filter: brightness(1.2);
+}
+
+.cardOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.7));
+  transition: background 0.5s ease;
+}
+
+.card:hover .cardOverlay {
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.5));
+}
+
+.priceTag {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: #d4a373;
+  color: #1a1a1a;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-family: var(--font-inter);
+  font-size: 14px;
+  font-weight: bold;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  clip-path: polygon(0% 0%, 85% 0%, 100% 50%, 85% 100%, 0% 100%);
+  animation: priceTagPulse 2s infinite ease-in-out;
+  z-index: 1;
+}
+
+.priceTagText {
+  display: block;
+}
+
+.cardContent {
+  padding: 15px;
+  background: rgba(0, 0, 0, 0.8);
+  text-align: center;
+  flex-grow: 1;
+}
+
+.cardTitle {
+  font-family: var(--font-playfair);
+  font-size: 24px;
+  color: #d4a373;
+  margin-bottom: 10px;
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
+}
+
+.keywords {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+
+.keyword {
+  font-family: var(--font-inter);
+  font-size: 12px;
+  color: #ccc;
+  background: rgba(212, 163, 115, 0.2);
+  padding: 5px 10px;
+  border-radius: 15px;
+  border: 1px solid rgba(212, 163, 115, 0.5);
+  transition: background 0.3s ease;
+}
+
+.keyword:hover {
+  background: rgba(212, 163, 115, 0.4);
+}
+
+.cardCta {
+  font-family: var(--font-inter);
+  display: inline-block;
+  margin: 0 auto;
+  padding: 10px 20px;
+  position: relative;
+  background: linear-gradient(to right, #d4a373, #e6b800, #f5d100);
+  color: #fff;
+  text-decoration: none;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 15px rgba(212, 163, 115, 0.5);
+  overflow: hidden;
+  z-index: 1;
+  width: fit-content;
+}
+
+.cardCta::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.5s ease;
+  z-index: -1;
+}
+
+.cardCta:hover::before {
+  left: 100%;
+}
+
+.cardCta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(212, 163, 115, 0.7);
+}
+
+.cardCta:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(212, 163, 115, 0.3);
+}
+
+.cardCta:active {
+  transform: translateY(1px);
+}
+
+@media (max-width: 1024px) {
+  .gridContainer { gap: 20px; }
+}
+
+@media (max-width: 768px) {
+  .section { padding: 40px 20px; padding-top: 100px; }
+  .sectionTitle { font-size: 36px; }
+  .priceTag { font-size: 12px; padding: 6px 12px; }
+  .card { flex: 0 0 300px; }
+}
+
+@media (max-width: 480px) {
+  .section { padding: 30px 10px; padding-top: 80px; }
+  .sectionTitle { font-size: 28px; }
+  .priceTag { font-size: 10px; padding: 5px 10px; }
+  .keyword { font-size: 10px; padding: 4px 8px; }
+  .cardCta { padding: 8px 16px; font-size: 12px; }
+  .card { flex: 0 0 250px; }
+}
+
+@keyframes priceTagPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
