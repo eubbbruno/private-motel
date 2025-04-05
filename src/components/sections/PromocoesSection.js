@@ -51,7 +51,7 @@ export default function PromocoesSection() {
     },
     {
       title: 'Aniversariantes',
-      description: '10% OFF + frisante grátis.',
+      description: '10% desconto na estadia.',
       image: '/images/promo-aniversariantes.jpg',
     },
   ];
@@ -89,19 +89,21 @@ export default function PromocoesSection() {
         {promocoes.map((promocao, index) => (
           <motion.div
             key={index}
-            className={`${styles.promocaoCard} ${expanded === index ? styles.expanded : ''}`}
+            className={styles.promocaoCard}
             onClick={() => setExpanded(expanded === index ? null : index)}
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, delay: index * 0.2 }}
           >
-            <div className={styles.promocaoFront}>
-              <img src={promocao.image} alt={promocao.title} className={styles.promocaoImage} />
-              <div className={styles.promocaoOverlay}></div>
-              <h3 className={styles.promocaoTitle}>{promocao.title}</h3>
-              <p className={styles.promocaoDescription}>{promocao.description}</p>
+            <div className={styles.promocaoImageWrapper}>
+              <img
+                src={promocao.image}
+                alt={promocao.title}
+                className={styles.promocaoImage}
+              />
             </div>
-            <div className={styles.promocaoBack}>
+            <div className={styles.promocaoInfo}>
+              <h3 className={styles.promocaoTitle}>{promocao.title}</h3>
               <p className={styles.promocaoDescription}>{promocao.description}</p>
             </div>
           </motion.div>
@@ -112,7 +114,9 @@ export default function PromocoesSection() {
         animate={inView ? 'visible' : 'hidden'}
         variants={ctaVariants}
       >
-        <Link href="/reservas" className={styles.cta}>Aproveite as Ofertas</Link>
+        <Link href="/reservas" className={styles.cta}>
+          Aproveite as Ofertas
+        </Link>
       </motion.div>
     </section>
   );

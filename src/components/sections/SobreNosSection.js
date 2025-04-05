@@ -61,23 +61,19 @@ export default function SobreNosSection() {
           <Link href="/sobre" className={styles.cta}>Conheça Mais</Link>
         </motion.div>
         <motion.div
-          className={styles.videoShowcase}
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
-          variants={videoVariants}
-        >
-          <video
-            autoPlay
-            loop={!isHovered}
-            muted
-            playsInline
-            className={styles.videoFrame}
-          >
-            <source src="/videos/video-sobrenos.mp4" type="video/mp4" />
-            <p>Seu vídeo não carregou. Verifique o arquivo em public/videos/video-sobrenos.mp4.</p>
-          </video>
-          <div className={styles.glowFrame}></div>
-        </motion.div>
+  className={styles.videoShowcase}
+  variants={videoVariants}
+>
+  <iframe
+    className={styles.videoFrame}
+    src="https://www.youtube.com/embed/vS1PJ0DaHjY?autoplay=1&mute=1&loop=1&playlist=vS1PJ0DaHjY&controls=0&playsinline=1&rel=0"
+    title="Private Motel Vídeo"
+    frameBorder="0"
+    allow="autoplay; accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowFullScreen
+  />
+  <div className={styles.glowFrame}></div>
+</motion.div>
       </motion.div>
     </section>
   );

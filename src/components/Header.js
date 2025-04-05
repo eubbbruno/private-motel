@@ -6,7 +6,7 @@ export default function Header() {
   return (
     <header className={styles.header}>
       <div className={styles.promoBanner}>
-        <p>🌵 Mostre o cupom EXPO e ganhe 10% de desconto na conta! 📅 Oferta válida de 4 a 11 de Abril de 2025</p>
+        <p>10% de desconto durante todo o mês do seu aniversário! 🥳</p>
       </div>
       <div className={styles.headerContent}>
         <Link href="/" className={styles.logo}>

@@ -1,0 +1,21 @@
+/*
+ * ATTENTION: An "eval-source-map" devtool has been used.
+ * This devtool is neither made for production nor for readable output files.
+ * It uses "eval()" calls to create a separate source file with attached SourceMaps in the browser devtools.
+ * If you are trying to read the output file, select a different devtool (https://webpack.js.org/configuration/devtool/)
+ * or disable the default devtool with "devtool: false".
+ * If you are looking for production-ready output files, see mode: "production" (https://webpack.js.org/configuration/mode/).
+ */
+self["webpackHotUpdate_N_E"]("app/page",{
+
+/***/ "(app-pages-browser)/./src/components/sections/PromocoesSection.module.css":
+/*!*************************************************************!*\
+  !*** ./src/components/sections/PromocoesSection.module.css ***!
+  \*************************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+eval(__webpack_require__.ts("// extracted by mini-css-extract-plugin\nmodule.exports = {\"section\":\"PromocoesSection_section__aYyLK\",\"promocoesGrid\":\"PromocoesSection_promocoesGrid__YkoWt\",\"promocaoCard\":\"PromocoesSection_promocaoCard__nGd0W\",\"promocaoImageWrapper\":\"PromocoesSection_promocaoImageWrapper__fJiPn\",\"promocaoImage\":\"PromocoesSection_promocaoImage__f8V_S\",\"promocaoInfo\":\"PromocoesSection_promocaoInfo__f13Ik\",\"promocaoTitle\":\"PromocoesSection_promocaoTitle__idcZ1\",\"promocaoDescription\":\"PromocoesSection_promocaoDescription__YlJbE\"};\n    if(true) {\n      // 1743804495153\n      var cssReload = __webpack_require__(/*! ./node_modules/next/dist/compiled/mini-css-extract-plugin/hmr/hotModuleReplacement.js */ \"(app-pages-browser)/./node_modules/next/dist/compiled/mini-css-extract-plugin/hmr/hotModuleReplacement.js\")(module.id, {\"publicPath\":\"/_next/\",\"esModule\":false,\"locals\":true});\n      module.hot.dispose(cssReload);\n      \n    }\n  \nmodule.exports.__checksum = \"17a9c012e69c\"\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiKGFwcC1wYWdlcy1icm93c2VyKS8uL3NyYy9jb21wb25lbnRzL3NlY3Rpb25zL1Byb21vY29lc1NlY3Rpb24ubW9kdWxlLmNzcyIsIm1hcHBpbmdzIjoiQUFBQTtBQUNBLGtCQUFrQjtBQUNsQixPQUFPLElBQVU7QUFDakI7QUFDQSxzQkFBc0IsbUJBQU8sQ0FBQyx3TUFBbUksY0FBYyxzREFBc0Q7QUFDck8sTUFBTSxVQUFVO0FBQ2hCO0FBQ0E7QUFDQTtBQUNBLHlCQUF5QiIsInNvdXJjZXMiOlsiQzpcXFVzZXJzXFxCcnVub1xcRG9jdW1lbnRzXFxHaXRIdWJcXHByaXZhdGUtbW90ZWxcXHNyY1xcY29tcG9uZW50c1xcc2VjdGlvbnNcXFByb21vY29lc1NlY3Rpb24ubW9kdWxlLmNzcyJdLCJzb3VyY2VzQ29udGVudCI6WyIvLyBleHRyYWN0ZWQgYnkgbWluaS1jc3MtZXh0cmFjdC1wbHVnaW5cbm1vZHVsZS5leHBvcnRzID0ge1wic2VjdGlvblwiOlwiUHJvbW9jb2VzU2VjdGlvbl9zZWN0aW9uX19hWXlMS1wiLFwicHJvbW9jb2VzR3JpZFwiOlwiUHJvbW9jb2VzU2VjdGlvbl9wcm9tb2NvZXNHcmlkX19Za29XdFwiLFwicHJvbW9jYW9DYXJkXCI6XCJQcm9tb2NvZXNTZWN0aW9uX3Byb21vY2FvQ2FyZF9fbkdkMFdcIixcInByb21vY2FvSW1hZ2VXcmFwcGVyXCI6XCJQcm9tb2NvZXNTZWN0aW9uX3Byb21vY2FvSW1hZ2VXcmFwcGVyX19mSmlQblwiLFwicHJvbW9jYW9JbWFnZVwiOlwiUHJvbW9jb2VzU2VjdGlvbl9wcm9tb2Nhb0ltYWdlX19mOFZfU1wiLFwicHJvbW9jYW9JbmZvXCI6XCJQcm9tb2NvZXNTZWN0aW9uX3Byb21vY2FvSW5mb19fZjEzSWtcIixcInByb21vY2FvVGl0bGVcIjpcIlByb21vY29lc1NlY3Rpb25fcHJvbW9jYW9UaXRsZV9faWRjWjFcIixcInByb21vY2FvRGVzY3JpcHRpb25cIjpcIlByb21vY29lc1NlY3Rpb25fcHJvbW9jYW9EZXNjcmlwdGlvbl9fWWxKYkVcIn07XG4gICAgaWYobW9kdWxlLmhvdCkge1xuICAgICAgLy8gMTc0MzgwNDQ5NTE1M1xuICAgICAgdmFyIGNzc1JlbG9hZCA9IHJlcXVpcmUoXCJDOi9Vc2Vycy9CcnVuby9Eb2N1bWVudHMvR2l0SHViL3ByaXZhdGUtbW90ZWwvbm9kZV9tb2R1bGVzL25leHQvZGlzdC9jb21waWxlZC9taW5pLWNzcy1leHRyYWN0LXBsdWdpbi9obXIvaG90TW9kdWxlUmVwbGFjZW1lbnQuanNcIikobW9kdWxlLmlkLCB7XCJwdWJsaWNQYXRoXCI6XCIvX25leHQvXCIsXCJlc01vZHVsZVwiOmZhbHNlLFwibG9jYWxzXCI6dHJ1ZX0pO1xuICAgICAgbW9kdWxlLmhvdC5kaXNwb3NlKGNzc1JlbG9hZCk7XG4gICAgICBcbiAgICB9XG4gIFxubW9kdWxlLmV4cG9ydHMuX19jaGVja3N1bSA9IFwiMTdhOWMwMTJlNjljXCJcbiJdLCJuYW1lcyI6W10sImlnbm9yZUxpc3QiOltdLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///(app-pages-browser)/./src/components/sections/PromocoesSection.module.css\n"));
+
+/***/ })
+
+});

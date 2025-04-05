@@ -45,10 +45,10 @@
   perspective: 1000px;
 }
 
+/* Ajuste no card para deixar o título e descrição fora da imagem */
 .promocaoCard {
   position: relative;
   width: 100%;
-  aspect-ratio: 9 / 16;
   border-radius: 20px;
   overflow: hidden;
   transition: transform 0.6s ease;
@@ -56,6 +56,10 @@
   cursor: pointer;
   transform: scale(0.5);
   box-shadow: 0 0 20px rgba(212, 163, 115, 0.2);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 .promocaoCard.expanded {
@@ -75,46 +79,42 @@
   backface-visibility: hidden;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
   padding: 20px;
   box-sizing: border-box;
 }
 
 .promocaoFront {
-  background: linear-gradient(135deg, #2a2a2a, #1a1a1a);
+  background: transparent;
   transform: rotateY(0deg);
   animation: drawIn 0.6s ease forwards;
 }
 
-.promocaoImage {
-  position: absolute;
-  top: 0;
-  left: 0;
+/* Envolvendo a imagem */
+.promocaoImageWrapper {
   width: 100%;
+  max-height: 500px; /* Limita a altura máxima da imagem */
+  overflow: hidden;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Imagem */
+.promocaoImage {
+  width: auto; /* Mantém a proporção da imagem */
   height: 100%;
-  object-fit: cover;
-  filter: brightness(0.8);
+  object-fit: contain; /* Mostra a imagem inteira */
   transition: filter 0.5s ease;
 }
 
+/* Se quiser manter um leve efeito no hover, descomente e ajuste
 .promocaoCard:hover .promocaoImage {
-  filter: brightness(1);
+  filter: brightness(1.05);
 }
-
-.promocaoOverlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.7));
-  transition: background 0.5s ease;
-}
-
-.promocaoCard:hover .promocaoOverlay {
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.5));
-}
+*/
 
 .promocaoBack {
   background: rgba(26, 26, 26, 0.8);
@@ -123,13 +123,21 @@
   text-align: center;
 }
 
+/* Título e descrição fora da imagem */
+.promocaoInfo {
+  margin-top: 10px;
+  padding: 10px;
+  text-align: center;
+  background-color: #1a1a1a;
+  border-radius: 0 0 20px 20px;
+  width: 100%;
+}
+
 .promocaoTitle {
   font-family: var(--font-playfair);
   font-size: 24px;
   color: #d4a373;
-  margin: 10px 0;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
-  z-index: 1;
+  margin: 5px 0;
 }
 
 .promocaoDescription {
@@ -137,8 +145,6 @@
   font-size: 16px;
   color: #fff;
   margin: 0;
-  font-weight: 400;
-  z-index: 1;
 }
 
 .cta {
@@ -201,19 +207,31 @@
 }
 
 @media (max-width: 768px) {
-  .section { padding: 40px 20px; padding-top: 100px; }
+  .section {
+    padding: 40px 20px;
+    padding-top: 100px;
+  }
   .sectionTitle { font-size: 32px; }
   .sectionText { font-size: 16px; }
   .promocaoTitle { font-size: 20px; }
   .promocaoDescription { font-size: 14px; }
-  .cta { padding: 12px 24px; font-size: 16px; }
+  .cta {
+    padding: 12px 24px;
+    font-size: 16px;
+  }
 }
 
 @media (max-width: 480px) {
-  .section { padding: 30px 10px; padding-top: 80px; }
+  .section {
+    padding: 30px 10px;
+    padding-top: 80px;
+  }
   .sectionTitle { font-size: 24px; }
   .sectionText { font-size: 14px; }
   .promocaoTitle { font-size: 18px; }
   .promocaoDescription { font-size: 12px; }
-  .cta { padding: 10px 20px; font-size: 14px; }
+  .cta {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
 }
