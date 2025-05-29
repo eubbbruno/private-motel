@@ -1,0 +1,116 @@
+.container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+    width: 100%;
+  }
+  
+  .main {
+    flex: 1;
+    width: 100%;
+  }
+  
+  .section {
+    max-width: 1400px;
+    margin: 60px auto;
+    padding: 60px 20px;
+    padding-top: 120px;
+    position: relative;
+    background: transparent;
+    text-align: center;
+  }
+  
+  .sectionDivider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 3px;
+    background: linear-gradient(to right, #d4a373, transparent);
+  }
+  
+  .sectionTitle {
+    font-family: var(--font-playfair);
+    font-size: 48px;
+    font-weight: 700;
+    color: #d4a373;
+    margin-bottom: 30px;
+    text-shadow: 0 4px 15px rgba(212, 163, 115, 0.6);
+    text-transform: uppercase;
+    font-style: italic;
+  }
+  
+  .reservationsList {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .reservationItem {
+    background: rgba(42, 42, 42, 0.8);
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid #d4a373;
+  }
+  
+  .reservationItem p {
+    font-family: var(--font-inter);
+    font-size: 14px;
+    color: #fff;
+    margin: 5px 0;
+  }
+  
+  .cancelButton {
+    padding: 8px 16px;
+    background: #ff5555;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-family: var(--font-inter);
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  .cancelButton:hover {
+    background: #cc4444;
+  }
+  
+  .sectionText {
+    font-family: var(--font-inter);
+    font-size: 16px;
+    color: #fff;
+    text-align: center;
+  }
+  
+  .errorMessage {
+    font-family: var(--font-inter);
+    font-size: 16px;
+    color: #ff5555;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .loading {
+    font-family: var(--font-inter);
+    font-size: 16px;
+    color: #d4a373;
+    text-align: center;
+    padding: 20px;
+  }
+  
+  @media (max-width: 768px) {
+    .section { padding: 40px 20px; padding-top: 100px; }
+    .sectionTitle { font-size: 36px; }
+    .sectionText, .errorMessage { font-size: 14px; }
+    .reservationItem p { font-size: 12px; }
+    .cancelButton { font-size: 12px; padding: 6px 12px; }
+  }
+  
+  @media (max-width: 480px) {
+    .section { padding: 30px 10px; padding-top: 80px; }
+    .sectionTitle { font-size: 28px; }
+    .sectionText, .errorMessage { font-size: 12px; }
+    .reservationItem p { font-size: 10px; }
+    .cancelButton { font-size: 10px; padding: 4px 8px; }
+  }

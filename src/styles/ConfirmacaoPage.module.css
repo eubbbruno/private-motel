@@ -1,0 +1,279 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #f5f5f5;
+  color: #333;
+}
+
+.main {
+  flex: 1;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 80px;
+}
+
+.confirmationCard {
+  width: 100%;
+  max-width: 800px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+}
+
+.header {
+  background-color: #8B5CF6;
+  color: #fff;
+  padding: 2rem;
+  text-align: center;
+}
+
+.title {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  font-weight: 300;
+  margin: 0;
+}
+
+.reservationInfo {
+  padding: 2rem;
+  border-bottom: 1px solid #eee;
+}
+
+.infoRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.2rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.infoRow:last-child {
+  margin-bottom: 0;
+  border-bottom: none;
+}
+
+.label {
+  font-weight: 600;
+  font-size: 1rem;
+  color: #666;
+}
+
+.value {
+  font-size: 1rem;
+  text-align: right;
+  display: flex;
+  align-items: center;
+}
+
+.copyButton {
+  margin-left: 10px;
+  padding: 4px 8px;
+  font-size: 0.75rem;
+  background-color: #f3f4f6;
+  color: #666;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.copyButton:hover {
+  background-color: #e2e4e8;
+}
+
+.statusBadge, .paymentStatus {
+  padding: 0.3rem 0.7rem;
+  border-radius: 30px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.statusBadge.pendente, .paymentStatus.pendente {
+  background-color: #FEF3C7;
+  color: #D97706;
+}
+
+.statusBadge.confirmada, .paymentStatus.pago, .paymentStatus.confirmado {
+  background-color: #DEF7EC;
+  color: #059669;
+}
+
+.statusBadge.cancelada, .paymentStatus.cancelado, .paymentStatus.recusado {
+  background-color: #FEE2E2;
+  color: #DC2626;
+}
+
+.price {
+  font-weight: 700;
+  color: #8B5CF6;
+  font-size: 1.1rem;
+}
+
+.paymentSection {
+  padding: 2rem;
+  border-bottom: 1px solid #eee;
+}
+
+.paymentTitle {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: #4B5563;
+  text-align: center;
+}
+
+.pixContainer, .creditCardContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pixInstructions, .creditCardInstructions {
+  margin-bottom: 1.5rem;
+  text-align: center;
+  max-width: 400px;
+}
+
+.qrCodeWrapper {
+  background-color: #fff;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  margin-bottom: 1.5rem;
+}
+
+.qrCode {
+  width: 200px;
+  height: 200px;
+}
+
+.paymentButton {
+  display: inline-block;
+  background-color: #8B5CF6;
+  color: #fff;
+  padding: 1rem 2rem;
+  border-radius: 6px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s;
+  box-shadow: 0 4px 10px rgba(139, 92, 246, 0.3);
+}
+
+.paymentButton:hover {
+  background-color: #7C3AED;
+  transform: translateY(-2px);
+}
+
+.footer {
+  padding: 2rem;
+  text-align: center;
+}
+
+.thankYou {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  color: #4B5563;
+}
+
+.contact {
+  margin-bottom: 2rem;
+}
+
+.button {
+  background-color: #8B5CF6;
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-weight: 600;
+}
+
+.button:hover {
+  background-color: #7C3AED;
+}
+
+.loadingContainer, .errorContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  width: 100%;
+  max-width: 800px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  text-align: center;
+}
+
+.spinner {
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #8B5CF6;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+  margin-bottom: 2rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.errorTitle {
+  font-size: 1.8rem;
+  color: #DC2626;
+  margin-bottom: 1rem;
+}
+
+.errorMessage {
+  font-size: 1.1rem;
+  color: #4B5563;
+  margin-bottom: 2rem;
+}
+
+@media (max-width: 768px) {
+  .main {
+    padding: 1rem;
+    margin-top: 60px;
+  }
+  
+  .confirmationCard {
+    border-radius: 0;
+  }
+  
+  .header {
+    padding: 1.5rem;
+  }
+  
+  .title {
+    font-size: 1.5rem;
+  }
+  
+  .infoRow {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .value {
+    margin-top: 0.3rem;
+    text-align: left;
+  }
+} 

@@ -1,0 +1,262 @@
+.mobileContainer {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+  min-height: 100vh;
+  padding-bottom: 20px;
+}
+
+.carousel {
+  position: relative;
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.imageContainer {
+  position: relative;
+  width: 100%;
+  height: 45vh;
+  overflow: hidden;
+  background-color: #000;
+}
+
+.suiteImage {
+  object-fit: cover;
+}
+
+.imageOverlay {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 5px 10px;
+  border-radius: 20px;
+  z-index: 2;
+}
+
+.imageCounter {
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.navButton {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.prevButton {
+  left: 10px;
+}
+
+.nextButton {
+  right: 10px;
+}
+
+.suiteNavigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+  background: rgba(26, 26, 26, 0.9);
+}
+
+.suiteTitle {
+  color: #d4a373;
+  font-size: 20px;
+  text-align: center;
+  margin: 0;
+  font-family: var(--font-playfair);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  max-width: 60%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.suiteNavButton {
+  background: rgba(212, 163, 115, 0.2);
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.tabsContainer {
+  display: flex;
+  justify-content: space-around;
+  margin: 0 10px 15px;
+  border-radius: 25px;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.tabButton {
+  flex: 1;
+  padding: 10px;
+  text-align: center;
+  background: transparent;
+  color: #fff;
+  border: none;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.activeTab {
+  background: linear-gradient(135deg, #d4a373, #e6b800);
+  color: #1a1a1a;
+  font-weight: 600;
+  box-shadow: 0 4px 10px rgba(212, 163, 115, 0.3);
+}
+
+.contentContainer {
+  margin: 0 15px;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  padding: 15px;
+  flex: 1;
+  margin-bottom: 20px;
+  border: 1px solid rgba(212, 163, 115, 0.2);
+}
+
+.suiteDescription {
+  color: #fff;
+  font-size: 14px;
+  line-height: 1.5;
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+.suiteSize {
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+.suiteSize h3 {
+  color: #d4a373;
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+.suiteSize p {
+  color: #fff;
+  font-size: 14px;
+}
+
+.highlightsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 15px;
+}
+
+.highlightBadge {
+  background: rgba(212, 163, 115, 0.3);
+  color: #fff;
+  border-radius: 20px;
+  padding: 5px 10px;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.amenitiesSection {
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+.amenitiesSection h3 {
+  color: #d4a373;
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+.amenitiesList {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.amenitiesList li {
+  color: #fff;
+  font-size: 14px;
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+}
+
+.amenitiesList li:before {
+  content: "•";
+  color: #d4a373;
+  margin-right: 8px;
+}
+
+.pricesTab {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.priceCard {
+  background: rgba(26, 26, 26, 0.8);
+  border: 1px solid rgba(212, 163, 115, 0.3);
+  border-radius: 10px;
+  padding: 10px 15px;
+  text-align: center;
+}
+
+.priceCard h3 {
+  color: #d4a373;
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.priceValue {
+  color: #fff;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.reserveButton {
+  margin: 0 15px;
+  background: linear-gradient(135deg, #d4a373, #e6b800);
+  color: #1a1a1a;
+  border: none;
+  border-radius: 25px;
+  padding: 12px 20px;
+  font-size: 16px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.whatsappIcon {
+  font-size: 20px;
+} 

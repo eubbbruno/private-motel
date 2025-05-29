@@ -1,0 +1,275 @@
+.section {
+  max-width: 1400px;
+  margin: 60px auto;
+  padding: 60px 20px;
+  padding-top: 120px;
+  position: relative;
+  background: transparent;
+  text-align: center;
+}
+
+.sectionDivider {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(to right, #d4a373, transparent);
+}
+
+.sectionTitle {
+  font-family: var(--font-playfair);
+  font-size: 48px;
+  font-weight: 700;
+  color: #d4a373;
+  margin-bottom: 30px;
+  text-shadow: 0 4px 15px rgba(212, 163, 115, 0.6);
+  text-transform: uppercase;
+  font-style: italic;
+}
+
+.sectionText {
+  font-family: var(--font-inter);
+  font-size: 18px;
+  line-height: 1.8;
+  color: #fff;
+  text-align: center;
+  font-weight: 400;
+  margin-bottom: 40px;
+}
+
+.promocoesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  margin-top: 40px;
+  perspective: 1000px;
+}
+
+/* Ajuste no card para deixar o título e descrição fora da imagem */
+.promocaoCard {
+  position: relative;
+  width: 100%;
+  border-radius: 20px;
+  overflow: hidden;
+  transition: transform 0.6s ease;
+  transform-style: preserve-3d;
+  cursor: pointer;
+  transform: scale(0.5);
+  box-shadow: 0 0 20px rgba(212, 163, 115, 0.2);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.promocaoCard.expanded {
+  transform: scale(0.5) rotateY(180deg);
+}
+
+.promocaoCard:hover {
+  transform: scale(0.52);
+  box-shadow: 0 0 30px rgba(212, 163, 115, 0.4);
+}
+
+.promocaoFront,
+.promocaoBack {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.promocaoFront {
+  background: transparent;
+  transform: rotateY(0deg);
+  animation: drawIn 0.6s ease forwards;
+}
+
+/* Envolvendo a imagem */
+.promocaoImageWrapper {
+  width: 100%;
+  max-height: 500px; /* Limita a altura máxima da imagem */
+  overflow: hidden;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Imagem */
+.promocaoImage {
+  width: auto; /* Mantém a proporção da imagem */
+  height: 100%;
+  object-fit: contain; /* Mostra a imagem inteira */
+  transition: filter 0.5s ease;
+}
+
+/* Se quiser manter um leve efeito no hover, descomente e ajuste
+.promocaoCard:hover .promocaoImage {
+  filter: brightness(1.05);
+}
+*/
+
+.promocaoBack {
+  background: rgba(26, 26, 26, 0.8);
+  transform: rotateY(180deg);
+  color: #fff;
+  text-align: center;
+}
+
+/* Título e descrição fora da imagem */
+.promocaoInfo {
+  margin-top: 10px;
+  padding: 10px;
+  text-align: center;
+  background-color: #1a1a1a;
+  border-radius: 0 0 20px 20px;
+  width: 100%;
+}
+
+.promocaoTitle {
+  font-family: var(--font-playfair);
+  font-size: 24px;
+  color: #d4a373;
+  margin: 5px 0;
+}
+
+.promocaoDescription {
+  font-family: var(--font-inter);
+  font-size: 16px;
+  color: #fff;
+  margin: 0;
+}
+
+.disclaimer {
+  font-family: var(--font-inter);
+  font-size: 14px;
+  color: #ccc;
+  margin-top: 20px;
+  font-style: italic;
+  text-align: center;
+}
+
+.cta {
+  font-family: var(--font-inter);
+  display: inline-block;
+  margin: 30px auto 0;
+  padding: 15px 30px;
+  position: relative;
+  background: linear-gradient(to right, #d4a373, #e6b800, #f5d100);
+  color: #fff;
+  text-decoration: none;
+  border-radius: 30px;
+  font-size: 18px;
+  font-weight: 500;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 15px rgba(212, 163, 115, 0.5);
+  overflow: hidden;
+  z-index: 1;
+  width: fit-content;
+}
+
+.cta::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.5s ease;
+  z-index: -1;
+}
+
+.cta:hover::before {
+  left: 100%;
+}
+
+.cta:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(212, 163, 115, 0.7);
+}
+
+.cta:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(212, 163, 115, 0.3);
+}
+
+.cta:active {
+  transform: translateY(1px);
+}
+
+@keyframes drawIn {
+  from { clip-path: polygon(0 0, 0 0, 0 100%, 0 100%); }
+  to { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
+}
+
+@media (max-width: 1024px) {
+  .promocoesGrid { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+  .sectionTitle { font-size: 40px; }
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 40px 15px;
+  }
+  .promocoesGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+  .sectionTitle {
+    font-size: 28px;
+    margin-bottom: 30px;
+  }
+  .sectionText {
+    font-size: 15px;
+    margin-bottom: 30px;
+  }
+  .promocaoCard {
+    margin-bottom: 10px;
+  }
+  .promocaoTitle {
+    font-size: 18px;
+  }
+  .promocaoDescription {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .section {
+    padding: 30px 10px;
+  }
+  .promocoesGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  .sectionTitle {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  .sectionText {
+    font-size: 14px;
+    margin-bottom: 25px;
+  }
+  .promocaoCard {
+    margin-bottom: 8px;
+  }
+  .promocaoTitle {
+    font-size: 16px;
+    padding: 8px 5px;
+  }
+  .promocaoDescription {
+    font-size: 13px;
+    padding: 8px 5px;
+  }
+  .promocaoImage {
+    height: 130px;
+  }
+}

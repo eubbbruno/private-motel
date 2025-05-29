@@ -1,0 +1,237 @@
+.section {
+  max-width: 1400px;
+  margin: 60px auto;
+  padding: 60px 20px;
+  padding-top: 120px;
+  position: relative;
+  background: transparent;
+  text-align: center;
+  overflow: hidden;
+}
+
+.sectionDivider {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(to right, #d4a373, transparent);
+  box-shadow: 0 2px 10px rgba(212, 163, 115, 0.3);
+}
+
+.sectionTitle {
+  font-family: var(--font-playfair);
+  font-size: 48px;
+  font-weight: 700;
+  color: #d4a373;
+  margin-bottom: 15px;
+  text-shadow: 0 4px 15px rgba(212, 163, 115, 0.6);
+  text-transform: uppercase;
+  font-style: italic;
+}
+
+.sectionSubtitle {
+  font-family: var(--font-inter);
+  font-size: 18px;
+  color: #e2e2e2;
+  max-width: 600px;
+  margin: 0 auto 30px;
+  font-weight: 300;
+  line-height: 1.5;
+  letter-spacing: 0.5px;
+}
+
+.gridContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  margin-top: 40px;
+  overflow: hidden;
+  padding-bottom: 20px;
+}
+
+.card {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  transition: transform 0.6s ease;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: rgba(20, 20, 20, 0.8);
+  backdrop-filter: blur(5px);
+  box-shadow: 0 0 20px rgba(212, 163, 115, 0.2);
+  cursor: pointer;
+}
+
+.card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 0 30px rgba(212, 163, 115, 0.4);
+}
+
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+}
+
+.cardImage {
+  transition: transform 0.6s ease, filter 0.5s ease;
+}
+
+.card:hover .cardImage {
+  transform: scale(1.08);
+  filter: brightness(1.2) contrast(1.1);
+}
+
+.cardOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.7));
+  transition: background 0.5s ease;
+}
+
+.card:hover .cardOverlay {
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.5));
+}
+
+.priceTag {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: linear-gradient(to right, #d4a373, #e6b800, #f5d100);
+  color: #fff;
+  padding: 10px 18px;
+  border-radius: 25px;
+  font-family: var(--font-inter);
+  font-size: 16px;
+  font-weight: 500;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  clip-path: polygon(0% 0%, 90% 0%, 100% 50%, 90% 100%, 0% 100%);
+  animation: priceTagPulse 3s infinite ease-in-out;
+  z-index: 1;
+  letter-spacing: 0.5px;
+}
+
+.priceTagText {
+  display: block;
+}
+
+.cardContent {
+  padding: 20px;
+  background: rgba(15, 15, 15, 0.9);
+  text-align: center;
+  flex-grow: 1;
+  border-top: 2px solid rgba(212, 163, 115, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cardTitle {
+  font-family: var(--font-playfair);
+  font-size: 24px;
+  color: #d4a373;
+  margin-bottom: 15px;
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+  font-weight: 700;
+}
+
+.keywords {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.keyword {
+  display: inline-block;
+  background: rgba(212, 163, 115, 0.15);
+  color: #ffffff;
+  padding: 6px 12px;
+  border-radius: 50px;
+  font-size: 14px;
+  font-weight: 400;
+  border: 1px solid rgba(212, 163, 115, 0.4);
+  transition: all 0.3s ease;
+  font-family: var(--font-inter);
+}
+
+.card:hover .keyword {
+  background: rgba(212, 163, 115, 0.25);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 1024px) {
+  .gridContainer { 
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 20px;
+  }
+  .sectionTitle { 
+    font-size: 40px; 
+  }
+  .sectionSubtitle {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .section { 
+    padding: 40px 15px; 
+    padding-top: 100px;
+    overflow: hidden;
+    margin: 40px auto;
+  }
+  .sectionTitle { 
+    font-size: 28px; 
+    margin-bottom: 10px;
+  }
+  .sectionSubtitle {
+    font-size: 15px;
+    margin-bottom: 25px;
+  }
+  .gridContainer { 
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+  .cardTitle {
+    font-size: 18px;
+  }
+  .keyword {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .section { 
+    padding: 30px 10px; 
+    padding-top: 80px;
+    margin: 30px auto;
+  }
+  .sectionTitle { 
+    font-size: 24px;
+    margin-bottom: 10px; 
+  }
+  .sectionSubtitle {
+    font-size: 14px;
+    margin-bottom: 20px;
+    padding: 0 10px;
+  }
+  .gridContainer { 
+    grid-template-columns: repeat(1, 1fr);
+    gap: 25px;
+  }
+  .card:hover {
+    transform: translateY(-5px) scale(1.01);
+  }
+}
+
+@keyframes priceTagPulse {
+  0% { transform: scale(1); box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); }
+  50% { transform: scale(1.05); box-shadow: 0 8px 25px rgba(212, 163, 115, 0.5); }
+  100% { transform: scale(1); box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); }
+}

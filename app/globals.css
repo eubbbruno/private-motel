@@ -1,0 +1,271 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary-color: #FF4B91;
+  --secondary-color: #FFB6C1;
+  --accent-color: #FF1493;
+  --background-light: #ffffff;
+  --text-dark: #333333;
+  --text-gray: #6C757D;
+  --max-width: 1400px;
+  --border-radius: 12px;
+  --font-playfair: var(--font-playfair); /* font family is set via next/font */
+  --font-inter: var(--font-inter); /* font family is set via next/font */
+  
+  /* Colors */
+  --dark-gray: #1a1a1a;
+  --medium-gray: #2a2a2a;
+  --light-gray: #e0e0e0;
+  --gold: #d4a373;
+  --gold-light: #e6b800;
+  
+  /* Text Colors */
+  --text-light: #ffffff;
+  
+  /* Background Colors */
+  --background-dark: #1a1a1a;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+  background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+  color: #fff;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+body {
+  min-height: 100vh;
+  line-height: 1.5;
+  color: var(--text-dark);
+  background: var(--background-light);
+  font-family: 'Montserrat', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-playfair);
+}
+
+p, span, div, button, input, textarea {
+  font-family: var(--font-inter);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+section, div, header, footer, main {
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+iframe {
+  max-width: 100%;
+  box-sizing: border-box;
+  border: 0;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+button {
+  cursor: pointer;
+  font-family: inherit;
+}
+
+/* Corrigindo possíveis problemas de rolagem horizontal */
+.container, 
+.section,
+.grid,
+.form,
+.row,
+.col {
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+/* Estilos para tabelas responsivas */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  overflow-x: auto;
+  box-sizing: border-box;
+}
+
+/* Melhorias de acessibilidade para dispositivos móveis */
+input, 
+textarea, 
+select, 
+button {
+  font-size: 16px; /* Evita zoom automático em iPhones */
+  max-width: 100%;
+}
+
+/* Estilos de componentes básicos */
+.btn-primary {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  transition: opacity 300ms;
+  border: none;
+  text-align: center;
+  display: inline-block;
+}
+.btn-primary:hover {
+  opacity: 0.9;
+}
+
+.btn-secondary {
+  background-color: var(--secondary-color);
+  color: var(--text-dark);
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  transition: opacity 300ms;
+  border: none;
+  text-align: center;
+  display: inline-block;
+}
+.btn-secondary:hover {
+  opacity: 0.9;
+}
+
+.container-custom {
+  width: 100%;
+  max-width: 72rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  box-sizing: border-box;
+}
+@media (min-width: 640px) {
+  .container-custom {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+.section-padding {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+@media (min-width: 768px) {
+  .section-padding {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+}
+@media (min-width: 1024px) {
+  .section-padding {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+  }
+}
+
+.card-hover {
+  transition: box-shadow 300ms;
+}
+.card-hover:hover {
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Regras adicionais para melhorar responsividade em telas muito pequenas */
+@media (max-width: 360px) {
+  .section {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  
+  h1 {
+    font-size: 1.75rem !important;
+  }
+  
+  h2 {
+    font-size: 1.5rem !important;
+  }
+  
+  .container-custom {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+}
+
+/* Use these styles for mobile padding */
+.container-fluid {
+  width: 100%;
+  padding-right: 1rem;
+  padding-left: 1rem;
+}
+
+/* Scrollbar custom styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--gold);
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--gold-light);
+}
+
+@media (max-width: 768px) {
+  :root {
+    --border-radius: 8px;
+  }
+  
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  
+  .container-fluid {
+    padding-right: 0.75rem;
+    padding-left: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  ::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+  
+  .container-fluid {
+    padding-right: 0.5rem;
+    padding-left: 0.5rem;
+  }
+}

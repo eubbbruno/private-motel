@@ -1,0 +1,319 @@
+.container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+    width: 100%;
+  }
+  
+  .main {
+    flex: 1;
+    width: 100%;
+  }
+  
+  .section {
+    max-width: 1400px;
+    margin: 60px auto;
+    padding: 60px 20px;
+    padding-top: 120px;
+    position: relative;
+    background: transparent;
+    text-align: center;
+  }
+  
+  .sectionDivider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 3px;
+    background: linear-gradient(to right, #d4a373, transparent);
+  }
+  
+  .sectionTitle {
+    font-family: var(--font-playfair);
+    font-size: 48px;
+    font-weight: 700;
+    color: #d4a373;
+    margin-bottom: 30px;
+    text-shadow: 0 4px 15px rgba(212, 163, 115, 0.6);
+    text-transform: uppercase;
+    font-style: italic;
+  }
+
+  .secondTitle {
+    margin-top: 80px;
+    position: relative;
+  }
+
+  .secondTitle::before {
+    content: '';
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, #d4a373, transparent);
+  }
+
+  .sectionDescription {
+    font-family: var(--font-inter);
+    font-size: 18px;
+    color: #fff;
+    margin-bottom: 40px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+  }
+  
+  /* Estilos para as refeições */
+  .mealsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+    margin-bottom: 50px;
+  }
+
+  .mealCard {
+    background: linear-gradient(135deg, rgba(26, 26, 26, 0.95), rgba(42, 42, 42, 0.95));
+    border-radius: 15px;
+    overflow: hidden;
+    padding: 25px;
+    border: 1px solid rgba(212, 163, 115, 0.3);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 300px;
+    max-width: 400px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .mealCard:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(212, 163, 115, 0.2);
+    border-color: rgba(212, 163, 115, 0.5);
+  }
+
+  .mealHeader {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(212, 163, 115, 0.2);
+  }
+
+  .mealIcon {
+    font-size: 28px;
+    color: #d4a373;
+  }
+
+  .mealTitle {
+    font-family: var(--font-playfair);
+    font-size: 24px;
+    color: #d4a373;
+    font-weight: 700;
+    margin: 0;
+  }
+
+  .mealTime {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 20px;
+    background: rgba(212, 163, 115, 0.1);
+    padding: 10px 15px;
+    border-radius: 8px;
+    border-left: 3px solid #d4a373;
+  }
+
+  .clockIcon {
+    color: #d4a373;
+    font-size: 16px;
+  }
+
+  .mealTime span {
+    font-family: var(--font-inter);
+    font-size: 14px;
+    color: #fff;
+    font-weight: 500;
+  }
+
+  .mealMenu {
+    text-align: left;
+    flex-grow: 1;
+  }
+
+  .menuTitle {
+    font-family: var(--font-playfair);
+    font-size: 18px;
+    color: #d4a373;
+    margin-bottom: 10px;
+  }
+
+  .menuItems {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .menuItem {
+    font-family: var(--font-inter);
+    font-size: 14px;
+    color: #fff;
+    margin-bottom: 8px;
+    padding-left: 15px;
+    position: relative;
+    line-height: 1.5;
+  }
+
+  .menuItem::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: #d4a373;
+  }
+
+  /* Disclaimer */
+  .disclaimer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    background: rgba(212, 163, 115, 0.1);
+    padding: 15px 20px;
+    border-radius: 10px;
+    max-width: 900px;
+    margin: 0 auto 60px;
+    border: 1px solid rgba(212, 163, 115, 0.3);
+  }
+
+  .disclaimerIcon {
+    font-size: 24px;
+    color: #d4a373;
+    flex-shrink: 0;
+  }
+
+  .disclaimerText {
+    font-family: var(--font-inter);
+    font-size: 14px;
+    color: #fff;
+    margin: 0;
+    text-align: left;
+    line-height: 1.6;
+  }
+  
+  /* Estilos para as promoções */
+  .gridContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin-top: 20px;
+  }
+  
+  .card {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 calc(25% - 30px); /* 4 cards por linha */
+    min-width: 300px;
+  }
+  
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(212, 163, 115, 0.3);
+  }
+  
+  .imageWrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 3 / 2;
+  }
+  
+  .cardImage {
+    transition: transform 0.5s ease, filter 0.3s ease;
+  }
+  
+  .card:hover .cardImage {
+    transform: scale(1.05);
+    filter: brightness(1.2);
+  }
+  
+  .cardOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.7));
+    transition: background 0.5s ease;
+  }
+  
+  .card:hover .cardOverlay {
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.5));
+  }
+  
+  .cardContent {
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.8);
+    text-align: center;
+    flex-grow: 1;
+  }
+  
+  .cardTitle {
+    font-family: var(--font-playfair);
+    font-size: 24px;
+    color: #d4a373;
+    margin-bottom: 10px;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
+  }
+  
+  .cardDescription {
+    font-family: var(--font-inter);
+    font-size: 16px;
+    color: #fff;
+    margin-bottom: 15px;
+    font-weight: 400;
+  }
+  
+  @media (max-width: 1024px) {
+    .gridContainer { gap: 20px; }
+    .mealsContainer { gap: 20px; }
+  }
+  
+  @media (max-width: 768px) {
+    .section { padding: 40px 20px; padding-top: 100px; }
+    .sectionTitle { font-size: 36px; }
+    .cardDescription { font-size: 14px; }
+    .sectionDescription { font-size: 16px; margin-bottom: 30px; }
+    .mealCard { padding: 20px; }
+    .mealTitle { font-size: 20px; }
+    .mealIcon { font-size: 24px; }
+    .menuTitle { font-size: 16px; }
+    .menuItem { font-size: 12px; }
+    .disclaimer { padding: 12px 15px; }
+    .disclaimerText { font-size: 12px; }
+    .disclaimerIcon { font-size: 20px; }
+    .secondTitle { margin-top: 60px; }
+  }
+  
+  @media (max-width: 480px) {
+    .section { padding: 30px 10px; padding-top: 80px; }
+    .sectionTitle { font-size: 28px; }
+    .cardDescription { font-size: 12px; }
+    .sectionDescription { font-size: 14px; margin-bottom: 25px; }
+    .mealCard { padding: 15px; }
+    .mealTitle { font-size: 18px; }
+    .mealIcon { font-size: 20px; }
+    .menuTitle { font-size: 14px; }
+    .menuItem { font-size: 11px; }
+    .disclaimer { flex-direction: column; gap: 10px; }
+    .disclaimerText { text-align: center; font-size: 11px; }
+    .secondTitle { margin-top: 50px; }
+    .secondTitle::before { top: -25px; width: 60px; }
+  }

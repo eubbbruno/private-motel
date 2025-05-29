@@ -1,0 +1,484 @@
+.footer {
+  background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+  color: #fff;
+  padding: 40px 0;
+  width: 100%;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  position: relative;
+}
+
+.footer * {
+  box-sizing: border-box;
+  max-width: 100%;
+}
+
+.footerContent {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  box-sizing: border-box;
+  width: 100%;
+  overflow: hidden;
+}
+
+.footerGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: space-between;
+  width: 100%;
+  box-sizing: border-box;
+  overflow: visible;
+}
+
+.footerSection {
+  flex: 1;
+  min-width: 200px;
+  max-width: calc(25% - 20px);
+  box-sizing: border-box;
+  padding: 0 10px;
+  text-align: center;
+}
+
+/* Alinhamento à esquerda para Links Rápidos e Contato */
+.footerSection:nth-child(2) .footerLinks,
+.footerSection:nth-child(4) .contatoContainer {
+  align-items: flex-start;
+  text-align: left;
+}
+
+.footerSection:nth-child(2) .footerCta {
+  margin-left: 0;
+}
+
+.logo {
+  margin-bottom: 16px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.footerTitle {
+  font-family: var(--font-playfair);
+  font-size: 20px;
+  color: #d4a373;
+  margin-bottom: 16px;
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
+  text-align: center;
+}
+
+/* Alinhamento à esquerda para títulos específicos */
+.footerSection:nth-child(2) .footerTitle,
+.footerSection:nth-child(4) .footerTitle {
+  text-align: left;
+}
+
+.footerText {
+  font-family: var(--font-inter);
+  font-size: 14px;
+  color: #fff;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.footerText:hover {
+  color: #d4a373;
+}
+
+.footerLinks {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.footerLink {
+  font-family: var(--font-inter);
+  font-size: 14px;
+  color: #fff;
+  text-decoration: none;
+  display: block;
+  margin-bottom: 8px;
+  transition: color 0.3s ease-in-out;
+}
+
+.footerLink:hover {
+  color: #d4a373;
+}
+
+.footerCta {
+  display: inline-block;
+  margin-top: 16px;
+  padding: 10px 20px;
+  position: relative;
+  background: linear-gradient(to right, #d4a373, #e6b800, #f5d100);
+  color: #fff;
+  text-decoration: none;
+  border-radius: 25px;
+  font-family: var(--font-inter);
+  font-size: 16px;
+  font-weight: 500;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 15px rgba(212, 163, 115, 0.5);
+  overflow: hidden;
+  z-index: 1;
+  width: fit-content;
+}
+
+.footerCta::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.5s ease;
+  z-index: -1;
+}
+
+.footerCta:hover::before {
+  left: 100%;
+}
+
+.footerCta:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(212, 163, 115, 0.7);
+}
+
+.footerCta:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(212, 163, 115, 0.3);
+}
+
+.footerCta:active {
+  transform: translateY(1px);
+}
+
+.socials {
+  display: flex;
+  gap: 16px;
+  margin-top: 16px;
+  justify-content: center;
+}
+
+.socialIcon {
+  font-size: 20px;
+  color: #d4a373;
+  transition: color 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.socialIcon:hover {
+  color: #fff;
+  transform: scale(1.2);
+}
+
+.mapContainer {
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+  position: relative;
+  border-radius: 10px;
+  margin-top: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.mapIframe {
+  border-radius: 10px;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  border: none;
+  display: block;
+}
+
+.mapButtons {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+  justify-content: center;
+}
+
+/* Aprimoramento dos botões de mapa */
+.mapLogoButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 10px 14px;
+  border-radius: 10px;
+  text-decoration: none;
+  color: #fff;
+  gap: 8px;
+  flex: 1;
+  backdrop-filter: blur(5px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.mapLogoButton:hover {
+  transform: translateY(-3px);
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+.mapIcon {
+  font-size: 18px;
+}
+
+.mapLogoButton:nth-child(1) .mapIcon {
+  color: #4285F4;
+}
+
+.mapLogoButton:nth-child(2) .mapIcon {
+  color: #33CCFF;
+}
+
+.googleReview {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.stars {
+  display: flex;
+  gap: 5px;
+  margin-bottom: 5px;
+}
+
+.starIcon {
+  color: #FFD700;
+  font-size: 20px;
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.3));
+}
+
+/* Aprimoramento do botão de avaliação */
+.reviewButton {
+  background: linear-gradient(135deg, #d4a373, #c8964a);
+  border: none;
+  color: #fff;
+  padding: 10px 18px;
+  border-radius: 20px;
+  font-family: var(--font-inter);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  text-align: center;
+}
+
+.reviewButton:hover {
+  background: linear-gradient(135deg, #e6b800, #d4a373);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+
+.footerPolicyLinks {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.footerBottom {
+  margin-top: 40px;
+  text-align: center;
+}
+
+.footerBottomText {
+  font-family: var(--font-inter);
+  font-size: 12px;
+  color: #ccc;
+}
+
+/* Contato container alinhado à esquerda */
+.contatoContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.contatoInfo {
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.contatoInfo a {
+  margin-left: 10px;
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.contatoInfo a:hover {
+  color: #d4a373;
+}
+
+.linkContainer {
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.linkContainer a {
+  margin-left: 10px;
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+@media (max-width: 768px) {
+  .footerGrid {
+    flex-direction: column;
+    gap: 24px;
+    overflow: visible;
+  }
+  
+  .footerSection {
+    text-align: center;
+    max-width: 100%;
+    width: 100%;
+    overflow: hidden;
+    padding: 0;
+  }
+  
+  .socials {
+    justify-content: center;
+  }
+  
+  .footerPolicyLinks {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .googleReview {
+    margin-top: 15px;
+  }
+  
+  .mapIframe {
+    max-width: 100%;
+  }
+  
+  /* Manter alinhamento centralizado em telas menores */
+  .footerSection:nth-child(2) .footerLinks,
+  .footerSection:nth-child(2) .footerTitle,
+  .footerSection:nth-child(4) .footerTitle,
+  .footerSection:nth-child(4) .contatoContainer,
+  .contatoInfo,
+  .linkContainer {
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  
+  .footerSection:nth-child(2) .footerCta {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer {
+    padding: 30px 10px;
+  }
+  .footerTitle {
+    font-size: 18px;
+  }
+  .footerText {
+    font-size: 12px;
+  }
+  .footerLink {
+    font-size: 12px;
+  }
+  .footerCta {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+  .socialIcon {
+    font-size: 18px;
+  }
+  .mapIframe {
+    height: 150px;
+  }
+  .mapLogoButton {
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+  .mapIcon {
+    font-size: 16px;
+  }
+  .starIcon {
+    font-size: 16px;
+  }
+  .reviewButton {
+    font-size: 12px;
+    padding: 8px 14px;
+  }
+  .footerBottomText {
+    font-size: 10px;
+  }
+  .footerContent {
+    padding: 0 10px;
+  }
+}
+
+/* Para telas muito pequenas */
+@media (max-width: 360px) {
+  .footer {
+    padding: 20px 8px;
+  }
+  .footerTitle {
+    font-size: 16px;
+  }
+  .footerText {
+    font-size: 11px;
+  }
+  .footerLink {
+    font-size: 11px;
+  }
+  .footerCta {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+  .socialIcon {
+    font-size: 16px;
+  }
+  .mapButtons {
+    flex-direction: column;
+    gap: 8px;
+  }
+  .mapLogoButton {
+    width: 100%;
+  }
+  .mapIframe {
+    height: 120px;
+  }
+  .starIcon {
+    font-size: 14px;
+  }
+  .reviewButton {
+    font-size: 10px;
+    padding: 4px 10px;
+  }
+  .footerSection {
+    padding: 5px;
+  }
+}

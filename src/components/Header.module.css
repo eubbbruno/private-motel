@@ -1,0 +1,474 @@
+.header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 999;
+  background: linear-gradient(135deg, rgba(26, 26, 26, 0.9), rgba(42, 42, 42, 0.9));
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  transition: box-shadow 0.3s ease;
+}
+
+.scrolled {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+  border-bottom: 1px solid rgba(212, 163, 115, 0.1);
+}
+
+.logo {
+  position: relative;
+  z-index: 10;
+  width: 180px;
+  height: 60px;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.navItem {
+  color: #fff;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 500;
+  position: relative;
+  padding: 5px 8px;
+  transition: color 0.3s;
+}
+
+.navItem:hover {
+  color: #d4a373;
+}
+
+.navItem::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: #d4a373;
+  transition: width 0.3s ease, left 0.3s ease;
+}
+
+.navItem:hover::after {
+  width: 100%;
+  left: 0;
+}
+
+.phoneLink {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 18px;
+  background: rgba(212, 163, 115, 0.1);
+  border-radius: 30px;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+
+.phoneLink:hover {
+  background: #d4a373;
+  color: #1a1a1a;
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(212, 163, 115, 0.4);
+}
+
+.phoneIcon {
+  font-size: 14px;
+}
+
+.menuButton {
+  display: none;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 24px;
+  cursor: pointer;
+  z-index: 200;
+}
+
+@media (max-width: 1024px) {
+  .nav {
+    gap: 12px;
+  }
+  
+  .navItem {
+    font-size: 14px;
+  }
+  
+  .phoneLink {
+    padding: 6px 14px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 768px) {
+  .nav {
+    display: none;
+  }
+  
+  .menuButton {
+    display: block;
+  }
+  
+  .container {
+    padding: 10px 15px;
+  }
+  
+  .logo {
+    width: 150px;
+    height: 50px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 8px 10px;
+  }
+  
+  .logo {
+    width: 120px;
+    height: 40px;
+  }
+  
+  .menuButton {
+    font-size: 20px;
+  }
+}
+
+.promoBanner {
+  background: linear-gradient(to right, #d4a373, #e6b800, #f5d100);
+  color: #1a1a1a;
+  text-align: center;
+  padding: 3px 0;
+  font-family: var(--font-inter);
+  font-size: 12px;
+  overflow: hidden;
+  white-space: nowrap;
+  font-weight: 500;
+}
+
+.promoBanner p {
+  display: inline-block;
+  padding-left: 100%;
+  animation: marquee 25s linear infinite;
+}
+
+.headerContent {
+  border-bottom: 1px solid rgba(212, 163, 115, 0.1);
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.logo img {
+  height: 40px;
+  width: auto;
+}
+
+.mobileMenuButton {
+  display: none;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 24px;
+  cursor: pointer;
+  z-index: 200;
+  position: relative;
+}
+
+.desktopNav {
+  flex-grow: 1;
+  text-align: center;
+  margin: 0 15px;
+}
+
+.menu {
+  list-style: none;
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+}
+
+.menu li a, .menu li button, .menuLink {
+  font-family: var(--font-playfair);
+  font-size: 16px;
+  color: #fff;
+  text-transform: uppercase;
+  text-decoration: none;
+  position: relative;
+  padding: 5px 8px;
+  transition: color 0.3s;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.menu li a:hover, .menu li button:hover, .menuLink:hover {
+  color: #d4a373;
+}
+
+.menu li a::after, .menu li button::after, .menuLink::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: #d4a373;
+  transition: width 0.3s ease, left 0.3s ease;
+}
+
+.menu li a:hover::after, .menu li button:hover::after, .menuLink:hover::after {
+  width: 100%;
+  left: 0;
+}
+
+.menuLink.reservas {
+  position: relative;
+  padding: 5px 12px;
+  background: rgba(212, 163, 115, 0.1);
+  border-radius: 20px;
+  color: #fff;
+  transition: background 0.3s, color 0.3s, box-shadow 0.3s;
+}
+
+.menuLink.reservas:hover {
+  background: #d4a373;
+  color: #1a1a1a;
+  box-shadow: 0 0 10px rgba(212, 163, 115, 0.7);
+  -webkit-text-fill-color: #1a1a1a;
+}
+
+.menuLink.reservas::after {
+  content: none;
+}
+
+.socials {
+  display: flex;
+  gap: 10px;
+  position: relative;
+  z-index: 10;
+}
+
+.socials a {
+  font-size: 18px;
+  color: #fff;
+  text-decoration: none;
+  transition: transform 0.3s, color 0.3s;
+}
+
+.socials a:hover {
+  transform: scale(1.2);
+  color: #d4a373;
+}
+
+/* Menu Mobile Fullscreen - separado do header */
+.mobileMenu {
+  display: none;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}
+
+/* Estilos para Mobile */
+@media (max-width: 768px) {
+  .desktopNav {
+    display: none;
+  }
+  
+  .mobileMenuButton {
+    display: block;
+    order: 3;
+  }
+  
+  /* Menu mobile como modal em fullscreen */
+  .mobileMenu {
+    display: block;
+    visibility: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000000;
+    z-index: 100;
+    opacity: 0;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+  
+  .mobileMenuOpen {
+    visibility: visible;
+    opacity: 1;
+  }
+  
+  .mobileMenuItems {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 60px 20px;
+    gap: 30px;
+    list-style: none;
+    transform: translateY(20px);
+    transition: transform 0.3s ease 0.1s;
+  }
+  
+  .mobileMenuOpen .mobileMenuItems {
+    transform: translateY(0);
+  }
+  
+  .mobileMenuItems li {
+    width: 100%;
+    text-align: center;
+  }
+  
+  .mobileMenuItems li a {
+    display: block;
+    font-family: var(--font-playfair);
+    font-size: 22px;
+    color: #fff;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 10px 0;
+    letter-spacing: 2px;
+    font-weight: 500;
+  }
+  
+  .mobileMenuItems li:last-child {
+    margin-top: 20px;
+  }
+  
+  .mobileMenuItems li a.reservas {
+    display: inline-block;
+    padding: 15px 25px;
+    background: rgba(212, 163, 115, 0.3);
+    border-radius: 30px;
+    font-size: 20px;
+    transition: all 0.3s ease;
+  }
+  
+  .mobileMenuItems li a.reservas:hover {
+    background: rgba(212, 163, 115, 0.5);
+    transform: translateY(-3px);
+  }
+  
+  .headerContent {
+    padding: 10px 15px;
+  }
+  
+  .logo img {
+    height: 35px;
+  }
+  
+  .socials {
+    order: 2;
+    margin-right: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .headerContent {
+    padding: 8px 10px;
+  }
+  
+  .logo img {
+    height: 30px;
+  }
+  
+  .socials {
+    gap: 8px;
+  }
+  
+  .socials a {
+    font-size: 16px;
+  }
+  
+  .promoBanner {
+    font-size: 10px;
+    padding: 2px 0;
+  }
+  
+  .mobileMenuButton {
+    font-size: 20px;
+  }
+  
+  .mobileMenuItems {
+    gap: 25px;
+  }
+  
+  .mobileMenuItems li a {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 360px) {
+  .headerContent {
+    padding: 6px 8px;
+  }
+  
+  .logo img {
+    height: 26px;
+  }
+  
+  .socials {
+    gap: 6px;
+  }
+  
+  .socials a {
+    font-size: 14px;
+  }
+  
+  .mobileMenuItems li a {
+    font-size: 18px;
+  }
+}
+
+/* Estilo para os botões de navegação no menu mobile */
+.mobileNavButton {
+  display: block;
+  width: 100%;
+  font-family: var(--font-playfair);
+  font-size: 22px;
+  color: #fff;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 10px 0;
+  letter-spacing: 2px;
+  font-weight: 500;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+  transition: color 0.3s ease;
+}
+
+.mobileNavButton:hover,
+.mobileNavButton:focus {
+  color: #d4a373;
+  outline: none;
+}

@@ -1,0 +1,534 @@
+.container {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+}
+
+.main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.section {
+    max-width: 1400px;
+    margin: 60px auto;
+    padding: 60px 20px;
+    padding-top: 120px;
+    position: relative;
+    background: transparent;
+    text-align: center;
+}
+
+.sectionDivider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 3px;
+    background: linear-gradient(to right, #d4a373, transparent);
+}
+
+.sectionTitle {
+    font-family: var(--font-playfair);
+    font-size: 48px;
+    font-weight: 700;
+    color: #d4a373;
+    margin-bottom: 30px;
+    text-shadow: 0 4px 15px rgba(212, 163, 115, 0.6);
+    text-transform: uppercase;
+    font-style: italic;
+}
+
+.secondTitle {
+    margin-top: 80px;
+    position: relative;
+}
+
+.secondTitle::before {
+    content: '';
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, #d4a373, transparent);
+}
+
+.sectionDescription {
+    font-family: var(--font-inter);
+    text-align: center;
+    font-size: 18px;
+    max-width: 800px;
+    margin: 0 auto 40px;
+    color: #fff;
+    line-height: 1.6;
+}
+
+/* Estilos para as Experiências */
+.experienciasContainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+    margin-bottom: 50px;
+}
+
+.expCard {
+    background: linear-gradient(145deg, rgba(26, 26, 26, 0.95), rgba(42, 42, 42, 0.95));
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid rgba(212, 163, 115, 0.3);
+}
+
+.expCard:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(212, 163, 115, 0.2);
+    border-color: rgba(212, 163, 115, 0.5);
+}
+
+.expImageContainer {
+    position: relative;
+    width: 100%;
+    height: 250px;
+    overflow: hidden;
+}
+
+.expImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.expCard:hover .expImage {
+    transform: scale(1.05);
+    filter: brightness(1.2);
+}
+
+.expImageOverlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 60%;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 100%);
+}
+
+.expContent {
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.expHeader {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(212, 163, 115, 0.2);
+}
+
+.expIcon {
+    font-size: 28px;
+    color: #d4a373;
+    margin-right: 15px;
+}
+
+.expTitle {
+    font-family: var(--font-playfair);
+    font-size: 24px;
+    font-weight: 700;
+    color: #d4a373;
+    margin: 0;
+}
+
+.expDescription {
+    font-family: var(--font-inter);
+    font-size: 16px;
+    color: #fff;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+.expDetails {
+    background-color: rgba(212, 163, 115, 0.1);
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-left: 3px solid #d4a373;
+}
+
+.expDetailsTitle {
+    font-family: var(--font-playfair);
+    font-size: 18px;
+    color: #d4a373;
+    margin: 0 0 10px 0;
+}
+
+.expDetailsList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.expDetailItem {
+    font-family: var(--font-inter);
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: #fff;
+}
+
+.expDetailIcon {
+    color: #d4a373;
+    margin-right: 8px;
+    font-size: 14px;
+}
+
+.expPricing {
+    margin: auto 0 20px;
+}
+
+.expPrice {
+    font-family: var(--font-playfair);
+    font-size: 22px;
+    font-weight: 600;
+    color: #d4a373;
+    display: block;
+    text-align: center;
+}
+
+.expCta {
+    background: linear-gradient(to right, #d4a373, #e6b800, #f5d100);
+    color: #fff;
+    border: none;
+    border-radius: 30px;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    margin-top: auto;
+    font-family: var(--font-inter);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(212, 163, 115, 0.5);
+}
+
+.expCta::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s ease;
+    z-index: 1;
+}
+
+.expCta:hover::before {
+    left: 100%;
+}
+
+.expCta:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(212, 163, 115, 0.7);
+}
+
+.expCta:focus {
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(212, 163, 115, 0.3);
+}
+
+.expCta:active {
+    transform: translateY(1px);
+}
+
+.whatsappIcon {
+    margin-right: 10px;
+    font-size: 18px;
+}
+
+/* Estilos para as Promoções */
+.promocoesContainer {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+    margin-bottom: 50px;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.promoCard {
+    background: linear-gradient(145deg, rgba(26, 26, 26, 0.95), rgba(42, 42, 42, 0.95));
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid rgba(212, 163, 115, 0.3);
+    max-width: 400px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.promoCard:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(212, 163, 115, 0.2);
+    border-color: rgba(212, 163, 115, 0.5);
+}
+
+.promoImageWrapper {
+    position: relative;
+    width: 100%;
+    max-height: 500px;
+    overflow: hidden;
+    border-radius: 15px 15px 0 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.promoImage {
+    width: auto;
+    height: 100%;
+    object-fit: contain;
+    transition: transform 0.5s ease, filter 0.3s ease;
+}
+
+.promoCard:hover .promoImage {
+    transform: scale(1.05);
+    filter: brightness(1.2);
+}
+
+.promoOverlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 100%);
+}
+
+.promoContent {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    background-color: rgba(26, 26, 26, 0.8);
+    border-radius: 0 0 15px 15px;
+}
+
+.promoHeader {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(212, 163, 115, 0.2);
+}
+
+.promoIcon {
+    font-size: 22px;
+    color: #d4a373;
+    margin-right: 10px;
+}
+
+.promoTitle {
+    font-family: var(--font-playfair);
+    font-size: 22px;
+    font-weight: 700;
+    color: #d4a373;
+    margin: 0;
+}
+
+.promoDescription {
+    font-family: var(--font-inter);
+    font-size: 16px;
+    color: #fff;
+    line-height: 1.5;
+    margin-bottom: 15px;
+    flex: 1;
+}
+
+.promoCta {
+    background: linear-gradient(to right, #d4a373, #e6b800, #f5d100);
+    color: #fff;
+    border: none;
+    border-radius: 30px;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    margin-top: auto;
+    font-family: var(--font-inter);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(212, 163, 115, 0.5);
+}
+
+.promoCta::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s ease;
+    z-index: 1;
+}
+
+.promoCta:hover::before {
+    left: 100%;
+}
+
+.promoCta:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(212, 163, 115, 0.7);
+}
+
+.promoCta:focus {
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(212, 163, 115, 0.3);
+}
+
+.promoCta:active {
+    transform: translateY(1px);
+}
+
+.disclaimer {
+    margin-top: 50px;
+    background: rgba(212, 163, 115, 0.1);
+    border-radius: 10px;
+    padding: 15px 20px;
+    border: 1px solid rgba(212, 163, 115, 0.3);
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.disclaimerText {
+    font-family: var(--font-inter);
+    font-size: 14px;
+    color: #fff;
+    text-align: center;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Media Queries */
+@media (max-width: 1024px) {
+    .promocoesContainer {
+        grid-template-columns: repeat(2, 1fr);
+        max-width: 800px;
+    }
+    
+    .promoImageWrapper {
+        max-height: 450px;
+    }
+}
+
+@media (max-width: 768px) {
+    .section {
+        padding: 40px 20px;
+        padding-top: 100px;
+    }
+    
+    .sectionTitle {
+        font-size: 36px;
+    }
+    
+    .sectionDescription {
+        font-size: 16px;
+        margin-bottom: 30px;
+    }
+    
+    .experienciasContainer {
+        grid-template-columns: 1fr;
+    }
+    
+    .promocoesContainer {
+        grid-template-columns: 1fr;
+    }
+    
+    .expTitle, .promoTitle {
+        font-size: 20px;
+    }
+    
+    .expIcon, .promoIcon {
+        font-size: 24px;
+    }
+    
+    .promoImageWrapper {
+        max-height: 400px;
+    }
+    
+    .expCta, .promoCta {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .section {
+        padding: 30px 10px;
+        padding-top: 80px;
+    }
+    
+    .sectionTitle {
+        font-size: 28px;
+    }
+    
+    .sectionDescription {
+        font-size: 14px;
+        margin-bottom: 25px;
+    }
+    
+    .expCard, .promoCard {
+        border-radius: 10px;
+    }
+    
+    .expImageContainer {
+        height: 200px;
+    }
+    
+    .promoImageWrapper {
+        max-height: 350px;
+    }
+    
+    .expContent, .promoContent {
+        padding: 15px;
+    }
+    
+    .expDescription, .promoDescription {
+        font-size: 14px;
+    }
+    
+    .expCta, .promoCta {
+        padding: 8px 16px;
+        font-size: 12px;
+    }
+    
+    .disclaimerText {
+        font-size: 12px;
+    }
+}

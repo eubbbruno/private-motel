@@ -1,0 +1,15 @@
+[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = false
+	logallrefupdates = true
+	ignorecase = true
+	precomposeunicode = true
+[remote "origin"]
+	url = https://github.com/eubbbruno/private-motel.git
+	fetch = +refs/heads/*:refs/remotes/origin/*
+[user]
+	name = Bruno Dias
+	email = eubbbruno@gmail.com
+[filter "lfs"]
+	required = false

@@ -1,0 +1,139 @@
+.cookieToast {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  background: rgba(26, 26, 26, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  padding: 12px 20px;
+  z-index: 10001;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(212, 163, 115, 0.15);
+  max-width: 420px;
+  animation: fadeIn 0.5s ease;
+}
+
+.cookieIcon {
+  margin-right: 15px;
+  flex-shrink: 0;
+}
+
+.cookieContent {
+  flex: 1;
+}
+
+.cookieText {
+  font-family: var(--font-inter);
+  font-size: 14px;
+  color: #fff;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.cookieLink {
+  color: #d4a373;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.cookieLink:hover {
+  text-decoration: underline;
+  opacity: 0.9;
+}
+
+.cookieButtons {
+  display: flex;
+  align-items: center;
+  margin-left: 15px;
+}
+
+.cookieAcceptButton {
+  background: #d4a373;
+  color: #1a1a1a;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-family: var(--font-inter);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.cookieAcceptButton:hover {
+  background: #e6b800;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(212, 163, 115, 0.3);
+}
+
+.cookieAcceptButton:active {
+  transform: translateY(0);
+}
+
+/* Estilos para o botão de teste - apenas para desenvolvimento */
+.testButtonContainer {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 10002;
+  opacity: 0.7;
+}
+
+.testButton {
+  padding: 8px 16px;
+  background: #333;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-family: var(--font-inter);
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.testButton:hover {
+  background: #555;
+  transform: translateY(-2px);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 480px) {
+  .cookieToast {
+    bottom: 10px;
+    left: 10px;
+    right: 10px;
+    max-width: calc(100% - 20px);
+    flex-direction: column;
+    padding: 15px;
+    align-items: flex-start;
+  }
+  
+  .cookieIcon {
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+  
+  .cookieButtons {
+    margin-left: 0;
+    margin-top: 15px;
+    width: 100%;
+    justify-content: flex-end;
+  }
+  
+  .cookieText {
+    font-size: 12px;
+  }
+  
+  .cookieAcceptButton {
+    font-size: 12px;
+    padding: 6px 12px;
+  }
+}
