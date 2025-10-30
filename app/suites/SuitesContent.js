@@ -107,8 +107,8 @@ export default function SuitesContent() {
         ],
       },
       pricing: {
-        periodo: 'R$ 355,00',
-        pernoite: 'R$ 407,00',
+        periodo: 'R$ 365,00',
+        pernoite: 'R$ 417,00',
         horaExtra: 'R$ 65,00',
       },
       keywords: ['Piscina Aquecida', 'Hidromassagem', 'Sauna', 'Pole Dance', 'Dois Andares', 'Cascata'],
@@ -147,9 +147,9 @@ export default function SuitesContent() {
         ],
       },
       pricing: {
-        periodo: 'R$ 299,00',
-        pernoiteSemana: 'R$ 320,00',
-        pernoiteFimSemana: 'R$ 350,00',
+        periodo: 'R$ 305,00',
+        pernoiteSemana: 'R$ 330,00',
+        pernoiteFimSemana: 'R$ 360,00',
         horaExtra: 'R$ 59,00',
       },
       keywords: ['Piscina Aquecida', 'Hidromassagem', 'Sauna', '2 Garagens'],
@@ -181,9 +181,9 @@ export default function SuitesContent() {
         ],
       },
       pricing: {
-        periodo: 'R$ 155,00',
-        pernoiteSemana: 'R$ 208,00',
-        pernoiteFimSemana: 'R$ 235,00',
+        periodo: 'R$ 165,00',
+        pernoiteSemana: 'R$ 218,00',
+        pernoiteFimSemana: 'R$ 245,00',
         horaExtra: 'R$ 48,00',
       },
       keywords: ['Hidromassagem', 'Cama Super King', 'Ar Condicionado'],
@@ -215,9 +215,9 @@ export default function SuitesContent() {
         ],
       },
       pricing: {
-        periodo: 'R$ 125,00',
-        pernoiteSemana: 'R$ 175,00',
-        pernoiteFimSemana: 'R$ 203,00',
+        periodo: 'R$ 135,00',
+        pernoiteSemana: 'R$ 185,00',
+        pernoiteFimSemana: 'R$ 213,00',
         horaExtra: 'R$ 35,00',
       },
       keywords: ['Cama Super King', 'Ar Condicionado', 'Frigobar'],
@@ -584,6 +584,20 @@ Gostaria de verificar a disponibilidade para reserva. Aguardo retorno!`;
               </div>
             </div>
           </motion.div>
+        </section>
+
+        {/* Seção de Tabela de Preços */}
+        <section className={styles.precosSection}>
+          <div className={styles.precosContainer}>
+            <Image
+              src="/images/precos-private-site.png"
+              alt="Tabela de Preços Motel Private"
+              width={1200}
+              height={800}
+              className={styles.precosImage}
+              loading="lazy"
+            />
+          </div>
         </section>
       </main>
       <Footer />
