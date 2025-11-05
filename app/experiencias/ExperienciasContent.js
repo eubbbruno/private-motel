@@ -64,8 +64,10 @@ export default function ExperienciasContent() {
         'Cartão-presente personalizado',
         'Validade de 3 meses',
         'Valor escolhido pelo comprador',
-        'Possibilidade de adicionar serviços extras',
-        'Entrega digital ou física'
+        'Sem possibilidade de adicionar serviços extras',
+        'Custo de R$30,00 por unidade',
+        'Envio apenas para Cambé / Londrina e região',
+        'Entrega física (ÚNICA VÁLIDA PARA UTILIZAÇÃO NO MOTEL). Entrega digital (NÃO VÁLIDA PARA UTILIZAÇÃO NO MOTEL) apenas para visualização.'
       ],
       image: '/images/exp-gift-card.jpg',
       message: 'Olá! Gostaria de mais informações sobre o Gift Card. Como posso adquirir e quais são as opções disponíveis?'
