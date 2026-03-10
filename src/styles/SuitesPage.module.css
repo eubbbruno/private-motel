@@ -90,9 +90,9 @@
 }
 
 .gridContainer {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 35px;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
   margin-top: 30px;
   max-width: 1400px;
   width: 100%;
@@ -116,6 +116,36 @@
   transform: translateY(-10px);
   box-shadow: 0 20px 50px rgba(212, 163, 115, 0.5);
   border-color: rgba(212, 163, 115, 0.3);
+}
+
+/* Layout Horizontal */
+.card.horizontalCard {
+  flex-direction: row;
+  min-height: 500px;
+}
+
+.card.horizontalCard .carouselWrapper {
+  flex: 0 0 50%;
+  display: flex;
+  flex-direction: column;
+}
+
+.card.horizontalCard .carousel {
+  flex: 1;
+  aspect-ratio: unset;
+  height: 100%;
+  min-height: 500px;
+}
+
+.card.horizontalCard .cardContent {
+  flex: 0 0 50%;
+  overflow-y: auto;
+  max-height: 500px;
+}
+
+/* Alterna lado da imagem (efeito zigzag) */
+.card.horizontalCard.reversed {
+  flex-direction: row-reverse;
 }
 
 .carouselWrapper {
@@ -673,17 +703,39 @@
   font-weight: 700;
 }
 
+@media (max-width: 1200px) {
+  .card.horizontalCard {
+    flex-direction: column !important;
+    min-height: auto;
+  }
+  
+  .card.horizontalCard .carouselWrapper,
+  .card.horizontalCard .cardContent {
+    flex: 1 1 100%;
+  }
+  
+  .card.horizontalCard .carousel {
+    min-height: 400px;
+  }
+  
+  .card.horizontalCard .cardContent {
+    max-height: none;
+  }
+}
+
 @media (max-width: 1024px) {
   .gridContainer { 
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 25px;
+    gap: 35px;
+  }
+  
+  .card.horizontalCard .carousel {
+    min-height: 350px;
   }
 }
 
 @media (max-width: 768px) {
   .section { 
-    padding: 100px 20px 40px; 
-    margin: 0 auto;
+    padding: 100px 15px 40px; 
   }
   
   .sectionTitle { 
@@ -696,6 +748,14 @@
     width: 100px;
     height: 3px;
     bottom: -18px;
+  }
+  
+  .gridContainer {
+    gap: 30px;
+  }
+  
+  .card.horizontalCard .carousel {
+    min-height: 300px;
   }
   
   .cardTitle {
@@ -747,8 +807,7 @@
 
 @media (max-width: 480px) {
   .section { 
-    padding: 90px 15px 30px;
-    margin: 0 auto;
+    padding: 90px 10px 30px;
   }
   
   .sectionTitle { 
@@ -761,6 +820,14 @@
     width: 80px;
     height: 3px;
     bottom: -15px; 
+  }
+  
+  .gridContainer {
+    gap: 25px;
+  }
+  
+  .card.horizontalCard .carousel {
+    min-height: 250px;
   }
   
   .cardDescription { font-size: 12px; }

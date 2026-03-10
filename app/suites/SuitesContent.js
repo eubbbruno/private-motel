@@ -501,13 +501,14 @@ Gostaria de verificar a disponibilidade para reserva. Aguardo retorno!`;
           >
             {filteredSuites.map((suite, index) => {
               const originalIndex = suites.findIndex(s => s.title === suite.title);
+              const isReversed = index % 2 !== 0;
               return (
                 <motion.div
                   key={index}
-                  className={styles.card}
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.5, delay: index * 0.2 }}
+                  className={`${styles.card} ${styles.horizontalCard} ${isReversed ? styles.reversed : ''}`}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.15 }}
                 >
                   <div className={styles.carouselWrapper}>
                     <div 
