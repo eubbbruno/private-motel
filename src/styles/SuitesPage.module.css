@@ -33,25 +33,27 @@
 
 .sectionTitle {
   font-family: var(--font-playfair);
-  font-size: 48px;
+  font-size: 56px;
   font-weight: 700;
   color: #d4a373;
-  margin-bottom: 40px;
-  text-shadow: 0 4px 15px rgba(212, 163, 115, 0.6);
+  margin-bottom: 50px;
+  text-shadow: 0 4px 20px rgba(212, 163, 115, 0.8);
   text-transform: uppercase;
   font-style: italic;
   position: relative;
+  letter-spacing: 2px;
 }
 
 .sectionTitle::after {
   content: '';
   position: absolute;
-  bottom: -15px;
+  bottom: -20px;
   left: 50%;
   transform: translateX(-50%);
-  width: 80px;
-  height: 3px;
-  background: linear-gradient(to right, #d4a373, transparent);
+  width: 120px;
+  height: 4px;
+  background: linear-gradient(to right, transparent, #d4a373, transparent);
+  box-shadow: 0 2px 10px rgba(212, 163, 115, 0.5);
 }
 
 .filtersContainer {
@@ -88,29 +90,32 @@
 }
 
 .gridContainer {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 30px;
-  margin-top: 20px;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 35px;
+  margin-top: 30px;
+  max-width: 1400px;
+  width: 100%;
+  padding: 0 10px;
 }
 
 .card {
   position: relative;
   border-radius: 20px;
   overflow: hidden;
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
   flex-direction: column;
-  flex: 1 1 calc(25% - 30px); /* 4 cards por linha */
-  min-width: 300px;
-  max-width: 500px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+  width: 100%;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  background: linear-gradient(135deg, rgba(26, 26, 26, 0.95), rgba(42, 42, 42, 0.95));
+  border: 1px solid rgba(212, 163, 115, 0.15);
 }
 
 .card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 15px 35px rgba(212, 163, 115, 0.4);
+  transform: translateY(-10px);
+  box-shadow: 0 20px 50px rgba(212, 163, 115, 0.5);
+  border-color: rgba(212, 163, 115, 0.3);
 }
 
 .carouselWrapper {
@@ -123,18 +128,19 @@
   width: 100%;
   aspect-ratio: 4 / 3;
   overflow: hidden;
+  cursor: pointer;
 }
 
 .carouselImage {
-  transition: transform 0.5s ease, filter 0.5s ease;
+  transition: transform 0.6s ease, filter 0.6s ease;
   object-fit: cover;
   width: 100%;
   height: 100%;
 }
 
 .card:hover .carouselImage {
-  transform: scale(1.08);
-  filter: brightness(1.3);
+  transform: scale(1.12);
+  filter: brightness(1.2) saturate(1.1);
 }
 
 .carouselOverlay {
@@ -144,29 +150,69 @@
   width: 100%;
   height: 100%;
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.7));
-  transition: background 0.5s ease;
+  transition: all 0.5s ease;
+  pointer-events: none;
 }
 
 .card:hover .carouselOverlay {
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.5));
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.4));
+}
+
+.carousel::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  width: 80px;
+  height: 80px;
+  background: rgba(212, 163, 115, 0.9);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: all 0.3s ease;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.carousel:hover::after {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 0.8;
+  background: rgba(212, 163, 115, 0.95) url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="48" height="48"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>') center/40px no-repeat;
 }
 
 .carouselButton {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: rgba(0, 0, 0, 0.5);
-  border: none;
+  background: rgba(0, 0, 0, 0.6);
+  border: 2px solid rgba(212, 163, 115, 0.4);
   color: #fff;
-  font-size: 18px;
-  padding: 10px;
+  font-size: 20px;
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
   cursor: pointer;
   z-index: 2;
-  transition: background 0.3s ease;
+  transition: all 0.3s ease;
+  opacity: 0;
+  backdrop-filter: blur(5px);
+}
+
+.carousel:hover .carouselButton {
+  opacity: 1;
 }
 
 .carouselButton:hover {
-  background: rgba(212, 163, 115, 0.8);
+  background: rgba(212, 163, 115, 0.9);
+  border-color: #d4a373;
+  transform: translateY(-50%) scale(1.15);
+  box-shadow: 0 4px 15px rgba(212, 163, 115, 0.5);
 }
 
 .thumbnails {
@@ -199,38 +245,55 @@
   height: 45px;
   flex-shrink: 0;
   cursor: pointer;
-  opacity: 0.6;
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  opacity: 0.5;
+  transition: all 0.3s ease;
   border-radius: 6px;
   overflow: hidden;
   margin: 0 2px;
+  border: 2px solid transparent;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 .thumbnail:hover {
-  opacity: 0.9;
-  transform: translateY(-2px);
+  opacity: 0.85;
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 4px 12px rgba(212, 163, 115, 0.4);
 }
 
 .activeThumbnail {
   opacity: 1;
   border: 2px solid #d4a373;
-  transform: scale(1.1);
+  transform: scale(1.08);
+  box-shadow: 0 4px 15px rgba(212, 163, 115, 0.6);
 }
 
 .cardContent {
-  padding: 25px;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.9), rgba(10, 10, 10, 0.95));
+  padding: 30px 25px;
+  background: linear-gradient(to bottom, rgba(10, 10, 10, 0.95), rgba(5, 5, 5, 0.98));
   text-align: center;
   flex-grow: 1;
-  border-top: 3px solid rgba(212, 163, 115, 0.3);
+  border-top: 2px solid rgba(212, 163, 115, 0.4);
+  position: relative;
+}
+
+.cardContent::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(212, 163, 115, 0.6), transparent);
 }
 
 .cardTitle {
   font-family: var(--font-playfair);
-  font-size: 28px;
+  font-size: 32px;
+  font-weight: 700;
   color: #d4a373;
-  margin-bottom: 15px;
-  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
+  margin-bottom: 18px;
+  text-shadow: 0 3px 10px rgba(212, 163, 115, 0.4);
+  letter-spacing: 0.5px;
 }
 
 .highlightsContainer {
@@ -243,38 +306,45 @@
 
 .highlightBadge {
   font-family: var(--font-inter);
-  font-size: 12px;
-  font-weight: 500;
-  padding: 8px 14px;
-  border-radius: 15px;
-  background: rgba(212, 163, 115, 0.4);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 10px 16px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, rgba(212, 163, 115, 0.3), rgba(230, 184, 0, 0.3));
+  border: 1px solid rgba(212, 163, 115, 0.5);
   color: #fff;
   display: inline-flex;
   align-items: center;
-  gap: 5px;
+  gap: 6px;
   margin-right: 8px;
   margin-bottom: 8px;
-  transition: all 0.3s ease;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(5px);
 }
 
 .highlightBadge:hover {
-  transform: translateY(-3px);
-  background: linear-gradient(135deg, rgba(212, 163, 115, 0.5), rgba(230, 184, 0, 0.5));
-  box-shadow: 0 5px 15px rgba(212, 163, 115, 0.5);
+  transform: translateY(-3px) scale(1.05);
+  background: linear-gradient(135deg, rgba(212, 163, 115, 0.6), rgba(230, 184, 0, 0.6));
+  border-color: rgba(212, 163, 115, 0.8);
+  box-shadow: 0 6px 18px rgba(212, 163, 115, 0.6);
 }
 
 .highlightBadge svg {
   color: #fff;
-  font-size: 14px;
+  font-size: 16px;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
 }
 
 .cardDescription {
   font-family: var(--font-inter);
   font-size: 16px;
-  color: #e0e0e0;
-  margin-bottom: 15px;
-  line-height: 1.6;
+  font-weight: 300;
+  color: #e5e5e5;
+  margin-bottom: 20px;
+  line-height: 1.7;
+  text-align: justify;
+  padding: 0 5px;
 }
 
 .cardDetails {
@@ -605,12 +675,8 @@
 
 @media (max-width: 1024px) {
   .gridContainer { 
-    gap: 20px; 
-  }
-  
-  .card { 
-    flex: 1 1 calc(50% - 20px);
-    min-width: 280px;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
   }
 }
 
@@ -621,7 +687,19 @@
   }
   
   .sectionTitle { 
-    font-size: 36px; 
+    font-size: 42px;
+    letter-spacing: 1px;
+    margin-bottom: 40px;
+  }
+  
+  .sectionTitle::after {
+    width: 100px;
+    height: 3px;
+    bottom: -18px;
+  }
+  
+  .cardTitle {
+    font-size: 28px;
   }
   
   .cardDescription { font-size: 14px; }
@@ -644,14 +722,8 @@
   .infoTableSection { padding: 15px; }
   
   .gridContainer {
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .card {
-    flex: 0 0 100%;
-    max-width: 500px;
-    width: 100%;
+    grid-template-columns: 1fr;
+    gap: 20px;
   }
   
   .cardCta { 
@@ -680,12 +752,15 @@
   }
   
   .sectionTitle { 
-    font-size: 28px; 
+    font-size: 32px;
+    letter-spacing: 1px;
+    margin-bottom: 35px;
   }
   
   .sectionTitle::after { 
-    width: 60px; 
-    bottom: -10px; 
+    width: 80px;
+    height: 3px;
+    bottom: -15px; 
   }
   
   .cardDescription { font-size: 12px; }
@@ -703,9 +778,8 @@
   .highlightBadge svg { font-size: 11px; }
   .filtersContainer { gap: 6px; margin-bottom: 20px; }
   
-  .card { 
-    min-width: 100%;
-    max-width: 100%;
+  .gridContainer {
+    gap: 15px;
   }
   
   .thumbnails {
@@ -719,12 +793,21 @@
   }
   
   .cardTitle {
-    font-size: 20px;
-    margin-bottom: 10px;
+    font-size: 24px;
+    margin-bottom: 12px;
   }
   
   .cardContent {
-    padding: 15px;
+    padding: 20px 15px;
+  }
+  
+  .highlightBadge {
+    font-size: 11px;
+    padding: 8px 12px;
+  }
+  
+  .highlightBadge svg {
+    font-size: 14px;
   }
   
   .infoButton { font-size: 10px; padding: 6px 12px; }
@@ -755,6 +838,333 @@
 .moreImagesIndicator:hover {
   background: rgba(212, 163, 115, 0.5);
   transform: translateY(-2px);
+}
+
+/* Modal de Galeria em Tela Cheia */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.95);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modalContent {
+  position: relative;
+  width: 90%;
+  height: 90vh;
+  max-width: 1400px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.modalTitle {
+  font-family: var(--font-playfair);
+  font-size: 28px;
+  color: #d4a373;
+  text-shadow: 0 2px 10px rgba(212, 163, 115, 0.5);
+}
+
+.modalCloseButton {
+  background: rgba(0, 0, 0, 0.7);
+  border: 2px solid rgba(212, 163, 115, 0.6);
+  color: #fff;
+  font-size: 28px;
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 10001;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.modalCloseButton:hover {
+  background: rgba(212, 163, 115, 0.9);
+  border-color: #d4a373;
+  transform: rotate(90deg) scale(1.15);
+  box-shadow: 0 6px 30px rgba(212, 163, 115, 0.6);
+}
+
+.modalCloseButton:active {
+  transform: rotate(90deg) scale(1.05);
+}
+
+.modalImageContainer {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.modalImage {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: 15px;
+  box-shadow: 0 15px 60px rgba(0, 0, 0, 0.9);
+  user-select: none;
+}
+
+@keyframes zoomIn {
+  from { 
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to { 
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.modalNavButton {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.7);
+  border: 2px solid rgba(212, 163, 115, 0.6);
+  color: #fff;
+  font-size: 28px;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 10001;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.modalNavButton:hover {
+  background: rgba(212, 163, 115, 0.9);
+  border-color: #d4a373;
+  transform: translateY(-50%) scale(1.15);
+  box-shadow: 0 6px 30px rgba(212, 163, 115, 0.6);
+}
+
+.modalNavButton:active {
+  transform: translateY(-50%) scale(1.05);
+}
+
+.modalNavButton.prev {
+  left: 30px;
+}
+
+.modalNavButton.next {
+  right: 30px;
+}
+
+.modalThumbnailsContainer {
+  display: flex;
+  gap: 10px;
+  padding: 0 20px 20px;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #d4a373 rgba(0, 0, 0, 0.3);
+  justify-content: center;
+  flex-wrap: wrap;
+  max-height: 120px;
+}
+
+.modalThumbnailsContainer::-webkit-scrollbar {
+  height: 8px;
+}
+
+.modalThumbnailsContainer::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+}
+
+.modalThumbnailsContainer::-webkit-scrollbar-thumb {
+  background: #d4a373;
+  border-radius: 10px;
+}
+
+.modalThumbnail {
+  position: relative;
+  width: 100px;
+  height: 75px;
+  flex-shrink: 0;
+  cursor: pointer;
+  opacity: 0.5;
+  transition: all 0.3s ease;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 2px solid transparent;
+}
+
+.modalThumbnail:hover {
+  opacity: 0.8;
+  transform: translateY(-3px);
+}
+
+.modalThumbnail.active {
+  opacity: 1;
+  border: 2px solid #d4a373;
+  box-shadow: 0 0 20px rgba(212, 163, 115, 0.6);
+  transform: scale(1.05);
+}
+
+.modalImageCounter {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.7);
+  padding: 10px 20px;
+  border-radius: 25px;
+  font-family: var(--font-inter);
+  font-size: 16px;
+  color: #fff;
+  border: 1px solid rgba(212, 163, 115, 0.3);
+  z-index: 10001;
+}
+
+.viewGalleryButton {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: rgba(0, 0, 0, 0.7);
+  border: 2px solid rgba(212, 163, 115, 0.6);
+  color: #fff;
+  padding: 10px 18px;
+  border-radius: 25px;
+  font-size: 13px;
+  font-family: var(--font-inter);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  backdrop-filter: blur(10px);
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
+.carousel:hover .viewGalleryButton {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.viewGalleryButton:hover {
+  background: rgba(212, 163, 115, 0.9);
+  border-color: #d4a373;
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(212, 163, 115, 0.6);
+}
+
+.viewGalleryButton svg {
+  font-size: 16px;
+}
+
+@media (max-width: 768px) {
+  .modalContent {
+    width: 95%;
+    height: 85vh;
+  }
+  
+  .modalTitle {
+    font-size: 20px;
+  }
+  
+  .modalCloseButton {
+    width: 40px;
+    height: 40px;
+    font-size: 24px;
+  }
+  
+  .modalNavButton {
+    width: 45px;
+    height: 45px;
+    font-size: 24px;
+  }
+  
+  .modalNavButton.prev {
+    left: 10px;
+  }
+  
+  .modalNavButton.next {
+    right: 10px;
+  }
+  
+  .modalThumbnail {
+    width: 70px;
+    height: 52px;
+  }
+  
+  .modalImageCounter {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+  
+  .viewGalleryButton {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .modalHeader {
+    padding: 0 10px;
+  }
+  
+  .modalTitle {
+    font-size: 16px;
+  }
+  
+  .modalCloseButton {
+    width: 35px;
+    height: 35px;
+    font-size: 20px;
+  }
+  
+  .modalNavButton {
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+  }
+  
+  .modalThumbnail {
+    width: 60px;
+    height: 45px;
+  }
+  
+  .modalThumbnailsContainer {
+    padding: 0 10px 10px;
+    gap: 5px;
+  }
 }
 
 /* Seção de Tabela de Preços */

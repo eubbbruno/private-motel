@@ -22,6 +22,21 @@ export const metadata = {
   keywords: 'motel 5 estrelas, suítes exclusivas, reserva online, Londrina, Cambé, experiências românticas, gastronomia, Private Motel',
   charset: 'UTF-8',
   robots: 'index, follow',
+  icons: {
+    icon: [
+      { url: '/images/logos/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/images/logos/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/images/logos/favicon.ico', sizes: 'any' },
+    ],
+    apple: [
+      { url: '/images/logos/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
+    ],
+    other: [
+      { rel: 'icon', url: '/images/logos/android-chrome-192x192.png', sizes: '192x192', type: 'image/png' },
+      { rel: 'icon', url: '/images/logos/android-chrome-512x512.png', sizes: '512x512', type: 'image/png' },
+    ],
+  },
+  manifest: '/images/logos/site.webmanifest',
   openGraph: {
     title: 'Private Motel 5 Estrelas | Suítes Exclusivas em Londrina e Cambé',
     description: 'Descubra o Private Motel 5 Estrelas em Londrina e Cambé. Suítes exclusivas, reserva online, gastronomia e experiências únicas para momentos inesquecíveis.',

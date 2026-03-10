@@ -5,9 +5,9 @@ import Footer from '../../src/components/Footer';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useInView } from 'react-intersection-observer';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect } from 'react';
-import { FaChevronLeft, FaChevronRight, FaSwimmingPool, FaHotTub, FaBed, FaTv, FaWifi, FaStar, FaClock, FaInfoCircle, FaWhatsapp, FaSnowflake, FaShower } from 'react-icons/fa';
+import { FaChevronLeft, FaChevronRight, FaSwimmingPool, FaHotTub, FaBed, FaTv, FaWifi, FaStar, FaClock, FaInfoCircle, FaWhatsapp, FaSnowflake, FaShower, FaTimes, FaExpand, FaImages } from 'react-icons/fa';
 import styles from '../../src/styles/SuitesPage.module.css';
 import SuitesMobileView from '../../src/components/SuitesMobileView';
 
@@ -227,6 +227,9 @@ export default function SuitesContent() {
   const [currentImageIndex, setCurrentImageIndex] = useState(suites.map(() => 0));
   const [filteredSuites, setFilteredSuites] = useState(suites);
   const [filter, setFilter] = useState('todas');
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalSuiteIndex, setModalSuiteIndex] = useState(null);
+  const [modalImageIndex, setModalImageIndex] = useState(0);
 
   useEffect(() => {
     if (filter === 'todas') {
@@ -290,6 +293,57 @@ Gostaria de verificar a disponibilidade para reserva. Aguardo retorno!`;
     window.open(whatsappUrl, '_blank');
   };
 
+  const openModal = (suiteIndex, imageIndex) => {
+    setModalSuiteIndex(suiteIndex);
+    setModalImageIndex(imageIndex);
+    setModalOpen(true);
+    document.body.style.overflow = 'hidden';
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+    setModalSuiteIndex(null);
+    setModalImageIndex(0);
+    document.body.style.overflow = 'auto';
+  };
+
+  const handleModalPrev = () => {
+    if (modalSuiteIndex === null) return;
+    const suite = suites[modalSuiteIndex];
+    setModalImageIndex((prev) => (prev === 0 ? suite.images.length - 1 : prev - 1));
+  };
+
+  const handleModalNext = () => {
+    if (modalSuiteIndex === null) return;
+    const suite = suites[modalSuiteIndex];
+    setModalImageIndex((prev) => (prev === suite.images.length - 1 ? 0 : prev + 1));
+  };
+
+  const handleModalThumbnailClick = (index) => {
+    setModalImageIndex(index);
+  };
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (!modalOpen) return;
+      
+      if (e.key === 'Escape') {
+        closeModal();
+      } else if (e.key === 'ArrowLeft') {
+        if (modalSuiteIndex === null) return;
+        const suite = suites[modalSuiteIndex];
+        setModalImageIndex((prev) => (prev === 0 ? suite.images.length - 1 : prev - 1));
+      } else if (e.key === 'ArrowRight') {
+        if (modalSuiteIndex === null) return;
+        const suite = suites[modalSuiteIndex];
+        setModalImageIndex((prev) => (prev === suite.images.length - 1 ? 0 : prev + 1));
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [modalOpen, modalImageIndex, modalSuiteIndex]);
+
   // Se for um dispositivo móvel, renderizar o componente móvel específico
   if (isMobile) {
     return (
@@ -305,6 +359,85 @@ Gostaria de verificar a disponibilidade para reserva. Aguardo retorno!`;
   return (
     <div className={styles.container}>
       <Header />
+      
+      {/* Modal de Galeria */}
+      <AnimatePresence>
+        {modalOpen && modalSuiteIndex !== null && (
+          <motion.div
+            className={styles.modalOverlay}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={closeModal}
+          >
+            <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+              <div className={styles.modalHeader}>
+                <h2 className={styles.modalTitle}>{suites[modalSuiteIndex].title}</h2>
+                <button 
+                  className={styles.modalCloseButton} 
+                  onClick={closeModal}
+                  aria-label="Fechar galeria"
+                >
+                  <FaTimes />
+                </button>
+              </div>
+              
+              <div className={styles.modalImageContainer}>
+                <motion.img
+                  key={modalImageIndex}
+                  src={suites[modalSuiteIndex].images[modalImageIndex]}
+                  alt={`${suites[modalSuiteIndex].title} - Imagem ${modalImageIndex + 1}`}
+                  className={styles.modalImage}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.3 }}
+                />
+                
+                <button 
+                  className={`${styles.modalNavButton} ${styles.prev}`}
+                  onClick={handleModalPrev}
+                  aria-label="Imagem anterior"
+                >
+                  <FaChevronLeft />
+                </button>
+                
+                <button 
+                  className={`${styles.modalNavButton} ${styles.next}`}
+                  onClick={handleModalNext}
+                  aria-label="Próxima imagem"
+                >
+                  <FaChevronRight />
+                </button>
+                
+                <div className={styles.modalImageCounter}>
+                  {modalImageIndex + 1} / {suites[modalSuiteIndex].images.length}
+                </div>
+              </div>
+              
+              <div className={styles.modalThumbnailsContainer}>
+                {suites[modalSuiteIndex].images.map((image, idx) => (
+                  <div
+                    key={idx}
+                    className={`${styles.modalThumbnail} ${modalImageIndex === idx ? styles.active : ''}`}
+                    onClick={() => handleModalThumbnailClick(idx)}
+                  >
+                    <Image
+                      src={image}
+                      alt={`${suites[modalSuiteIndex].title} - Miniatura ${idx + 1}`}
+                      fill
+                      sizes="100px"
+                      loading="lazy"
+                      quality={60}
+                      style={{ objectFit: 'cover' }}
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+      
       <main className={styles.main}>
         <section className={styles.section} ref={ref}>
           <motion.div
@@ -377,7 +510,10 @@ Gostaria de verificar a disponibilidade para reserva. Aguardo retorno!`;
                   transition={{ duration: 0.5, delay: index * 0.2 }}
                 >
                   <div className={styles.carouselWrapper}>
-                    <div className={styles.carousel}>
+                    <div 
+                      className={styles.carousel}
+                      onClick={() => openModal(originalIndex, currentImageIndex[originalIndex])}
+                    >
                       <Image
                         src={suite.images[currentImageIndex[originalIndex]]}
                         alt={`${suite.title} - Imagem ${currentImageIndex[originalIndex] + 1}`}
@@ -391,8 +527,19 @@ Gostaria de verificar a disponibilidade para reserva. Aguardo retorno!`;
                       />
                       <div className={styles.carouselOverlay}></div>
                       <button
+                        className={styles.viewGalleryButton}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          openModal(originalIndex, currentImageIndex[originalIndex]);
+                        }}
+                        aria-label="Ver galeria completa"
+                      >
+                        <FaImages /> Ver Galeria
+                      </button>
+                      <button
                         className={styles.carouselButton}
                         onClick={(e) => {
+                          e.stopPropagation();
                           handlePrevImage(originalIndex, e);
                         }}
                         style={{ left: '10px' }}
@@ -403,6 +550,7 @@ Gostaria de verificar a disponibilidade para reserva. Aguardo retorno!`;
                       <button
                         className={styles.carouselButton}
                         onClick={(e) => {
+                          e.stopPropagation();
                           handleNextImage(originalIndex, e);
                         }}
                         style={{ right: '10px' }}
