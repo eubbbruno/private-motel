@@ -89,310 +89,219 @@
   transform: translateY(-2px);
 }
 
-/* Container das Suítes - Layout Horizontal */
-.suitesContainer {
-  display: flex;
-  flex-direction: column;
-  gap: 60px;
-  margin-top: 40px;
+.gridContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 35px;
+  margin-top: 30px;
   max-width: 1400px;
   width: 100%;
-  padding: 0 20px;
+  padding: 0 10px;
 }
 
-/* Card Individual da Suíte - Layout Horizontal */
-.suiteCard {
-  display: flex;
-  gap: 0;
-  background: linear-gradient(135deg, rgba(15, 15, 15, 0.98), rgba(25, 25, 25, 0.98));
+.card {
+  position: relative;
   border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.6);
-  border: 1px solid rgba(212, 163, 115, 0.2);
-  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-}
-
-.suiteCard::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(135deg, rgba(212, 163, 115, 0.05), transparent);
-  opacity: 0;
-  transition: opacity 0.6s ease;
-  pointer-events: none;
-  z-index: 0;
-}
-
-.suiteCard:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 25px 70px rgba(212, 163, 115, 0.4);
-  border-color: rgba(212, 163, 115, 0.4);
-}
-
-.suiteCard:hover::before {
-  opacity: 1;
-}
-
-/* Alterna lado da imagem (efeito zigzag) */
-.suiteCard.reversed {
-  flex-direction: row-reverse;
-}
-
-/* Seção de Imagem - 50% da largura */
-.suiteImageSection {
-  flex: 0 0 50%;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
   flex-direction: column;
-  position: relative;
-  z-index: 1;
+  width: 100%;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  background: linear-gradient(135deg, rgba(26, 26, 26, 0.95), rgba(42, 42, 42, 0.95));
+  border: 1px solid rgba(212, 163, 115, 0.15);
 }
 
-.suiteCarousel {
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 50px rgba(212, 163, 115, 0.5);
+  border-color: rgba(212, 163, 115, 0.3);
+}
+
+.carouselWrapper {
   position: relative;
   width: 100%;
-  height: 500px;
+}
+
+.carousel {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
   overflow: hidden;
   cursor: pointer;
 }
 
-.suiteMainImage {
-  transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), filter 0.8s ease;
+.carouselImage {
+  transition: transform 0.6s ease, filter 0.6s ease;
   object-fit: cover;
   width: 100%;
   height: 100%;
 }
 
-.suiteCard:hover .suiteMainImage {
-  transform: scale(1.1);
-  filter: brightness(1.15) saturate(1.15);
+.card:hover .carouselImage {
+  transform: scale(1.12);
+  filter: brightness(1.2) saturate(1.1);
 }
 
-.imageOverlay {
+.carouselOverlay {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0.1) 0%,
-    rgba(0, 0, 0, 0.3) 50%,
-    rgba(0, 0, 0, 0.6) 100%
-  );
-  transition: all 0.6s ease;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.7));
+  transition: all 0.5s ease;
   pointer-events: none;
-  z-index: 1;
 }
 
-.suiteCard:hover .imageOverlay {
-  background: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0) 0%,
-    rgba(0, 0, 0, 0.2) 50%,
-    rgba(0, 0, 0, 0.4) 100%
-  );
+.card:hover .carouselOverlay {
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.4));
 }
 
-/* Botões de Navegação da Imagem */
-.navButton {
+.carousel::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  width: 80px;
+  height: 80px;
+  background: rgba(212, 163, 115, 0.9);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: all 0.3s ease;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.carousel:hover::after {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 0.8;
+  background: rgba(212, 163, 115, 0.95) url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="48" height="48"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>') center/40px no-repeat;
+}
+
+.carouselButton {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: rgba(0, 0, 0, 0.7);
-  border: 2px solid rgba(212, 163, 115, 0.5);
+  background: rgba(0, 0, 0, 0.6);
+  border: 2px solid rgba(212, 163, 115, 0.4);
   color: #fff;
-  font-size: 22px;
-  width: 50px;
-  height: 50px;
+  font-size: 20px;
+  width: 45px;
+  height: 45px;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
   cursor: pointer;
-  z-index: 10;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 2;
+  transition: all 0.3s ease;
   opacity: 0;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(5px);
 }
 
-.suiteCarousel:hover .navButton {
+.carousel:hover .carouselButton {
   opacity: 1;
 }
 
-.navButton:hover {
-  background: rgba(212, 163, 115, 0.95);
+.carouselButton:hover {
+  background: rgba(212, 163, 115, 0.9);
   border-color: #d4a373;
-  transform: translateY(-50%) scale(1.2);
-  box-shadow: 0 6px 20px rgba(212, 163, 115, 0.6);
+  transform: translateY(-50%) scale(1.15);
+  box-shadow: 0 4px 15px rgba(212, 163, 115, 0.5);
 }
 
-.navButton.prevButton {
-  left: 15px;
-}
-
-.navButton.nextButton {
-  right: 15px;
-}
-
-/* Contador de Imagens */
-.imageCounter {
-  position: absolute;
-  bottom: 15px;
-  right: 15px;
-  background: rgba(0, 0, 0, 0.8);
-  padding: 8px 16px;
-  border-radius: 20px;
-  font-family: var(--font-inter);
-  font-size: 13px;
-  font-weight: 600;
-  color: #fff;
-  border: 1px solid rgba(212, 163, 115, 0.4);
-  z-index: 10;
-  backdrop-filter: blur(10px);
-}
-
-/* Thumbnails Row */
-.thumbnailsRow {
+.thumbnails {
   display: flex;
-  gap: 8px;
-  padding: 12px;
-  background: rgba(0, 0, 0, 0.6);
+  gap: 5px;
+  padding: 10px;
   overflow-x: auto;
+  background: rgba(0, 0, 0, 0.5);
   scrollbar-width: thin;
   scrollbar-color: #d4a373 rgba(0, 0, 0, 0.3);
 }
 
-.thumbnailsRow::-webkit-scrollbar {
+.thumbnails::-webkit-scrollbar {
   height: 6px;
 }
 
-.thumbnailsRow::-webkit-scrollbar-track {
+.thumbnails::-webkit-scrollbar-track {
   background: rgba(0, 0, 0, 0.3);
   border-radius: 10px;
 }
 
-.thumbnailsRow::-webkit-scrollbar-thumb {
+.thumbnails::-webkit-scrollbar-thumb {
   background: #d4a373;
   border-radius: 10px;
 }
 
-.thumbnailItem {
+.thumbnail {
   position: relative;
-  width: 80px;
-  height: 60px;
+  width: 60px;
+  height: 45px;
   flex-shrink: 0;
   cursor: pointer;
   opacity: 0.5;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  border-radius: 8px;
+  transition: all 0.3s ease;
+  border-radius: 6px;
   overflow: hidden;
+  margin: 0 2px;
   border: 2px solid transparent;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
-.thumbnailItem:hover {
-  opacity: 0.9;
-  transform: translateY(-4px) scale(1.08);
-  box-shadow: 0 6px 15px rgba(212, 163, 115, 0.5);
+.thumbnail:hover {
+  opacity: 0.85;
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 4px 12px rgba(212, 163, 115, 0.4);
 }
 
-.thumbnailItem.activeThumbnail {
+.activeThumbnail {
   opacity: 1;
   border: 2px solid #d4a373;
-  transform: scale(1.1);
-  box-shadow: 0 6px 20px rgba(212, 163, 115, 0.7);
+  transform: scale(1.08);
+  box-shadow: 0 4px 15px rgba(212, 163, 115, 0.6);
 }
 
-.moreThumbs {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 80px;
-  height: 60px;
-  background: rgba(212, 163, 115, 0.3);
-  color: #fff;
-  font-size: 14px;
-  font-weight: 700;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  border: 2px solid rgba(212, 163, 115, 0.5);
-}
-
-.moreThumbs:hover {
-  background: rgba(212, 163, 115, 0.6);
-  transform: translateY(-4px) scale(1.08);
-  box-shadow: 0 6px 15px rgba(212, 163, 115, 0.6);
-}
-
-/* Seção de Informações - 50% da largura */
-.suiteInfoSection {
-  flex: 0 0 50%;
-  padding: 40px;
-  display: flex;
-  flex-direction: column;
-  gap: 25px;
-  background: linear-gradient(135deg, rgba(15, 15, 15, 0.98), rgba(25, 25, 25, 0.98));
+.cardContent {
+  padding: 30px 25px;
+  background: linear-gradient(to bottom, rgba(10, 10, 10, 0.95), rgba(5, 5, 5, 0.98));
+  text-align: center;
+  flex-grow: 1;
+  border-top: 2px solid rgba(212, 163, 115, 0.4);
   position: relative;
-  z-index: 1;
-  overflow-y: auto;
 }
 
-.suiteInfoSection::-webkit-scrollbar {
-  width: 6px;
+.cardContent::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(212, 163, 115, 0.6), transparent);
 }
 
-.suiteInfoSection::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.3);
-}
-
-.suiteInfoSection::-webkit-scrollbar-thumb {
-  background: #d4a373;
-  border-radius: 10px;
-}
-
-/* Header da Suíte */
-.suiteHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 15px;
-  padding-bottom: 20px;
-  border-bottom: 2px solid rgba(212, 163, 115, 0.3);
-}
-
-.suiteTitle {
+.cardTitle {
   font-family: var(--font-playfair);
-  font-size: 36px;
+  font-size: 32px;
   font-weight: 700;
   color: #d4a373;
-  line-height: 1.2;
-  text-shadow: 0 4px 15px rgba(212, 163, 115, 0.5);
-  letter-spacing: 1px;
-  flex: 1;
+  margin-bottom: 18px;
+  text-shadow: 0 3px 10px rgba(212, 163, 115, 0.4);
+  letter-spacing: 0.5px;
 }
 
-.suiteSize {
-  font-family: var(--font-inter);
-  font-size: 16px;
-  font-weight: 600;
-  color: #fff;
-  background: rgba(212, 163, 115, 0.2);
-  padding: 8px 16px;
-  border-radius: 20px;
-  border: 1px solid rgba(212, 163, 115, 0.4);
-  white-space: nowrap;
-}
-
-/* Highlights Row */
-.highlightsRow {
+.highlightsContainer {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
+  justify-content: center;
+  margin-bottom: 15px;
 }
 
 .highlightBadge {
@@ -400,249 +309,241 @@
   font-size: 13px;
   font-weight: 600;
   padding: 10px 16px;
-  border-radius: 25px;
-  background: linear-gradient(135deg, rgba(212, 163, 115, 0.25), rgba(230, 184, 0, 0.25));
-  border: 1.5px solid rgba(212, 163, 115, 0.5);
+  border-radius: 20px;
+  background: linear-gradient(135deg, rgba(212, 163, 115, 0.3), rgba(230, 184, 0, 0.3));
+  border: 1px solid rgba(212, 163, 115, 0.5);
   color: #fff;
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
+  margin-right: 8px;
+  margin-bottom: 8px;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(8px);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(5px);
 }
 
 .highlightBadge:hover {
   transform: translateY(-3px) scale(1.05);
-  background: linear-gradient(135deg, rgba(212, 163, 115, 0.5), rgba(230, 184, 0, 0.5));
+  background: linear-gradient(135deg, rgba(212, 163, 115, 0.6), rgba(230, 184, 0, 0.6));
   border-color: rgba(212, 163, 115, 0.8);
-  box-shadow: 0 8px 20px rgba(212, 163, 115, 0.6);
+  box-shadow: 0 6px 18px rgba(212, 163, 115, 0.6);
 }
 
 .highlightBadge svg {
-  color: #d4a373;
+  color: #fff;
   font-size: 16px;
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
 }
 
-/* Descrição da Suíte */
-.suiteDescription {
+.cardDescription {
   font-family: var(--font-inter);
   font-size: 16px;
   font-weight: 300;
-  color: #e8e8e8;
-  line-height: 1.8;
+  color: #e5e5e5;
+  margin-bottom: 20px;
+  line-height: 1.7;
   text-align: justify;
-  padding: 15px 0;
+  padding: 0 5px;
 }
 
-/* Seção de Amenidades */
-.amenitiesSection {
-  padding: 20px 0;
-  border-top: 1px solid rgba(212, 163, 115, 0.2);
-  border-bottom: 1px solid rgba(212, 163, 115, 0.2);
-}
-
-.sectionSubtitle {
-  font-family: var(--font-playfair);
-  font-size: 22px;
-  font-weight: 700;
-  color: #d4a373;
+.cardDetails {
   margin-bottom: 15px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
 }
 
-.sectionSubtitle svg {
-  font-size: 20px;
+.detailsTitle {
+  font-family: var(--font-playfair);
+  font-size: 18px;
   color: #d4a373;
+  margin-bottom: 5px;
 }
 
-.amenitiesGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 20px;
-}
-
-.amenitiesColumn {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.columnTitle {
+.detailsText {
   font-family: var(--font-inter);
   font-size: 14px;
-  font-weight: 600;
+  color: #fff;
+  margin-bottom: 10px;
+}
+
+.amenitiesSubtitle {
+  font-family: var(--font-inter);
+  font-size: 14px;
   color: #d4a373;
-  text-transform: uppercase;
-  letter-spacing: 1px;
   margin-bottom: 5px;
 }
 
 .amenitiesList {
   list-style: none;
   padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+  margin: 0 0 10px 0;
 }
 
 .amenitiesList li {
   font-family: var(--font-inter);
   font-size: 14px;
-  color: #e0e0e0;
+  color: #fff;
+  margin-bottom: 5px;
+}
+
+.pricingContainer {
   display: flex;
-  align-items: center;
+  flex-wrap: wrap;
   gap: 10px;
-  padding: 6px 0;
+  justify-content: center;
+  margin-bottom: 15px;
+  align-items: stretch;
 }
 
-.amenitiesList li svg {
-  color: #d4a373;
-  font-size: 14px;
-  flex-shrink: 0;
-}
-
-/* Seção de Preços */
-.pricingSection {
-  padding: 20px 0;
-}
-
-.pricingGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-  gap: 12px;
-}
-
-.priceCard {
-  background: linear-gradient(135deg, rgba(20, 20, 20, 0.9), rgba(35, 35, 35, 0.9));
-  border: 1.5px solid rgba(212, 163, 115, 0.3);
+.pricingCard {
+  background: linear-gradient(135deg, rgba(26, 26, 26, 0.8), rgba(42, 42, 42, 0.8));
+  border: 1px solid rgba(212, 163, 115, 0.3);
   border-radius: 15px;
-  padding: 18px 15px;
+  padding: 15px;
+  min-width: 120px;
+  flex: 1;
+  transition: all 0.4s ease;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
-  gap: 6px;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
-  position: relative;
-  overflow: hidden;
+  justify-content: center;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
 }
 
-.priceCard::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: linear-gradient(to right, transparent, #d4a373, transparent);
-  opacity: 0;
-  transition: opacity 0.4s ease;
-}
-
-.priceCard:hover {
+.pricingCard:hover {
   transform: translateY(-5px);
-  box-shadow: 0 12px 30px rgba(212, 163, 115, 0.4);
+  box-shadow: 0 10px 20px rgba(212, 163, 115, 0.3);
   border-color: rgba(212, 163, 115, 0.6);
-  background: linear-gradient(135deg, rgba(30, 30, 30, 0.95), rgba(45, 45, 45, 0.95));
+  background: linear-gradient(135deg, rgba(38, 38, 38, 0.9), rgba(52, 52, 52, 0.9));
 }
 
-.priceCard:hover::before {
-  opacity: 1;
+.pricingCard:last-child {
+  flex: 0.5;
+  min-width: 80px;
+  background: linear-gradient(135deg, rgba(26, 26, 26, 0.6), rgba(42, 42, 42, 0.6));
+  border: 1px solid rgba(212, 163, 115, 0.2);
 }
 
-.priceCard.extraHour {
-  border-color: rgba(212, 163, 115, 0.2);
-  opacity: 0.9;
+.pricingCard:last-child .pricingTitle {
+  font-size: 11px;
 }
 
-.priceLabel {
+.pricingCard:last-child .pricingValue {
+  font-size: 16px;
+}
+
+.pricingCard:last-child .pricingDescription {
+  font-size: 9px;
+}
+
+.pricingTitle {
   font-family: var(--font-inter);
   font-size: 12px;
-  font-weight: 600;
   color: #d4a373;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  margin-bottom: 5px;
+  font-weight: 600;
 }
 
-.priceValue {
+.pricingValue {
   font-family: var(--font-playfair);
-  font-size: 26px;
-  font-weight: 700;
+  font-size: 22px;
   color: #fff;
-  text-shadow: 0 3px 8px rgba(212, 163, 115, 0.4);
-  line-height: 1;
+  margin-bottom: 5px;
+  font-weight: 700;
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 }
 
-.priceTime {
+.pricingDescription {
   font-family: var(--font-inter);
-  font-size: 11px;
-  color: #bbb;
+  font-size: 10px;
+  color: #ccc;
   font-style: italic;
 }
 
-/* Botão de Reserva */
-.reserveButton {
-  font-family: var(--font-inter);
+.keywords {
   display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+
+.keyword {
+  font-family: var(--font-inter);
+  font-size: 12px;
+  color: #ccc;
+  background: rgba(212, 163, 115, 0.2);
+  padding: 5px 10px;
+  border-radius: 15px;
+  border: 1px solid rgba(212, 163, 115, 0.5);
+  transition: background 0.3s ease;
+}
+
+.keyword:hover {
+  background: rgba(212, 163, 115, 0.4);
+}
+
+.cardCta {
+  font-family: var(--font-inter);
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 12px;
-  padding: 18px 35px;
-  margin-top: 10px;
-  background: linear-gradient(135deg, #d4a373, #e6b800, #f5d100);
-  color: #1a1a1a;
+  margin: 15px auto 0;
+  padding: 15px 35px;
+  position: relative;
+  background: linear-gradient(to right, #d4a373, #e6b800, #f5d100);
+  color: #fff;
   text-decoration: none;
   border: none;
-  border-radius: 35px;
-  font-size: 17px;
-  font-weight: 700;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 8px 25px rgba(212, 163, 115, 0.5);
-  cursor: pointer;
-  position: relative;
+  border-radius: 30px;
+  font-size: 18px;
+  font-weight: 500;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 6px 20px rgba(212, 163, 115, 0.5);
   overflow: hidden;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  z-index: 1;
+  cursor: pointer;
+  width: auto;
+  min-width: 200px;
 }
 
-.reserveButton::before {
+.whatsappIcon {
+  font-size: 20px;
+  color: #fff;
+  transition: transform 0.3s ease;
+}
+
+.cardCta:hover .whatsappIcon {
+  transform: scale(1.2);
+}
+
+.cardCta::before {
   content: '';
   position: absolute;
   top: 0;
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-  transition: left 0.6s ease;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.5s ease;
+  z-index: -1;
 }
 
-.reserveButton:hover::before {
+.cardCta:hover::before {
   left: 100%;
 }
 
-.reserveButton:hover {
-  transform: translateY(-4px) scale(1.02);
-  box-shadow: 0 12px 35px rgba(212, 163, 115, 0.8);
-  background: linear-gradient(135deg, #e6b800, #f5d100, #ffd700);
+.cardCta:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(212, 163, 115, 0.7);
 }
 
-.reserveButton:active {
-  transform: translateY(-2px) scale(1);
+.cardCta:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(212, 163, 115, 0.3);
 }
 
-.reserveButton svg {
-  font-size: 22px;
-  transition: transform 0.3s ease;
-}
-
-.reserveButton:hover svg {
-  transform: scale(1.15) rotate(-10deg);
+.cardCta:active {
+  transform: translateY(1px);
 }
 
 .disclaimer {
@@ -772,61 +673,23 @@
   font-weight: 700;
 }
 
-@media (max-width: 1200px) {
-  .suiteCard {
-    flex-direction: column !important;
-  }
-  
-  .suiteImageSection,
-  .suiteInfoSection {
-    flex: 1 1 100%;
-  }
-  
-  .suiteCarousel {
-    height: 400px;
-  }
-  
-  .suiteInfoSection {
-    padding: 30px;
-  }
-  
-  .suiteTitle {
-    font-size: 32px;
-  }
-}
-
 @media (max-width: 1024px) {
-  .suitesContainer {
-    gap: 45px;
-  }
-  
-  .suiteCarousel {
-    height: 350px;
-  }
-  
-  .suiteTitle {
-    font-size: 28px;
-  }
-  
-  .thumbnailsRow {
-    padding: 10px;
-  }
-  
-  .thumbnailItem {
-    width: 70px;
-    height: 52px;
+  .gridContainer { 
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
   }
 }
 
 @media (max-width: 768px) {
   .section { 
-    padding: 100px 15px 40px; 
+    padding: 100px 20px 40px; 
+    margin: 0 auto;
   }
   
   .sectionTitle { 
-    font-size: 38px;
+    font-size: 42px;
     letter-spacing: 1px;
-    margin-bottom: 35px;
+    margin-bottom: 40px;
   }
   
   .sectionTitle::after {
@@ -835,38 +698,111 @@
     bottom: -18px;
   }
   
-  .suitesContainer {
-    gap: 35px;
-    padding: 0 10px;
+  .cardTitle {
+    font-size: 28px;
   }
   
-  .suiteCard {
-    border-radius: 15px;
+  .cardDescription { font-size: 14px; }
+  .detailsTitle { font-size: 16px; }
+  .detailsText { font-size: 12px; }
+  .amenitiesSubtitle { font-size: 12px; }
+  .amenitiesList li { font-size: 12px; }
+  .pricingTitle { font-size: 11px; }
+  .pricingValue { font-size: 16px; }
+  .pricingDescription { font-size: 9px; }
+  .filterButton { padding: 8px 15px; font-size: 12px; }
+  .highlightBadge { font-size: 11px; padding: 6px 10px; }
+  .highlightBadge svg { font-size: 12px; }
+  .disclaimer { font-size: 11px; }
+  .infoButtonContainer { margin-bottom: 15px; }
+  .infoButton { font-size: 12px; padding: 8px 15px; }
+  .infoTableTitle { font-size: 18px; }
+  .infoLabel, .infoValue { font-size: 12px; }
+  .infoRow { padding: 8px; }
+  .infoTableSection { padding: 15px; }
+  
+  .gridContainer {
+    grid-template-columns: 1fr;
+    gap: 20px;
   }
   
-  .suiteCarousel {
-    height: 300px;
+  .cardCta { 
+    padding: 12px 30px; 
+    font-size: 16px; 
+    min-width: 180px;
   }
   
-  .suiteInfoSection {
-    padding: 25px 20px;
+  .whatsappIcon {
+    font-size: 18px;
   }
   
-  .suiteTitle {
-    font-size: 26px;
+  .cardTitle {
+    font-size: 24px;
   }
   
-  .suiteSize {
-    font-size: 14px;
-    padding: 6px 12px;
+  .cardContent {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .section { 
+    padding: 90px 15px 30px;
+    margin: 0 auto;
   }
   
-  .suiteDescription {
-    font-size: 15px;
+  .sectionTitle { 
+    font-size: 32px;
+    letter-spacing: 1px;
+    margin-bottom: 35px;
+  }
+  
+  .sectionTitle::after { 
+    width: 80px;
+    height: 3px;
+    bottom: -15px; 
+  }
+  
+  .cardDescription { font-size: 12px; }
+  .detailsTitle { font-size: 14px; }
+  .detailsText { font-size: 10px; }
+  .amenitiesSubtitle { font-size: 10px; }
+  .amenitiesList li { font-size: 10px; }
+  .pricingTitle { font-size: 10px; }
+  .pricingValue { font-size: 14px; }
+  .pricingDescription { font-size: 8px; }
+  .keyword { font-size: 10px; padding: 4px 8px; }
+  .cardCta { padding: 8px 16px; font-size: 12px; min-width: 160px; }
+  .filterButton { padding: 6px 12px; font-size: 10px; }
+  .highlightBadge { font-size: 10px; padding: 5px 8px; }
+  .highlightBadge svg { font-size: 11px; }
+  .filtersContainer { gap: 6px; margin-bottom: 20px; }
+  
+  .gridContainer {
+    gap: 15px;
+  }
+  
+  .thumbnails {
+    padding: 5px;
+    gap: 3px;
+  }
+  
+  .thumbnail {
+    width: 40px;
+    height: 30px;
+  }
+  
+  .cardTitle {
+    font-size: 24px;
+    margin-bottom: 12px;
+  }
+  
+  .cardContent {
+    padding: 20px 15px;
   }
   
   .highlightBadge {
-    font-size: 12px;
+    font-size: 11px;
     padding: 8px 12px;
   }
   
@@ -874,204 +810,8 @@
     font-size: 14px;
   }
   
-  .sectionSubtitle {
-    font-size: 20px;
-  }
-  
-  .amenitiesList li {
-    font-size: 13px;
-  }
-  
-  .pricingGrid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  
-  .priceLabel {
-    font-size: 11px;
-  }
-  
-  .priceValue {
-    font-size: 22px;
-  }
-  
-  .priceTime {
-    font-size: 10px;
-  }
-  
-  .reserveButton {
-    padding: 16px 30px;
-    font-size: 15px;
-  }
-  
-  .navButton {
-    width: 45px;
-    height: 45px;
-    font-size: 20px;
-  }
-  
-  .thumbnailItem {
-    width: 65px;
-    height: 48px;
-  }
-  
-  .moreThumbs {
-    min-width: 65px;
-    height: 48px;
-    font-size: 13px;
-  }
-  
-  .filterButton { 
-    padding: 8px 15px; 
-    font-size: 12px; 
-  }
-  
-  .infoTableTitle { font-size: 18px; }
-  .infoLabel, .infoValue { font-size: 12px; }
-  .infoRow { padding: 8px; }
-  .infoTableSection { padding: 15px; }
-}
-
-@media (max-width: 480px) {
-  .section { 
-    padding: 80px 10px 30px;
-  }
-  
-  .sectionTitle { 
-    font-size: 30px;
-    letter-spacing: 0.5px;
-    margin-bottom: 30px;
-  }
-  
-  .sectionTitle::after { 
-    width: 70px;
-    height: 2px;
-    bottom: -15px; 
-  }
-  
-  .suitesContainer {
-    gap: 30px;
-    padding: 0 5px;
-  }
-  
-  .suiteCard {
-    border-radius: 12px;
-  }
-  
-  .suiteCarousel {
-    height: 250px;
-  }
-  
-  .suiteInfoSection {
-    padding: 20px 15px;
-    gap: 20px;
-  }
-  
-  .suiteTitle {
-    font-size: 22px;
-  }
-  
-  .suiteSize {
-    font-size: 12px;
-    padding: 5px 10px;
-  }
-  
-  .suiteDescription {
-    font-size: 14px;
-  }
-  
-  .highlightBadge {
-    font-size: 11px;
-    padding: 7px 10px;
-  }
-  
-  .highlightBadge svg {
-    font-size: 13px;
-  }
-  
-  .sectionSubtitle {
-    font-size: 18px;
-  }
-  
-  .amenitiesGrid {
-    grid-template-columns: 1fr;
-    gap: 15px;
-  }
-  
-  .amenitiesList li {
-    font-size: 12px;
-  }
-  
-  .pricingGrid {
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-  }
-  
-  .priceCard {
-    padding: 14px 10px;
-  }
-  
-  .priceLabel {
-    font-size: 10px;
-  }
-  
-  .priceValue {
-    font-size: 20px;
-  }
-  
-  .priceTime {
-    font-size: 9px;
-  }
-  
-  .reserveButton {
-    padding: 14px 25px;
-    font-size: 14px;
-  }
-  
-  .navButton {
-    width: 40px;
-    height: 40px;
-    font-size: 18px;
-  }
-  
-  .navButton.prevButton {
-    left: 10px;
-  }
-  
-  .navButton.nextButton {
-    right: 10px;
-  }
-  
-  .thumbnailsRow {
-    padding: 8px;
-    gap: 6px;
-  }
-  
-  .thumbnailItem {
-    width: 55px;
-    height: 41px;
-  }
-  
-  .moreThumbs {
-    min-width: 55px;
-    height: 41px;
-    font-size: 12px;
-  }
-  
-  .imageCounter {
-    font-size: 11px;
-    padding: 6px 12px;
-  }
-  
-  .filterButton { 
-    padding: 6px 12px; 
-    font-size: 11px; 
-  }
-  
-  .filtersContainer { 
-    gap: 6px; 
-    margin-bottom: 20px; 
-  }
-  
+  .infoButton { font-size: 10px; padding: 6px 12px; }
+  .infoButton svg { font-size: 14px; }
   .infoTableTitle { font-size: 16px; }
   .infoLabel, .infoValue { font-size: 10px; }
   .infoRow { padding: 6px; }

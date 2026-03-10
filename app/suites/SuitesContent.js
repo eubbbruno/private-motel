@@ -494,42 +494,38 @@ Gostaria de verificar a disponibilidade para reserva. Aguardo retorno!`;
           </motion.div>
           
           <motion.div
-            className={styles.suitesContainer}
+            className={styles.gridContainer}
             initial="hidden"
             animate={inView ? 'visible' : 'hidden'}
             variants={gridVariants}
           >
             {filteredSuites.map((suite, index) => {
               const originalIndex = suites.findIndex(s => s.title === suite.title);
-              const isReversed = index % 2 !== 0; // Alterna o lado da imagem
-              
               return (
                 <motion.div
                   key={index}
-                  className={`${styles.suiteCard} ${isReversed ? styles.reversed : ''}`}
-                  initial={{ opacity: 0, y: 50 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: index * 0.15 }}
+                  className={styles.card}
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.5, delay: index * 0.2 }}
                 >
-                  {/* Seção de Imagem */}
-                  <div className={styles.suiteImageSection}>
+                  <div className={styles.carouselWrapper}>
                     <div 
-                      className={styles.suiteCarousel}
+                      className={styles.carousel}
                       onClick={() => openModal(originalIndex, currentImageIndex[originalIndex])}
                     >
                       <Image
                         src={suite.images[currentImageIndex[originalIndex]]}
                         alt={`${suite.title} - Imagem ${currentImageIndex[originalIndex] + 1}`}
                         fill
-                        sizes="(max-width: 768px) 100vw, 50vw"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                         priority={index === 0}
                         loading={index === 0 ? "eager" : "lazy"}
-                        quality={90}
-                        className={styles.suiteMainImage}
+                        quality={80}
+                        className={styles.carouselImage}
                         style={{ objectFit: 'cover' }}
                       />
-                      <div className={styles.imageOverlay}></div>
-                      
+                      <div className={styles.carouselOverlay}></div>
                       <button
                         className={styles.viewGalleryButton}
                         onClick={(e) => {
@@ -538,74 +534,60 @@ Gostaria de verificar a disponibilidade para reserva. Aguardo retorno!`;
                         }}
                         aria-label="Ver galeria completa"
                       >
-                        <FaImages /> Ver Todas as {suite.images.length} Fotos
+                        <FaImages /> Ver Galeria
                       </button>
-                      
                       <button
-                        className={`${styles.navButton} ${styles.prevButton}`}
+                        className={styles.carouselButton}
                         onClick={(e) => {
                           e.stopPropagation();
                           handlePrevImage(originalIndex, e);
                         }}
+                        style={{ left: '10px' }}
                         aria-label="Imagem anterior"
                       >
                         <FaChevronLeft />
                       </button>
-                      
                       <button
-                        className={`${styles.navButton} ${styles.nextButton}`}
+                        className={styles.carouselButton}
                         onClick={(e) => {
                           e.stopPropagation();
                           handleNextImage(originalIndex, e);
                         }}
+                        style={{ right: '10px' }}
                         aria-label="Próxima imagem"
                       >
                         <FaChevronRight />
                       </button>
-                      
-                      <div className={styles.imageCounter}>
-                        {currentImageIndex[originalIndex] + 1} / {suite.images.length}
-                      </div>
                     </div>
-                    
-                    {/* Thumbnails */}
-                    <div className={styles.thumbnailsRow}>
-                      {suite.images.slice(0, 6).map((image, imgIndex) => (
+                    <div className={styles.thumbnails}>
+                      {suite.images.slice(0, 8).map((image, imgIndex) => (
                         <div
                           key={imgIndex}
-                          className={`${styles.thumbnailItem} ${currentImageIndex[originalIndex] === imgIndex ? styles.activeThumbnail : ''}`}
+                          className={`${styles.thumbnail} ${currentImageIndex[originalIndex] === imgIndex ? styles.activeThumbnail : ''}`}
                           onClick={() => handleThumbnailClick(originalIndex, imgIndex)}
                         >
                           <Image
                             src={image}
                             alt={`${suite.title} - Miniatura ${imgIndex + 1}`}
                             fill
-                            sizes="80px"
+                            sizes="50px"
                             loading="lazy"
                             quality={60}
                             style={{ objectFit: 'cover' }}
                           />
                         </div>
                       ))}
-                      {suite.images.length > 6 && (
-                        <div 
-                          className={styles.moreThumbs}
-                          onClick={() => openModal(originalIndex, 6)}
-                        >
-                          +{suite.images.length - 6}
+                      {suite.images.length > 8 && (
+                        <div className={styles.moreImagesIndicator} onClick={() => handleThumbnailClick(originalIndex, 8 % suite.images.length)}>
+                          +{suite.images.length - 8}
                         </div>
                       )}
                     </div>
                   </div>
-                  
-                  {/* Seção de Informações */}
-                  <div className={styles.suiteInfoSection}>
-                    <div className={styles.suiteHeader}>
-                      <h2 className={styles.suiteTitle}>{suite.title}</h2>
-                      <span className={styles.suiteSize}>{suite.size}</span>
-                    </div>
+                  <div className={styles.cardContent}>
+                    <h2 className={styles.cardTitle}>{suite.title}</h2>
                     
-                    <div className={styles.highlightsRow}>
+                    <div className={styles.highlightsContainer}>
                       {suite.highlights.map((highlight, i) => (
                         <div key={i} className={styles.highlightBadge}>
                           {getAmenityIcon(highlight)}
@@ -614,102 +596,91 @@ Gostaria de verificar a disponibilidade para reserva. Aguardo retorno!`;
                       ))}
                     </div>
                     
-                    <p className={styles.suiteDescription}>{suite.description}</p>
+                    <p className={styles.cardDescription}>{suite.description}</p>
                     
-                    {/* Amenidades */}
-                    <div className={styles.amenitiesSection}>
-                      <h3 className={styles.sectionSubtitle}>
-                        <FaStar /> Amenidades
-                      </h3>
-                      <div className={styles.amenitiesGrid}>
-                        {suite.amenities.inferior && (
-                          <div className={styles.amenitiesColumn}>
-                            <h4 className={styles.columnTitle}>Piso Inferior</h4>
-                            <ul className={styles.amenitiesList}>
-                              {suite.amenities.inferior.map((amenity, i) => (
-                                <li key={i}>
-                                  {getAmenityIcon(amenity)}
-                                  <span>{amenity}</span>
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                        )}
-                        {suite.amenities.superior && (
-                          <div className={styles.amenitiesColumn}>
-                            <h4 className={styles.columnTitle}>Piso Superior</h4>
-                            <ul className={styles.amenitiesList}>
-                              {suite.amenities.superior.map((amenity, i) => (
-                                <li key={i}>
-                                  {getAmenityIcon(amenity)}
-                                  <span>{amenity}</span>
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                        )}
-                        {suite.amenities.geral && (
+                    <div className={styles.cardDetails}>
+                      <h3 className={styles.detailsTitle}>Tamanho</h3>
+                      <p className={styles.detailsText}>{suite.size}</p>
+                      <h3 className={styles.detailsTitle}>Amenidades</h3>
+                      {suite.amenities.inferior && (
+                        <>
+                          <h4 className={styles.amenitiesSubtitle}>Piso Inferior</h4>
                           <ul className={styles.amenitiesList}>
-                            {suite.amenities.geral.map((amenity, i) => (
-                              <li key={i}>
-                                {getAmenityIcon(amenity)}
-                                <span>{amenity}</span>
-                              </li>
+                            {suite.amenities.inferior.map((amenity, i) => (
+                              <li key={i}>{amenity}</li>
                             ))}
                           </ul>
-                        )}
-                      </div>
-                    </div>
-                    
-                    {/* Preços */}
-                    <div className={styles.pricingSection}>
-                      <h3 className={styles.sectionSubtitle}>
-                        <FaClock /> Valores
-                      </h3>
-                      <div className={styles.pricingGrid}>
-                        <div className={styles.priceCard}>
-                          <span className={styles.priceLabel}>Período</span>
-                          <span className={styles.priceValue}>{suite.pricing.periodo}</span>
-                          <span className={styles.priceTime}>6 horas</span>
+                        </>
+                      )}
+                      {suite.amenities.superior && (
+                        <>
+                          <h4 className={styles.amenitiesSubtitle}>Piso Superior</h4>
+                          <ul className={styles.amenitiesList}>
+                            {suite.amenities.superior.map((amenity, i) => (
+                              <li key={i}>{amenity}</li>
+                            ))}
+                          </ul>
+                        </>
+                      )}
+                      {suite.amenities.geral && (
+                        <ul className={styles.amenitiesList}>
+                          {suite.amenities.geral.map((amenity, i) => (
+                            <li key={i}>{amenity}</li>
+                          ))}
+                        </ul>
+                      )}
+                      
+                      <h3 className={styles.detailsTitle}>Preços</h3>
+                      <div className={styles.pricingContainer}>
+                        <div className={styles.pricingCard}>
+                          <h4 className={styles.pricingTitle}>Período</h4>
+                          <p className={styles.pricingValue}>{suite.pricing.periodo}</p>
+                          <span className={styles.pricingDescription}>6 horas</span>
                         </div>
                         
                         {suite.pricing.pernoite && (
-                          <div className={styles.priceCard}>
-                            <span className={styles.priceLabel}>Pernoite</span>
-                            <span className={styles.priceValue}>{suite.pricing.pernoite}</span>
-                            <span className={styles.priceTime}>12 horas</span>
+                          <div className={styles.pricingCard}>
+                            <h4 className={styles.pricingTitle}>Pernoite</h4>
+                            <p className={styles.pricingValue}>{suite.pricing.pernoite}</p>
+                            <span className={styles.pricingDescription}>12 horas</span>
                           </div>
                         )}
                         
                         {suite.pricing.pernoiteSemana && (
-                          <div className={styles.priceCard}>
-                            <span className={styles.priceLabel}>Pernoite</span>
-                            <span className={styles.priceValue}>{suite.pricing.pernoiteSemana}</span>
-                            <span className={styles.priceTime}>Dom-Qui</span>
+                          <div className={styles.pricingCard}>
+                            <h4 className={styles.pricingTitle}>Pernoite</h4>
+                            <p className={styles.pricingValue}>{suite.pricing.pernoiteSemana}</p>
+                            <span className={styles.pricingDescription}>Dom a Qui e Feriado</span>
                           </div>
                         )}
                         
                         {suite.pricing.pernoiteFimSemana && (
-                          <div className={styles.priceCard}>
-                            <span className={styles.priceLabel}>Pernoite</span>
-                            <span className={styles.priceValue}>{suite.pricing.pernoiteFimSemana}</span>
-                            <span className={styles.priceTime}>Sex-Sáb</span>
+                          <div className={styles.pricingCard}>
+                            <h4 className={styles.pricingTitle}>Pernoite</h4>
+                            <p className={styles.pricingValue}>{suite.pricing.pernoiteFimSemana}</p>
+                            <span className={styles.pricingDescription}>Sex, Sáb e Vésp. Feriado</span>
                           </div>
                         )}
                         
-                        <div className={`${styles.priceCard} ${styles.extraHour}`}>
-                          <span className={styles.priceLabel}>Hora Extra</span>
-                          <span className={styles.priceValue}>{suite.pricing.horaExtra}</span>
-                          <span className={styles.priceTime}>adicional</span>
+                        <div className={styles.pricingCard}>
+                          <h4 className={styles.pricingTitle}>Hora Extra</h4>
+                          <p className={styles.pricingValue}>{suite.pricing.horaExtra}</p>
+                          <span className={styles.pricingDescription}>adicional</span>
                         </div>
                       </div>
                     </div>
                     
+                    <div className={styles.keywords}>
+                      {suite.keywords.map((keyword, i) => (
+                        <span key={i} className={styles.keyword}>{keyword}</span>
+                      ))}
+                    </div>
+                    
                     <button 
                       onClick={() => handleWhatsAppReservation(suite)} 
-                      className={styles.reserveButton}
+                      className={styles.cardCta}
                     >
-                      <FaWhatsapp /> Reservar {suite.title}
+                      <FaWhatsapp className={styles.whatsappIcon} /> Reservar Agora
                     </button>
                   </div>
                 </motion.div>
