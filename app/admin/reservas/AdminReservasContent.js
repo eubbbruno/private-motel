@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { supabase } from '../../supabase';
 import Header from '../../../src/components/Header';
@@ -16,11 +16,22 @@ export default function AdminReservasContent() {
   const [reservations, setReservations] = useState([]);
   const [error, setError] = useState('');
 
-  useEffect(() => {
-    checkSession();
+  const fetchReservations = useCallback(async () => {
+    try {
+      const { data, error } = await supabase
+        .from('reservations')
+        .select('*')
+        .order('created_at', { ascending: false });
+      
+      if (error) throw error;
+      setReservations(data || []);
+    } catch (err) {
+      console.error('Erro ao carregar reservas:', err);
+      setError('Erro ao carregar reservas.');
+    }
   }, []);
 
-  const checkSession = async () => {
+  const checkSession = useCallback(async () => {
     try {
       const { data: { session } } = await supabase.auth.getSession();
       
@@ -36,22 +47,9 @@ export default function AdminReservasContent() {
       setIsAuthenticated(false);
       setIsLoading(false);
     }
-  };
+  }, [fetchReservations]);
 
-  const fetchReservations = async () => {
-    try {
-      const { data, error } = await supabase
-        .from('reservations')
-        .select('*')
-        .order('created_at', { ascending: false });
-      
-      if (error) throw error;
-      setReservations(data || []);
-    } catch (err) {
-      console.error('Erro ao carregar reservas:', err);
-      setError('Erro ao carregar reservas.');
-    }
-  };
+  useEffect(() => { checkSession(); }, [checkSession]);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -112,7 +110,7 @@ export default function AdminReservasContent() {
   return (
     <div className={styles.container}>
       <Header />
-      <main className={styles.main}>
+      <main id="main-content" className={styles.main}>
         {!isAuthenticated ? (
           <div className={styles.loginContainer}>
             <h1 className={styles.title}>Área Administrativa</h1>

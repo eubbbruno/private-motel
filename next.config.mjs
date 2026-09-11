@@ -1,27 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Desabilitar a verificação de tipos durante o build para evitar erros
-  typescript: {
-    ignoreBuildErrors: true,
-  },
-  // Desabilitar a verificação do ESLint durante o build
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
-  // Configurações para melhorar o desempenho
-  swcMinify: true,
-  reactStrictMode: true,
-  // Configurações para o Vercel
-  output: 'standalone',
-  // Configurações para imagens
-  images: {
-    domains: ['via.placeholder.com', 'privatemotel.com.br'],
-    unoptimized: true,
-  },
-  // Forçar a resolução correta de módulos
-  experimental: {
-    esmExternals: 'loose',
-  }
+ reactStrictMode: true, output: 'standalone',
+ images: { domains: ['privatemotel.com.br', 'www.privatemotel.com.br'] },
+ async redirects() { return [
+ {source:'/politica-de-privacidade',destination:'/politica-privacidade',permanent:true},
+ {source:'/termos-de-uso',destination:'/termos-uso',permanent:true},
+ {source:'/politica-de-cookies',destination:'/lgpd',permanent:true}]; }
 };
-
 export default nextConfig;

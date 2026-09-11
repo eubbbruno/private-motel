@@ -1,9 +1,7 @@
+import { pageMetadata } from '../../src/data/metadata';
 import LgpdContent from './LgpdContent';
 
-export const metadata = {
-  title: 'LGPD | Private Motel 5 Estrelas em Londrina e Cambé',
-  description: 'Saiba como o Private Motel 5 Estrelas em Londrina e Cambé cumpre a LGPD. Conheça seus direitos e como protegemos seus dados pessoais.',
-};
+export const metadata = pageMetadata("LGPD e cookies", "Saiba mais sobre seus direitos, dados pessoais e cookies no site do Private Motel.", "/lgpd");
 
 export default function LgpdPage() {
   return <LgpdContent />;

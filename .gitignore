@@ -2,3 +2,14 @@ node_modules/
 .next/
 .DS_Store
 *.log
+
+# Local environment and private configuration
+.env.local
+.env.production
+.env.*.local
+.git_backup/
+.claude/settings.local.json
+.vercel/
+
+# TypeScript build cache
+tsconfig.tsbuildinfo

@@ -1,9 +1,7 @@
+import { pageMetadata } from '../../src/data/metadata';
 import ExperienciasContent from './ExperienciasContent';
 
-export const metadata = {
-  title: 'Experiências | Private Motel 5 Estrelas em Londrina e Cambé',
-  description: 'Descubra experiências únicas no Private Motel 5 Estrelas em Londrina e Cambé. Pacotes românticos, jantares temáticos e momentos inesquecíveis para casais.',
-};
+export const metadata = pageMetadata("Experiências a dois", "Conheça a decoração romântica, o Gift Card e as experiências do Private Motel em Cambé. Consulte condições com nossa equipe.", "/experiencias");
 
 export default function ExperienciasPage() {
   return <ExperienciasContent />;

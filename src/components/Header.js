@@ -1,108 +1,136 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
+import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
-import { FaBars, FaWhatsapp, FaInstagram, FaFacebookF } from 'react-icons/fa';
-import styles from './Header.module.css';
-import MobileMenu from './MobileMenu';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { FaTimes } from 'react-icons/fa';
+import { navigation, site, whatsappUrl } from '../data/site';
 
-const Header = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+export default function Header() {
+  const pathname = usePathname();
+  const [scrolled, setScrolled] = useState(false);
+  const [open, setOpen] = useState(false);
+  const dialog = useRef(null);
+  const trigger = useRef(null);
+  const brand = useRef(null);
+  const isHome = pathname === '/';
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    const onScroll = () => setScrolled(window.scrollY > 32);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const toggleMobileMenu = () => {
-    setMobileMenuOpen(!mobileMenuOpen);
-    // Evitar rolagem do body quando o menu está aberto
-    document.body.style.overflow = !mobileMenuOpen ? 'hidden' : '';
-  };
-  
-  const handleWhatsAppReservation = () => {
-    const phoneNumber = "5543999936839";
-    const message = encodeURIComponent("Olá! Gostaria de fazer uma reserva no Private Motel.");
-    window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
-  };
+  useEffect(() => {
+    if (!open) return;
+
+    const menu = dialog.current;
+    const brandLink = brand.current;
+    const menuTrigger = trigger.current;
+    const previousOverflow = document.body.style.overflow;
+    // Match the desktop navigation breakpoint in globals.css.
+    const desktop = window.matchMedia('(min-width: 1101px)');
+    const onResize = () => {
+      if (desktop.matches) setOpen(false);
+    };
+
+    document.body.style.overflow = 'hidden';
+    menu.showModal();
+    desktop.addEventListener('change', onResize);
+    onResize();
+
+    return () => {
+      desktop.removeEventListener('change', onResize);
+      menu.close();
+      document.body.style.overflow = previousOverflow;
+      const focusTarget = desktop.matches ? brandLink : menuTrigger;
+      focusTarget?.focus({ preventScroll: true });
+    };
+  }, [open]);
+
+  const close = () => setOpen(false);
+  const headerClass = [
+    'site-header',
+    isHome ? 'home-header' : '',
+    !isHome || scrolled ? 'solid' : '',
+  ].filter(Boolean).join(' ');
 
   return (
     <>
-      <header className={`${styles.header} ${isScrolled ? styles.scrolled : ''}`}>
-        {/* Banner promocional, se necessário */}
-        <div className={styles.promoBanner}>
-          <p>Bem-vindo ao Private Motel - O melhor motel 5 estrelas da região de Londrina e Cambé</p>
-        </div>
-        
-        <div className={styles.headerContent}>
-          <Link href="/" className={styles.logo}>
-            <Image 
-              src="/images/logo.png" 
-              alt="Private Motel" 
-              width={180}
-              height={60}
-              priority
-            />
+      <a className="skip-link" href="#main-content">Ir para o conteúdo</a>
+      <header className={headerClass}>
+        <Link ref={brand} className="brand" href="/" aria-label="Private Motel — Home">
+          <Image src="/images/logo.png" alt="Private Motel" width={174} height={62} priority />
+        </Link>
+        <nav className="desktop-nav" aria-label="Navegação principal">
+          {navigation.slice(1).map(([label, href]) => (
+            <Link key={href} href={href} aria-current={pathname === href ? 'page' : undefined}>
+              {label}
+            </Link>
+          ))}
+          <a href={site.menuPdf} target="_blank" rel="noopener noreferrer">Cardápio</a>
+        </nav>
+        <a className="header-reserve" href={whatsappUrl()} target="_blank" rel="noopener noreferrer">Reservar</a>
+        <button
+          ref={trigger}
+          type="button"
+          className="menu-trigger"
+          aria-label="Abrir menu"
+          aria-expanded={open}
+          aria-controls="mobile-navigation"
+          onClick={() => setOpen(true)}
+        >
+          <span /><span />
+        </button>
+      </header>
+      <dialog
+        ref={dialog}
+        id="mobile-navigation"
+        className="mobile-dialog"
+        aria-label="Menu principal"
+        onCancel={(event) => { event.preventDefault(); close(); }}
+        onKeyDown={(event) => {
+          if (event.key !== 'Tab') return;
+          const items = event.currentTarget.querySelectorAll('a[href], button');
+          const first = items[0];
+          const last = items[items.length - 1];
+          if (event.shiftKey && document.activeElement === first) {
+            event.preventDefault();
+            last.focus();
+          } else if (!event.shiftKey && document.activeElement === last) {
+            event.preventDefault();
+            first.focus();
+          }
+        }}
+      >
+        <div className="menu-top">
+          <Link href="/" onClick={close}>
+            <Image src="/images/logo.png" alt="Private Motel" width={155} height={55} />
           </Link>
-
-          <nav className={styles.desktopNav}>
-            <ul className={styles.menu}>
-              <li><Link href="/" className={styles.menuLink}>Home</Link></li>
-              <li><Link href="/suites" className={styles.menuLink}>Suítes</Link></li>
-              <li><Link href="/cortesias" className={styles.menuLink}>Cortesias</Link></li>
-              <li><Link href="/experiencias" className={styles.menuLink}>Experiências</Link></li>
-              <li><Link href="/estrutura" className={styles.menuLink}>Estrutura</Link></li>
-              <li><Link href="/contato" className={styles.menuLink}>Contato</Link></li>
-              <li>
-                <button 
-                  onClick={handleWhatsAppReservation} 
-                  className={`${styles.menuLink} ${styles.reservas}`}
-                >
-                  Reservas
-                </button>
-              </li>
-            </ul>
-          </nav>
-          
-          <div className={styles.socials}>
-            <a href="https://instagram.com/private_motel" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-              <FaInstagram />
-            </a>
-            <a href="https://facebook.com/privatemotel" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-              <FaFacebookF />
-            </a>
-            <a 
-              href="https://wa.me/5543999936839" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              aria-label="WhatsApp"
-            >
-              <FaWhatsapp />
-            </a>
-          </div>
-
-          <button 
-            className={styles.mobileMenuButton} 
-            onClick={toggleMobileMenu}
-            aria-label="Menu"
-          >
-            <FaBars />
+          <button type="button" className="icon-button" onClick={close} aria-label="Fechar menu">
+            <FaTimes aria-hidden="true" />
           </button>
         </div>
-      </header>
-
-      <MobileMenu 
-        isOpen={mobileMenuOpen} 
-        onClose={toggleMobileMenu} 
-      />
+        <nav aria-label="Navegação mobile">
+          {navigation.map(([label, href], index) => (
+            <Link key={href} href={href} onClick={close} aria-current={pathname === href ? 'page' : undefined}>
+              <span className="menu-number" aria-hidden="true">0{index + 1}</span>{label}
+            </Link>
+          ))}
+          <a href={site.menuPdf} target="_blank" rel="noopener noreferrer" onClick={close}>
+            <span className="menu-number" aria-hidden="true">07</span>Cardápio
+          </a>
+          <Link href="/reservas" onClick={close} aria-current={pathname === '/reservas' ? 'page' : undefined}>
+            <span className="menu-number" aria-hidden="true">08</span>Reservas
+          </Link>
+        </nav>
+        <div className="menu-bottom">
+          <a href={whatsappUrl()} target="_blank" rel="noopener noreferrer" onClick={close}>Fale pelo WhatsApp</a>
+          <a href={'tel:' + site.phone} onClick={close}>{site.phoneLabel}</a>
+        </div>
+      </dialog>
     </>
   );
-};
-
-export default Header;
+}

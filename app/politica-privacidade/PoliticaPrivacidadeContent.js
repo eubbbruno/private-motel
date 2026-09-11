@@ -25,7 +25,7 @@ export default function PoliticaPrivacidadeContent() {
   return (
     <div className={styles.container}>
       <Header />
-      <main className={styles.main}>
+      <main id="main-content" className={styles.main}>
         <section className={styles.section} ref={ref}>
           <motion.div
             className={styles.sectionDivider}

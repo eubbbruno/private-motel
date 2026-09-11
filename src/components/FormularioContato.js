@@ -1,174 +1,86 @@
-import React, { useState } from 'react';
-import { FaUser, FaEnvelope, FaPhone, FaComment, FaTag, FaWhatsapp } from 'react-icons/fa';
-import styles from '../styles/FormularioContato.module.css';
+'use client';
 
-const FormularioContato = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    phone: '',
-    message: ''
-  });
-  
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitSuccess, setSubmitSuccess] = useState(false);
-  const [submitError, setSubmitError] = useState('');
-  
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value
-    });
-  };
-  
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    
-    setIsSubmitting(true);
-    setSubmitSuccess(false);
-    setSubmitError('');
-    
-    try {
-      // Formatar a mensagem para o WhatsApp
-      const message = encodeURIComponent(
-        `*Contato via Site - Private Motel*\n\n` +
-        `*Nome:* ${formData.name}\n` +
-        `*Email:* ${formData.email}\n` +
-        `*Telefone:* ${formData.phone || 'Não informado'}\n` +
-        `*Assunto:* ${formData.subject}\n\n` +
-        `*Mensagem:*\n${formData.message}`
-      );
-      
-      // Número do WhatsApp do motel
-      const whatsappNumber = '5543999936839';
-      
-      // Abrir WhatsApp com a mensagem
-      window.open(`https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${message}`, '_blank');
-      
-      setSubmitSuccess(true);
-      
-      // Reset form
-      setFormData({
-        name: '',
-        email: '',
-        subject: '',
-        phone: '',
-        message: ''
-      });
-    } catch (error) {
-      setSubmitError('Ocorreu um erro ao processar sua solicitação. Por favor, tente novamente.');
-      console.error('Error submitting form:', error);
-    } finally {
-      setIsSubmitting(false);
+import { useState } from 'react';
+import { whatsappUrl } from '../data/site';
+
+const fields = [
+  { name: 'name', label: 'Seu nome', autoComplete: 'name' },
+  { name: 'phone', label: 'Telefone (opcional)', type: 'tel', autoComplete: 'tel', optional: true },
+  { name: 'email', label: 'E-mail', type: 'email', autoComplete: 'email' },
+  { name: 'subject', label: 'Assunto' },
+  { name: 'message', label: 'Como podemos ajudar?', multiline: true },
+];
+
+export default function FormularioContato() {
+  const [link, setLink] = useState('');
+  const [errors, setErrors] = useState({});
+
+  function submit(event) {
+    event.preventDefault();
+    setLink('');
+    const form = event.currentTarget;
+    const data = Object.fromEntries(new FormData(form));
+    const nextErrors = {};
+    for (const field of fields) {
+      if (!field.optional && !data[field.name].trim()) {
+        nextErrors[field.name] = 'Preencha este campo.';
+      } else if (!form.elements.namedItem(field.name).validity.valid) {
+        nextErrors[field.name] = 'Informe um e-mail válido.';
+      }
     }
-  };
-  
-  return (
-    <div className={styles.formContainer}>
-      {submitSuccess && (
-        <div className={styles.successMessage}>
-          <FaWhatsapp /> Você será redirecionado para o WhatsApp para finalizar o envio da sua mensagem.
-        </div>
-      )}
-      
-      {submitError && (
-        <div className={styles.errorMessage}>
-          {submitError}
-        </div>
-      )}
-      
-      <form className={styles.form} onSubmit={handleSubmit}>
-        <div className={styles.formGroup}>
-          <label className={styles.label} htmlFor="name">
-            <FaUser className={styles.icon} /> Nome
-          </label>
-          <input
-            id="name"
-            name="name"
-            type="text"
-            className={styles.input}
-            value={formData.name}
-            onChange={handleChange}
-            required
-            placeholder="Seu nome completo"
-          />
-        </div>
-        
-        <div className={styles.formGroup}>
-          <label className={styles.label} htmlFor="email">
-            <FaEnvelope className={styles.icon} /> Email
-          </label>
-          <input
-            id="email"
-            name="email"
-            type="email"
-            className={styles.input}
-            value={formData.email}
-            onChange={handleChange}
-            required
-            placeholder="seu.email@exemplo.com"
-          />
-        </div>
-        
-        <div className={styles.formGroup}>
-          <label className={styles.label} htmlFor="subject">
-            <FaTag className={styles.icon} /> Assunto
-          </label>
-          <input
-            id="subject"
-            name="subject"
-            type="text"
-            className={styles.input}
-            value={formData.subject}
-            onChange={handleChange}
-            required
-            placeholder="Assunto da mensagem"
-          />
-        </div>
-        
-        <div className={styles.formGroup}>
-          <label className={styles.label} htmlFor="phone">
-            <FaPhone className={styles.icon} /> Telefone
-          </label>
-          <input
-            id="phone"
-            name="phone"
-            type="tel"
-            className={styles.input}
-            value={formData.phone}
-            onChange={handleChange}
-            placeholder="(00) 00000-0000"
-          />
-        </div>
-        
-        <div className={styles.formGroup}>
-          <label className={styles.label} htmlFor="message">
-            <FaComment className={styles.icon} /> Mensagem
-          </label>
-          <textarea
-            id="message"
-            name="message"
-            className={styles.textarea}
-            value={formData.message}
-            onChange={handleChange}
-            required
-            placeholder="Digite sua mensagem aqui..."
-            rows={5}
-          />
-        </div>
-        
-        <button 
-          type="submit" 
-          className={styles.button}
-          disabled={isSubmitting}
-        >
-          {isSubmitting ? 'Enviando...' : 'Enviar Mensagem'} <FaWhatsapp style={{ marginLeft: '8px' }} />
-        </button>
-      </form>
-    </div>
-  );
-};
+    if (data.phone.trim()) {
+      const digits = data.phone.replace(/\D/g, '');
+      const local = digits.length > 11 && digits.startsWith('55') ? digits.slice(2) : digits;
+      if (!/^[+\d\s().-]+$/.test(data.phone) || !/^\d{10,11}$/.test(local)) {
+        nextErrors.phone = 'Informe um telefone válido com DDD ou deixe em branco.';
+      }
+    }
+    setErrors(nextErrors);
+    const first = Array.from(form.elements).find((field) => nextErrors[field.name]);
+    if (first) {
+      first.focus({ preventScroll: true });
+      first.scrollIntoView({ block: 'center', behavior: 'instant' });
+      return;
+    }
+    const message = [
+      '*Contato via Site - Private Motel*', '',
+      '*Nome:* ' + data.name.trim(),
+      '*E-mail:* ' + data.email.trim(),
+      '*Telefone:* ' + (data.phone.trim() || 'Não informado'),
+      '*Assunto:* ' + data.subject.trim(), '',
+      '*Mensagem:*', data.message.trim(),
+    ].join('\n');
+    const url = whatsappUrl(message);
+    setLink(url);
+    window.open(url, '_blank', 'noopener,noreferrer');
+  }
 
-export default FormularioContato; 
+  function fieldControl(field) {
+    const id = 'contact-' + field.name;
+    const props = {
+      id, name: field.name, required: !field.optional,
+      autoComplete: field.autoComplete,
+      'aria-invalid': errors[field.name] ? true : undefined,
+      'aria-describedby': errors[field.name] ? id + '-error' : undefined,
+    };
+    return <div className="field" key={field.name}>
+      <label htmlFor={id}>{field.label}</label>
+      {field.multiline ? <textarea {...props} /> : <input {...props} type={field.type || 'text'} />}
+      {errors[field.name] && <span className="form-note" id={id + '-error'}>{errors[field.name]}</span>}
+    </div>;
+  }
+
+  return <form className="form" noValidate onSubmit={submit} onChange={(event) => {
+    setLink('');
+    const name = event.target.name;
+    setErrors((current) => { const next = { ...current }; delete next[name]; return next; });
+  }}>
+    <p className="form-note">Preencha os campos abaixo. O telefone é opcional.</p>
+    <div className="form-grid">{fields.slice(0, 2).map(fieldControl)}</div>
+    {fields.slice(2).map(fieldControl)}
+    {Object.keys(errors).length > 0 && <p role="alert" className="form-feedback">Revise os campos indicados antes de continuar.</p>}
+    <button className="button" type="submit">Continuar no WhatsApp</button>
+    <p className="form-note">Sua mensagem será aberta no WhatsApp para você revisar e enviar.</p>
+    {link && <div className="form-feedback" role="status">Continue no WhatsApp para enviar sua mensagem. <a href={link} target="_blank" rel="noopener noreferrer" className="text-link">Abrir conversa</a></div>}
+  </form>;
+}

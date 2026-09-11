@@ -2,10 +2,7 @@
  * Serviço para envio de notificações (e-mail e WhatsApp via ManyChat)
  */
 
-// Configurações do ManyChat
-const MANYCHAT_API = 'https://api.manychat.com';
-const MANYCHAT_API_KEY = process.env.NEXT_PUBLIC_MANYCHAT_API_KEY || '988817:2ac91c72402bd633a48d14f634857ad3'; // Substitua pelo seu token
-const MANYCHAT_FLOW_ID = process.env.NEXT_PUBLIC_MANYCHAT_FLOW_ID || 'content20250406193838_142165'; // ID do fluxo de trabalho no ManyChat
+// O token ManyChat existe somente na API server-side /api/send-whatsapp.
 
 /**
  * Envia e-mail de confirmação para o usuário

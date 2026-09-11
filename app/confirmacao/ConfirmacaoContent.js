@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import Header from '../../src/components/Header';
@@ -43,7 +44,7 @@ const ConfirmacaoContent = ({ loading, reservation, error }) => {
     return (
       <div className={styles.container}>
         <Header />
-        <main className={styles.main}>
+        <main id="main-content" className={styles.main}>
           <div className={styles.loadingContainer}>
             <div className={styles.spinner}></div>
             <p>Carregando informações da reserva...</p>
@@ -191,7 +192,7 @@ const ConfirmacaoContent = ({ loading, reservation, error }) => {
                     Escaneie o QR Code abaixo com o aplicativo do seu banco para pagar via PIX:
                   </p>
                   <div className={styles.qrCodeWrapper}>
-                    <img src={qr_code_url} alt="QR Code PIX" className={styles.qrCode} />
+                    <Image src={qr_code_url} alt="QR Code PIX" width={300} height={300} unoptimized className={styles.qrCode} />
                   </div>
                 </div>
               )}

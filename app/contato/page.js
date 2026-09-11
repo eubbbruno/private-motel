@@ -1,9 +1,7 @@
+import { pageMetadata } from '../../src/data/metadata';
 import ContatoContent from './ContatoContent';
 
-export const metadata = {
-  title: 'Contato | Private Motel 5 Estrelas em Londrina e Cambé',
-  description: 'Entre em contato com o Private Motel 5 Estrelas em Londrina e Cambé. Tire suas dúvidas, faça reservas ou envie sugestões para melhorarmos nossos serviços.',
-};
+export const metadata = pageMetadata("Contato e localização", "Encontre o Private Motel na Rua Adelino Bianchini, 86, em Cambé. Veja telefone, WhatsApp e rotas pelo Google Maps e Waze.", "/contato");
 
 export default function ContatoPage() {
   return <ContatoContent />;

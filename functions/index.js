@@ -6,13 +6,16 @@ const axios = require('axios');
 
 admin.initializeApp();
 
+// Pagamentos legados não fazem parte da operação atual.
+const PAYMENTS_ENABLED = false;
+
 const transporter = nodemailer.createTransport({
   host: 'smtp.locaweb.com.br',
   port: 587,
   secure: false,
   auth: {
     user: 'contato@privatemotel.com.br',
-    pass: '@Contato123',
+    pass: process.env.EMAIL_PASSWORD,
   },
 });
 
@@ -34,6 +37,7 @@ const sendEmail = async (to, subject, text) => {
 
 // Função para enviar mensagem WhatsApp via ManyChat
 const sendWhatsAppMessage = async (to, message) => {
+  if (!process.env.MANYCHAT_API_KEY) throw new Error('MANYCHAT_API_KEY não configurada');
   try {
     // Garantir que o número tenha o formato internacional
     let formattedPhone = to;
@@ -47,13 +51,13 @@ const sendWhatsAppMessage = async (to, message) => {
       text: message,
     }, {
       headers: {
-        Authorization: `Bearer 988817:2ac91c72402bd633a48d14f634857ad3`,
+        Authorization: `Bearer ${process.env.MANYCHAT_API_KEY}`,
         'Content-Type': 'application/json',
       },
     });
     logger.info(`Mensagem WhatsApp enviada para ${formattedPhone}`, { response: response.data });
   } catch (error) {
-    logger.error('Erro ao enviar mensagem WhatsApp:', error);
+    logger.error('Erro ao enviar mensagem WhatsApp:');
     throw error;
   }
 };
@@ -64,7 +68,7 @@ const createPagSeguroTransaction = async (reservation, reservationId, price) => 
     logger.info('Iniciando criação de transação no PagSeguro', { reservationId, price });
     const response = await axios.post('https://ws.sandbox.pagseguro.uol.com.br/v2/checkout', {
       email: 'eubbbruno@gmail.com',
-      token: '581e8852-d8a5-450b-b72b-a3a8b1e339a14e9b89ce42ed85e74446d927a71ec83fb2f3-1750-419c-9c59-3533e2be89f4',
+      token: process.env.PAGSEGURO_SANDBOX_TOKEN,
       currency: 'BRL',
       reference: reservationId,
       itemId1: reservation.suite,
@@ -98,6 +102,7 @@ const createPagSeguroTransaction = async (reservation, reservationId, price) => 
 
 // Função disparada quando uma nova reserva é criada
 exports.onReservationCreated = onDocumentCreated('reservations/{reservationId}', async (event) => {
+  if (!PAYMENTS_ENABLED) return;
   logger.info('Cloud Function onReservationCreated iniciada');
   const reservation = event.data.data();
   const reservationId = event.params.reservationId;
@@ -152,7 +157,7 @@ exports.onReservationCreated = onDocumentCreated('reservations/{reservationId}',
       `Olá ${reservation.name}, sua reserva no Private Motel foi recebida! Suíte: ${reservation.suite}, Data: ${reservation.checkInDate}, Horário: ${reservation.checkInTime}. Valor: R$ ${price.toFixed(2)}. Finalize o pagamento: ${paymentUrl}`
     );
   } catch (error) {
-    logger.error('Erro ao enviar mensagem WhatsApp para o cliente:', error);
+    logger.error('Erro ao enviar mensagem WhatsApp para o cliente:');
   }
 
   // Enviar e-mail para o administrador
@@ -192,7 +197,7 @@ exports.onReservationUpdated = onDocumentUpdated('reservations/{reservationId}',
         `Olá ${after.name}, sua reserva no Private Motel foi cancelada. Suíte: ${after.suite}, Data: ${after.checkInDate}, Horário: ${after.checkInTime}.`
       );
     } catch (error) {
-      logger.error('Erro ao enviar mensagem WhatsApp de cancelamento para o cliente:', error);
+      logger.error('Erro ao enviar mensagem WhatsApp de cancelamento para o cliente:');
     }
   }
 });
@@ -201,11 +206,12 @@ const { onRequest } = require('firebase-functions/v2/https');
 
 // Função temporária para testar a integração com o PagSeguro
 exports.testPagSeguro = onRequest(async (req, res) => {
+  if (!PAYMENTS_ENABLED) return res.status(410).send({ error: 'Pagamentos online indisponíveis' });
   try {
     logger.info('Iniciando teste de integração com o PagSeguro');
     const response = await axios.post('https://ws.sandbox.pagseguro.uol.com.br/v2/checkout', {
       email: 'eubbbruno@gmail.com',
-      token: '581e8852-d8a5-450b-b72b-a3a8b1e339a14e9b89ce42ed85e74446d927a71ec83fb2f3-1750-419c-9c59-3533e2be89f4',
+      token: process.env.PAGSEGURO_SANDBOX_TOKEN,
       currency: 'BRL',
       reference: 'TESTE-123',
       itemId1: 'teste',
@@ -258,6 +264,7 @@ exports.testEmail = onRequest(async (req, res) => {
 
 // Função temporária para testar o envio de mensagens WhatsApp
 exports.testWhatsApp = onRequest(async (req, res) => {
+  if (!process.env.MANYCHAT_API_KEY) return res.status(503).send({ error: 'Serviço não configurado' });
   try {
     logger.info('Iniciando teste de envio de mensagem WhatsApp');
     const formattedPhone = '+5543996466446';
@@ -266,14 +273,14 @@ exports.testWhatsApp = onRequest(async (req, res) => {
       text: 'Este é um teste de mensagem WhatsApp enviado pelo Private Motel.',
     }, {
       headers: {
-        Authorization: `Bearer 988817:2ac91c72402bd633a48d14f634857ad3`,
+        Authorization: `Bearer ${process.env.MANYCHAT_API_KEY}`,
         'Content-Type': 'application/json',
       },
     });
     logger.info('Mensagem WhatsApp de teste enviada', { response: response.data });
     res.status(200).send({ message: 'Mensagem WhatsApp de teste enviada com sucesso', response: response.data });
   } catch (error) {
-    logger.error('Erro ao enviar mensagem WhatsApp de teste:', error);
+    logger.error('Erro ao enviar mensagem WhatsApp de teste:');
     res.status(500).send({ error: error.message });
   }
 });

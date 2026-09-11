@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useInView } from 'react-intersection-observer';
 import { motion } from 'framer-motion';
 import styles from './PromocoesSection.module.css';
@@ -101,7 +102,7 @@ export default function PromocoesSection() {
             transition={{ duration: 0.5, delay: index * 0.2 }}
           >
             <div className={styles.promocaoImageWrapper}>
-              <img
+              <Image width={600} height={600} sizes="(max-width: 767px) 100vw, 25vw"
                 src={promocao.image}
                 alt={promocao.title}
                 className={styles.promocaoImage}
@@ -134,3 +135,4 @@ export default function PromocoesSection() {
     </section>
   );
 }
+

@@ -1,52 +1,22 @@
-import Header from '../src/components/Header';
-import HeroSection from '../src/components/sections/HeroSection';
-import SobreNosSection from '../src/components/sections/SobreNosSection';
-import RefeicoesSection from '../src/components/sections/RefeicoesSection';
-import GaleriaSuitesSection from '../src/components/sections/GaleriaSuitesSection';
-import ExperienciasSection from '../src/components/sections/ExperienciasSection';
-import PromocoesSection from '../src/components/sections/PromocoesSection';
-import NewsletterSection from '../src/components/sections/NewsletterSection';
-import Footer from '../src/components/Footer';
+import Link from 'next/link';
+import {PageShell,Photo,ReservationLink,FinalCTA,Arrow} from '../src/components/Editorial';
 import PopupCookies from '../src/components/PopupCookies';
-import styles from './page.module.css';
+import {suites,meals,experiences,promotions} from '../src/data/content';
+import {site} from '../src/data/site';
+export const metadata = { alternates: { canonical: '/' } };
+const business = {
+  '@context': 'https://schema.org', '@type': 'LodgingBusiness',
+  name: 'Private Motel', url: site.url, telephone: site.phone,
+  image: site.url + '/images/motel-entrada.jpg',
+  address: { '@type': 'PostalAddress', streetAddress: 'Rua Adelino Bianchini, 86', addressLocality: 'Cambé', addressRegion: 'PR', addressCountry: 'BR' },
+  sameAs: [site.instagram, site.facebook],
+};
+export default function Home(){return <PageShell><script type="application/ld+json" dangerouslySetInnerHTML={{__html: JSON.stringify(business).replace(/</g, '\\u003c')}}/><section className="hero"><Photo src="/images/suite-private-4.jpg" alt="Piscina privativa com cascata na Suíte Private" priority sizes="100vw"/><div className="hero-content wrap"><h1>A noite<br/>é <em>sua</em><span className="gold-dot">.</span></h1><p>Privacidade, conforto e tempo para estar a dois.</p><div className="actions"><ReservationLink/><Link href="/suites" className="button-secondary">Explore as suítes</Link></div></div><div className="hero-bottom"><span>Private Motel · Londrina & Cambé</span><span>Um lugar só de vocês</span></div></section>
+<section className="intro wrap"><div><p className="eyebrow">A experiência Private</p><h2>Há momentos que<br/>pedem um lugar<br/><em>especial.</em></h2></div><div className="intro-copy"><p>Do primeiro encontro à vontade de celebrar. Um refúgio de conforto e privacidade, onde cada detalhe convida a ficar um pouco mais.</p><p>Suítes exclusivas, gastronomia e experiências a dois em Londrina e Cambé.</p><Link href="/sobre-nos" className="text-link">Conheça o Private <Arrow/></Link></div></section>
+<section className="featured wrap"><div className="section-head"><div><p className="eyebrow">Nossas suítes</p><h2>Um universo<br/><em>particular.</em></h2></div><Link className="text-link" href="/suites">Encontre sua suíte <Arrow/></Link></div><div className="featured-grid"><Link href="/suites#suite-private"><Photo src="/images/suite-private.jpg" alt="Hidromassagem e piscina da Suíte Private"/></Link><div className="featured-text"><p className="eyebrow">A assinatura Private</p><h3>Private</h3><p>Dois pisos. Piscina aquecida com cascata, hidromassagem e sauna. Espaço para viver o tempo no seu ritmo.</p><Link className="text-link" href="/suites#suite-private">Conheça a suíte <Arrow/></Link></div></div><div className="suite-rail">{suites.slice(1).map(s=><article key={s.id}><Link href={'/suites#'+s.id}><Photo src={s.images[0]} alt={s.title} sizes="(max-width: 767px) 90vw, 30vw"/><div className="suite-caption"><h3>{s.title.replace('Suíte ','')}</h3><Arrow/></div><p>{s.size} · {s.highlights[0]}</p></Link></article>)}</div></section>
+<section className="atmosphere"><Photo src="/images/suite-private-6.jpg" alt="Ambiente reservado da Suíte Private" sizes="100vw"/><div><p className="eyebrow">Intimidade, por natureza</p><h2>O privilégio de<br/>estar <em>presente.</em></h2></div></section>
+<section className="gastronomy wrap"><Photo src="/images/cafe-manha.jpg" alt="Café da manhã servido no Private Motel"/><div><p className="eyebrow">À mesa. A dois.</p><h2>O sabor de<br/>ficar mais.</h2><p>Pequenas pausas que fazem parte da experiência. Conheça nossas cortesias gastronômicas e as condições de cada refeição.</p><div className="meal-times">{meals.map(m=><div key={m.title}><strong>{m.title}</strong><span>{m.horario.replace('Servido das ','')}</span></div>)}</div><Link className="text-link" href="/cortesias">Conheça as cortesias <Arrow/></Link></div></section>
+<section className="experience-section"><div className="wrap"><div className="section-head"><div><p className="eyebrow">Para guardar na memória</p><h2>Seu momento.<br/>Ainda mais especial.</h2></div></div><div className="experience-grid">{experiences.map(e=><article key={e.title}><Photo src={e.image} alt={e.title}/><h3>{e.title}</h3><p>{e.description}</p><Link className="text-link" href="/experiencias">Explore a experiência <Arrow/></Link></article>)}</div></div></section>
+<section className="offers wrap"><div className="section-head"><div><p className="eyebrow">Mais motivos para voltar</p><h2>Encontros com<br/>algo a mais.</h2></div><Link className="text-link" href="/promocoes">Todas as promoções <Arrow/></Link></div>{promotions.map((p,i)=><Link href="/experiencias" className="offer-row" key={p.title}><span>0{i+1}</span><h3>{p.title}</h3><p>{p.description}</p><Arrow/></Link>)}<p className="note">As promoções não são cumulativas. Consulte condições e disponibilidade.</p></section>
+<section className="location wrap"><div><p className="eyebrow">Perto de você. Longe da rotina.</p><h2>Seu refúgio<br/>em Cambé.</h2><p>{site.address}<br/>Atendimento 24 horas.</p><div className="actions"><Link className="text-link" href="/contato">Como chegar <Arrow/></Link><Link className="text-link" href="/estrutura">Explore a estrutura <Arrow/></Link></div></div><Photo src="/images/motel-entrada.jpg" alt="Fachada do Private Motel em Cambé"/></section><FinalCTA/><PopupCookies/></PageShell>;}
 
-export default function Home() {
-  return (
-    <div className={styles.container}>
-      <PopupCookies />
-      <Header />
-      <main className={styles.main}>
-        <HeroSection />
-        <SobreNosSection />
-        <RefeicoesSection />
-        <GaleriaSuitesSection />
-        <ExperienciasSection />
-        <PromocoesSection />
-        <NewsletterSection />
-      </main>
-      <Footer />
-      <div className={styles.particles}>
-        <div className={styles.particle}></div>
-        <div className={styles.particle}></div>
-        <div className={styles.particle}></div>
-        <div className={styles.particle}></div>
-        <div className={styles.particle}></div>
-        <div className={styles.particle}></div>
-        <div className={styles.particle}></div>
-        <div className={styles.particle}></div>
-        <div className={styles.particle}></div>
-        <div className={styles.particle}></div>
-        <div className={styles.particle}></div>
-        <div className={styles.particle}></div>
-        <div className={styles.particle}></div>
-        <div className={styles.particle}></div>
-        <div className={styles.particle}></div>
-        <div className={styles.particle}></div>
-        <div className={styles.particle}></div>
-        <div className={styles.particle}></div>
-        <div className={styles.particle}></div>
-        <div className={styles.particle}></div>
-      </div>
-    </div>
-  );
-}

@@ -2,13 +2,7 @@
  * Serviço para integração com a API do PagSeguro
  */
 
-const PAGSEGURO_API = process.env.NODE_ENV === 'production' 
-  ? process.env.NEXT_PUBLIC_PAGSEGURO_PRODUCTION_URL || 'https://api.pagseguro.com/'
-  : process.env.NEXT_PUBLIC_PAGSEGURO_SANDBOX_URL || 'https://sandbox.api.pagseguro.com/';
-
-const API_TOKEN = process.env.NODE_ENV === 'production'
-  ? process.env.NEXT_PUBLIC_PAGSEGURO_PRODUCTION_TOKEN || '581e8852-d8a5-450b-b72b-a3a8b1e339a14e9b89ce42ed85e74446d927a71ec83fb2f3-1750-419c-9c59-3533e2be89f4'
-  : process.env.NEXT_PUBLIC_PAGSEGURO_SANDBOX_TOKEN || '581e8852-d8a5-450b-b72b-a3a8b1e339a14e9b89ce42ed85e74446d927a71ec83fb2f3-1750-419c-9c59-3533e2be89f4';
+// Legado: endpoints de pagamento desativados. Ver docs/integracoes-preview.md.
 
 /**
  * Cria um pagamento no PagSeguro
