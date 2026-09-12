@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { FaWhatsapp } from 'react-icons/fa';
+import { FaWhatsapp, FaWaze } from 'react-icons/fa';
+import { SiGooglemaps } from 'react-icons/si';
 import { site, whatsappUrl } from '../data/site';
 
 export default function Footer() {
@@ -35,8 +36,8 @@ export default function Footer() {
           <h2 id="footer-location-title">Seu destino.<br /><em>Em Cambé.</em></h2>
           <a className="footer-address" href={site.maps} target="_blank" rel="noopener noreferrer">{site.address}</a>
           <div className="footer-directions">
-            <a className="contact-icon-link" href={site.maps} target="_blank" rel="noopener noreferrer"><Image src="/images/logos/google-maps-logo.svg" width={120} height={40} alt="Google Maps" /></a>
-            <a className="contact-icon-link" href={site.waze} target="_blank" rel="noopener noreferrer"><Image src="/images/logos/waze-logo.svg" width={120} height={40} alt="Waze" /></a>
+            <a className="contact-icon-link" href={site.maps} target="_blank" rel="noopener noreferrer"><SiGooglemaps aria-hidden="true" />Google Maps</a>
+            <a className="contact-icon-link" href={site.waze} target="_blank" rel="noopener noreferrer"><FaWaze aria-hidden="true" />Waze</a>
           </div>
         </div>
         <iframe className="footer-map" title="Mapa do Private Motel — Rua Adelino Bianchini, 86, Cambé" src="https://maps.google.com/maps?q=Rua%20Adelino%20Bianchini%2086%20Camb%C3%A9%20PR&output=embed" loading="lazy" referrerPolicy="no-referrer-when-downgrade" />
