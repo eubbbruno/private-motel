@@ -113,6 +113,7 @@ export default function Header() {
             <FaTimes aria-hidden="true" />
           </button>
         </div>
+        <p className="menu-invitation">O seu próximo encontro começa aqui.</p>
         <nav aria-label="Navegação mobile">
           {navigation.map(([label, href], index) => (
             <Link key={href} href={href} onClick={close} aria-current={pathname === href ? 'page' : undefined}>

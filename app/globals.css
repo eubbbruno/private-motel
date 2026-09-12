@@ -40,3 +40,25 @@
   .meal-times div { flex-direction: column; gap: 4px; }
   .meal-times span { text-align: left; }
 }
+/* Luxury After Dark: shared geometry and restrained interface motion. */
+:root{--radius-control:6px;--radius-block:12px;--radius-image:16px;--shadow-editorial:0 24px 64px #05050524;--transition-ui:300ms var(--ease);--transition-media:1200ms var(--ease)}
+.button,.button-secondary,.header-reserve,.icon-button{border-radius:var(--radius-control)}
+.photo{border-radius:var(--radius-image)}
+.site-header{padding-block:28px;gap:32px;border-bottom-color:#f3efe71c}
+.brand img{width:164px;transition:width var(--transition-ui)}
+.site-header.solid{padding-block:12px;background:#080807f5;box-shadow:0 8px 32px #0002}
+.site-header.solid .brand img{width:140px}
+.header-reserve{background:var(--private-gold);border-color:var(--private-gold);color:var(--private-black);padding:12px 26px;transition:background var(--transition-ui)}
+.header-reserve:hover{background:var(--private-gold-light);color:var(--private-black)}
+.desktop-nav a{position:relative;letter-spacing:.025em}
+.desktop-nav a:after{content:'';position:absolute;bottom:3px;left:0;width:100%;height:1px;background:var(--private-gold-light);transform:scaleX(0);transform-origin:left;transition:transform var(--transition-ui)}
+.desktop-nav a:hover:after,.desktop-nav a[aria-current=page]:after{transform:scaleX(1)}
+.mobile-dialog{background:#0b0b09}.mobile-dialog nav>a{transition:color var(--transition-ui);padding-block:3px}
+.menu-top{padding-bottom:30px}.menu-top img{width:160px}.menu-bottom{padding-bottom:25px}
+.site-footer{padding-top:90px;background:#080808}.footer-brand img{width:190px}.footer-grid{gap:10%}
+@media(max-width:767px){.site-header{padding-block:20px;gap:14px}.brand img{width:132px}.site-header.solid .brand img{width:120px}.header-reserve{padding:10px 15px}.site-footer{padding-top:65px}}
+/* Second visual pass: centered hospitality masthead and calmer mobile rhythm. */
+@media(min-width:1101px){.site-header .brand{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);margin:0}.desktop-nav{flex:1;margin-right:6px;gap:26px}.desktop-nav a:nth-child(4){margin-left:auto}.site-header{min-height:110px}.site-header.solid{min-height:82px}}
+.menu-invitation{font-family:var(--font-playfair);font-size:23px;line-height:1.35;color:var(--private-gold-light);margin:28px 0 4px;max-width:280px}
+.mobile-dialog nav{padding-top:16px}.mobile-dialog nav>a{font-size:clamp(25px,4.3vh,38px)}
+@media(max-width:767px){.menu-invitation{font-size:21px;margin-top:22px}.mobile-dialog nav{gap:0}.mobile-dialog nav>a{padding-block:2px}}
