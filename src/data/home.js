@@ -1,5 +1,5 @@
 export const homeMedia = {
- hero: {src:'/images/suite-private-4.jpg',alt:'Piscina com cascata da Suíte Private'},
+ hero: {src:'/images/suite-private.jpg',alt:'Piscina e hidromassagem da Suíte Private'},
  manifesto: {src:'/images/suite-private-6.jpg',alt:'Ambiente privativo da Suíte Private'},
  flagship: {src:'/images/suite-private.jpg',alt:'Piscina e hidromassagem da Suíte Private'},
  atmosphere: {src:'/images/suite-private-3.jpg',alt:'Interior da Suíte Private'},

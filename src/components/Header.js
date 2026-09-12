@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { FaTimes } from 'react-icons/fa';
+import { FaTimes, FaWhatsapp } from 'react-icons/fa';
 import { navigation, site, whatsappUrl } from '../data/site';
 
 export default function Header() {
@@ -72,7 +72,7 @@ export default function Header() {
           ))}
           <a href={site.menuPdf} target="_blank" rel="noopener noreferrer">Cardápio</a>
         </nav>
-        <a className="header-reserve" href={whatsappUrl()} target="_blank" rel="noopener noreferrer">Reservar</a>
+        <a className="header-reserve" href={whatsappUrl()} target="_blank" rel="noopener noreferrer"><FaWhatsapp aria-hidden="true" />Reservar</a>
         <button
           ref={trigger}
           type="button"
@@ -128,7 +128,7 @@ export default function Header() {
           </Link>
         </nav>
         <div className="menu-bottom">
-          <a href={whatsappUrl()} target="_blank" rel="noopener noreferrer" onClick={close}>Fale pelo WhatsApp</a>
+          <a className="contact-icon-link" href={whatsappUrl()} target="_blank" rel="noopener noreferrer" onClick={close}><FaWhatsapp aria-hidden="true" />Fale pelo WhatsApp</a>
           <a href={'tel:' + site.phone} onClick={close}>{site.phoneLabel}</a>
         </div>
       </dialog>
