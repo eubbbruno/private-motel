@@ -218,7 +218,7 @@ export const meals = [
       "Café",
       "Leite"
     ],
-    "image": "/images/cafe-manha.jpg"
+    "image": "/images/editorial/cafe-manha.webp"
   },
   {
     "title": "Almoço Executivo",
@@ -230,7 +230,7 @@ export const meals = [
       "Filé de frango à milanesa, arroz, fritas, salada verde ou caeser",
       "Fetuccine ao molho branco, bacon, champignon, salada verde ou caesar"
     ],
-    "image": "/images/almoco-executivo.jpg"
+    "image": "/images/editorial/almoco-executivo.webp"
   },
   {
     "title": "Chá da Tarde",
@@ -244,7 +244,7 @@ export const meals = [
       "Chá",
       "Suco de laranja"
     ],
-    "image": "/images/cha-tarde.jpg"
+    "image": "/images/editorial/cha-tarde.webp"
   }
 ];
 
@@ -259,7 +259,7 @@ export const experiences = [
       "Chocolates variados",
       "Tábua de Frios"
     ],
-    "image": "/images/exp-decoracao-romantica.jpg",
+    "image": "/images/editorial/decoracao-romantica.webp",
     "message": "Olá! Gostaria de mais informações sobre a Decoração Romântica. Poderia me informar disponibilidade e preços?"
   },
   {
@@ -274,7 +274,7 @@ export const experiences = [
       "Envio apenas para Cambé / Londrina e região",
       "Entrega física (ÚNICA VÁLIDA PARA UTILIZAÇÃO NO MOTEL). Entrega digital (NÃO VÁLIDA PARA UTILIZAÇÃO NO MOTEL) apenas para visualização."
     ],
-    "image": "/images/exp-gift-card.jpg",
+    "image": "/images/editorial/gift-card.webp",
     "message": "Olá! Gostaria de mais informações sobre o Gift Card. Como posso adquirir e quais são as opções disponíveis?"
   }
 ];

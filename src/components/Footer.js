@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { FaWhatsapp, FaWaze } from 'react-icons/fa';
+import { FaWhatsapp, FaWaze, FaInstagram, FaFacebookF } from 'react-icons/fa';
 import { SiGooglemaps } from 'react-icons/si';
 import { site, whatsappUrl } from '../data/site';
 
@@ -12,8 +12,8 @@ export default function Footer() {
           <Link href="/"><Image src="/images/logo.png" width={194} height={69} alt="Private Motel" /></Link>
           <p>Um lugar reservado<br />para viver o seu momento.</p>
           <div className="footer-social">
-            <a href={site.instagram} target="_blank" rel="noopener noreferrer">Instagram</a>
-            <a href={site.facebook} target="_blank" rel="noopener noreferrer">Facebook</a>
+            <a className="contact-icon-link" href={site.instagram} target="_blank" rel="noopener noreferrer"><FaInstagram aria-hidden="true" />Instagram</a>
+            <a className="contact-icon-link" href={site.facebook} target="_blank" rel="noopener noreferrer"><FaFacebookF aria-hidden="true" />Facebook</a>
           </div>
         </div>
         <nav aria-label="Explore o Private">
@@ -46,6 +46,7 @@ export default function Footer() {
         <span>© {new Date().getFullYear()} Private Motel</span>
         <nav aria-label="Informações legais"><Link href="/politica-privacidade">Privacidade</Link><Link href="/termos-uso">Termos de uso</Link><Link href="/lgpd">LGPD e cookies</Link><Link href="/termos-whatsapp">Termos WhatsApp</Link></nav>
       </div>
+      <a className="floating-whatsapp" href={whatsappUrl()} target="_blank" rel="noopener noreferrer" aria-label="Fale com o Private Motel pelo WhatsApp"><FaWhatsapp aria-hidden="true" /></a>
     </footer>
   );
 }
