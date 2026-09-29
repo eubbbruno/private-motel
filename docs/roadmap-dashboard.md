@@ -1,4 +1,14 @@
-# Dashboard Private — roadmap atualizado em 15/09/2026
+# Dashboard Private — roadmap atualizado em 29/09/2026
+
+## Estado executivo atual
+
+- Site, reservas e tarifas: redesign e fonte compartilhada concluídos; publicação final continua pendente.
+- Dashboard: autenticação Supabase, campanhas/popups, Social Media, biblioteca privada e assistência OpenAI operacionais localmente.
+- Motel+: conexão real somente leitura concluída para categorias, suítes, modalidades, disponibilidade agregada e caixa mensal.
+- GestãoClick: conexão real somente leitura concluída para contas a pagar e recebimentos.
+- Financeiro: filtros rápidos e por datas, comparativo mensal, DRE gerencial preliminar, fluxo de caixa, conciliação Motel+ × GestãoClick, categorias, agenda, busca, filtros, detalhe, CSV e impressão implementados.
+- WhatsApp: ManyChat permanece ativo; substituição ainda não iniciada.
+- Produção: nenhuma publicação das alterações recentes. O trabalho está protegido por checkpoint local na branch de preview.
 
 ## Fundação financeira local — 24/09/2026
 
@@ -6,7 +16,7 @@ Criada a área `/dashboard/finance`, exclusiva do proprietário e somente leitur
 
 O conector GestãoClick aceita apenas host oficial HTTPS e credenciais server-side. Os nomes e o procedimento de configuração estão em `docs/gestao-click-financeiro.md`. A documentação pública confirma Access Token e Secret Access, mas deixa o contrato detalhado dentro do ERP; a primeira leitura real precisa validar caminhos, paginação e nomes de campos antes de considerar a integração concluída.
 
-Próxima etapa financeira: configurar as credenciais localmente, comparar um mês fechado com os relatórios nativos, validar o plano de contas com a contabilidade e então acrescentar conciliação, exportação e metas. Nenhuma escrita, baixa ou pagamento automático foi habilitado.
+As credenciais locais e a leitura real foram validadas. Conciliação, exportação e filtros estão implementados. A próxima etapa financeira depende de conferência humana: comparar um mês fechado com os relatórios nativos e validar o plano de contas com a contabilidade. Só depois disso devem entrar metas, orçamento e classificação gerencial persistente. Nenhuma escrita, baixa ou pagamento automático foi habilitado.
 
 ## Continuação local em 22/09/2026
 

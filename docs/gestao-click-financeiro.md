@@ -44,11 +44,21 @@ Depois de salvar, reiniciar `npm run dev` e abrir `/dashboard/finance`. A faixa 
 
 O painel informa quantos registros foram recebidos e quantos foram mapeados. Se os nomes de campos do contrato da conta forem diferentes, o relatório permanece parcial até o adaptador ser validado; valores desconhecidos não são estimados.
 
+## Recursos concluídos no dashboard
+
+- Períodos rápidos de 1, 3, 6 e 12 meses e intervalo personalizado de até 24 meses.
+- DRE gerencial preliminar, fluxo de caixa e comparação mensal.
+- Conciliação mensal entre faturamento recebido no Motel+ e recebimentos mapeados no GestãoClick.
+- Busca por descrição, fornecedor ou categoria; filtros por categoria e situação.
+- Detalhamento de despesas, agenda financeira, exportação CSV e impressão.
+- Sinalização explícita quando recebimentos, ocupações ou páginas da API estão incompletos.
+
+Os relatórios continuam somente leitura. O dashboard não paga, baixa, cria nem altera títulos.
+
 ## Próxima validação com dados reais
 
 1. Confirmar que o complemento de API está ativo no GestãoClick.
-2. Configurar os dois tokens localmente.
-3. Comparar um mês fechado entre o dashboard e os relatórios nativos dos dois sistemas.
-4. Validar as categorias do plano de contas com a contabilidade.
-5. Definir se recebíveis do GestãoClick servem apenas para conciliação ou representam alguma receita fora do Motel+.
-6. Somente após essa conferência considerar sincronização periódica, cache, exportações e alertas.
+2. Comparar um mês fechado entre o dashboard e os relatórios nativos dos dois sistemas.
+3. Validar as categorias do plano de contas com a contabilidade.
+4. Definir se recebíveis do GestãoClick servem apenas para conciliação ou representam alguma receita fora do Motel+.
+5. Somente após essa conferência considerar metas, orçamento, sincronização periódica, cache e alertas.
