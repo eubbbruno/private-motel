@@ -101,7 +101,8 @@ export async function POST(request) {
     }
     
     // Gerar o HTML do email
-    const htmlContent = template(emailData);
+    const renderedTemplate = template(emailData);
+    const htmlContent = typeof renderedTemplate === 'string' ? renderedTemplate : renderedTemplate.html;
     
     // Definir o destinatário com base no tipo de template
     let recipient = emailData.email;
@@ -166,4 +167,4 @@ export async function POST(request) {
       { status: 500 }
     );
   }
-} 
+}

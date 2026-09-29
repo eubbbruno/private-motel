@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import Anthropic from '@anthropic-ai/sdk'
 import { getSupabase } from '../../../../lib/supabase'
-import { BELLA_SYSTEM_PROMPT } from '../../../../lib/bella-prompt'
+import { getBellaSystemPrompt } from '../../../../lib/bella-prompt'
 
 // Payload shape sent by Evolution API on messages.upsert
 interface EvolutionMessageKey {
@@ -122,7 +122,7 @@ async function generateAndSendBellaReply(
     system: [
       {
         type: 'text',
-        text: BELLA_SYSTEM_PROMPT,
+        text: getBellaSystemPrompt(),
         cache_control: { type: 'ephemeral' },
       },
     ],

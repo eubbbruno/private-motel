@@ -103,6 +103,7 @@ export default function ReservasContent() {
       '*Regra:* ' + submittedQuote.rule,
       ...(submittedQuote.checkoutDate ? ['*Saída até:* ' + submittedQuote.checkoutDate.split('-').reverse().join('/') + ' às ' + submittedQuote.checkoutTime] : []),
       '*Valor:* ' + value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }),
+      ...(submittedQuote.tariffStartsAt ? ['*Tabela aplicada:* vigente a partir de 01/10/2026, conforme a data da estadia.'] : []),
       '',
       '*Nome:* ' + data.name.trim(),
       '*Telefone:* ' + data.phone.trim(),
@@ -193,7 +194,7 @@ export default function ReservasContent() {
           </div>
           {period === 'pernoite' && <p className="form-note">{nextMorning ? 'A data selecionada identifica a noite. A entrada será no dia seguinte, após 23h59, com saída até 12h.' : 'Pernoite de domingo a quinta e feriados: entrada após 20h e permanência de 12 horas.'}</p>}
           {quote?.error && <p className="form-note">{quote.error}</p>}
-          {price && <p className="booking-summary" aria-live="polite">Valor informado no formulário: <strong>{price.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</strong><br />{quote.label}<br /><small>{quote.rule} Confirme a disponibilidade com a equipe.</small></p>}
+          {price && <p className="booking-summary" aria-live="polite">Valor informado no formulário: <strong>{price.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</strong><br />{quote.label}<br /><small>{quote.rule} {quote.tariffStartsAt && 'Tabela a partir de 01/10/2026. '}Confirme a disponibilidade com a equipe.</small></p>}
           {Object.keys(errors).length > 0 && <p className="form-feedback" role="alert">Revise os campos indicados antes de continuar.</p>}
           <button type="submit" className="button">Continuar no WhatsApp</button>
           {link && <div className="form-feedback" role="status">Sua mensagem está pronta. Envie-a no WhatsApp para consultar disponibilidade e confirmar os detalhes com um atendente. <a className="text-link" href={link} target="_blank" rel="noopener noreferrer">Abrir WhatsApp novamente</a></div>}

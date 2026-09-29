@@ -52,7 +52,7 @@
 .immersionCopy>p:not(:global(.eyebrow)){margin:32px auto 20px;color:#d3cec4;font-size:14px}
 .dining{background:#e9e2d5;color:#25231e;padding-block:var(--home-section)}
 .diningInner{display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:10%}
-.dining h2{color:#25231e}.dining em{color:#806438}.dining p{color:#595348}.dining :global(.eyebrow){color:#806438}
+.dining h2{color:#25231e}.dining em{color:#806438}.dining p{color:#595348}.dining :global(.eyebrow){color:#755b33}
 .diningPhoto{padding:0}
 .diningPhoto :global(.photo){aspect-ratio:4/5;box-shadow:var(--shadow-editorial)}
 .diningPhoto>span{display:block;margin-top:24px;text-align:right;font-family:var(--font-playfair);font-style:italic;font-size:30px}

@@ -1,0 +1,27 @@
+:root {
+  --private-black: #050505;
+  --private-black-soft: #0a0a0a;
+  --private-surface: #10100f;
+  --private-surface-elevated: #151513;
+  --private-surface-active: #1d1a14;
+  --private-gold: #c6a15b;
+  --private-gold-light: #d6b875;
+  --private-gold-muted: #9d824e;
+  --private-ivory: #f3efe7;
+  --private-text: #e8e4dd;
+  --private-text-muted: #a9a49b;
+  --private-border: rgba(214, 184, 117, 0.18);
+  --private-border-strong: rgba(214, 184, 117, 0.42);
+  --private-error: #ffb5a6;
+  --font-display: var(--font-playfair), serif;
+  --font-body: var(--font-manrope), sans-serif;
+  --space: clamp(24px, 5vw, 96px);
+  --section: clamp(72px, 9vw, 150px);
+  --radius-control: 2px;
+  --radius-block: 0;
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --transition-ui: 300ms var(--ease);
+  --focus-ring: 2px solid var(--private-gold-light);
+  --shadow-modal: 0 16px 80px rgba(0, 0, 0, 0.53);
+  --font-inter: var(--font-manrope);
+}

@@ -1,3 +1,5 @@
+import { currentBusinessDate, getDisplayPricing } from './tariffs.js';
+
 export const suites = [
   {
     "title": "Suíte Private",
@@ -51,11 +53,7 @@ export const suites = [
         "2 Garagens"
       ]
     },
-    "pricing": {
-      "periodo": "R$ 365,00",
-      "pernoite": "R$ 417,00",
-      "horaExtra": "R$ 65,00"
-    },
+    get pricing() { return getDisplayPricing('suite-private'); },
     "keywords": [
       "Piscina Aquecida",
       "Hidromassagem",
@@ -103,12 +101,7 @@ export const suites = [
         "2 Garagens"
       ]
     },
-    "pricing": {
-      "periodo": "R$ 305,00",
-      "pernoiteSemana": "R$ 330,00",
-      "pernoiteFimSemana": "R$ 360,00",
-      "horaExtra": "R$ 59,00"
-    },
+    get pricing() { return getDisplayPricing('suite-diamante-luxo'); },
     "keywords": [
       "Piscina Aquecida",
       "Hidromassagem",
@@ -147,12 +140,7 @@ export const suites = [
         "1 Garagem"
       ]
     },
-    "pricing": {
-      "periodo": "R$ 165,00",
-      "pernoiteSemana": "R$ 218,00",
-      "pernoiteFimSemana": "R$ 245,00",
-      "horaExtra": "R$ 48,00"
-    },
+    get pricing() { return getDisplayPricing('suite-prata'); },
     "keywords": [
       "Hidromassagem",
       "Cama Super King",
@@ -190,12 +178,7 @@ export const suites = [
         "1 Garagem"
       ]
     },
-    "pricing": {
-      "periodo": "R$ 135,00",
-      "pernoiteSemana": "R$ 185,00",
-      "pernoiteFimSemana": "R$ 213,00",
-      "horaExtra": "R$ 35,00"
-    },
+    get pricing() { return getDisplayPricing('suite-bronze'); },
     "keywords": [
       "Cama Super King",
       "Ar Condicionado",
@@ -204,6 +187,10 @@ export const suites = [
     "id": "suite-bronze"
   }
 ];
+
+export function getSuitesForDate(date = currentBusinessDate()) {
+  return suites.map(suite => ({ ...suite, pricing: getDisplayPricing(suite.id, date) }));
+}
 
 export const meals = [
   {

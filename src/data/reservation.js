@@ -1,9 +1,6 @@
-import { suites } from './content';
+import { getSuiteTariff, octoberTariffStart } from './tariffs.js';
 
-// Prices are read directly from the same records rendered by /suites.
-export const reservationPrices = Object.fromEntries(suites.map(({ id, pricing }) => [
-  id, Object.fromEntries(Object.entries(pricing).map(([key, value]) => [key, Number(value.replace('R$', '').trim().replace(/\./g, '').replace(',', '.'))])),
-]));
+// The stay date chooses the same tariff table rendered by /suites.
 export const periods = { periodo: 'Período', pernoite: 'Pernoite' };
 export const paymentMethods = { pix: 'PIX', cash: 'Dinheiro', credit_card: 'Cartão de crédito à vista', debit_card: 'Cartão de débito à vista' };
 export const reservationRules = {
@@ -28,8 +25,8 @@ export function getDayType(date, occasion) {
   return [5, 6].includes(parsed.getUTCDay()) ? 'weekend' : 'weekday';
 }
 export function quoteReservation({ suite, period, date, time, occasion }) {
-  const prices = reservationPrices[suite];
   const dayType = getDayType(date, occasion);
+  const prices = dayType ? getSuiteTariff(suite, date) : null;
   if (!prices || !periods[period] || !dayType || !/^([01]\d|2[0-3]):[0-5]\d$/.test(time || '')) return null;
   const weekend = dayType === 'weekend';
   const dayLabel = occasion === 'holiday' ? 'Feriado' : occasion === 'eve' ? 'Véspera de feriado' : weekend ? 'Sexta ou sábado' : 'Domingo a quinta';
@@ -37,14 +34,14 @@ export function quoteReservation({ suite, period, date, time, occasion }) {
     const hours = dayType === 'holiday'
       ? (time < reservationRules.holiday.cutoff ? reservationRules.holiday.before : reservationRules.holiday.after)
       : (reservationRules[dayType].suiteHours?.[suite] ?? reservationRules[dayType].hours);
-    return { price: prices.periodo, label: 'Período (' + hours + ' horas)', rule: dayLabel, arrivalDate: date, arrivalTime: time, hours };
+    return { price: prices.periodo, label: 'Período (' + hours + ' horas)', rule: dayLabel, arrivalDate: date, arrivalTime: time, hours, tariffStartsAt: date >= octoberTariffStart ? octoberTariffStart : null };
   }
   const price = prices.pernoite ?? (weekend ? prices.pernoiteFimSemana : prices.pernoiteSemana);
   if (weekend) {
     if (time >= reservationRules.overnightWeekend.checkout) return { error: 'Escolha um horário entre 00:00 e 11:59 da madrugada/manhã seguinte.' };
-    return { price, label: 'Pernoite — saída até 12h', rule: reservationRules.overnightWeekend.text, arrivalDate: addDays(date, 1), arrivalTime: time, checkoutDate: addDays(date, 1), checkoutTime: '12:00' };
+    return { price, label: 'Pernoite — saída até 12h', rule: reservationRules.overnightWeekend.text, arrivalDate: addDays(date, 1), arrivalTime: time, checkoutDate: addDays(date, 1), checkoutTime: '12:00', tariffStartsAt: date >= octoberTariffStart ? octoberTariffStart : null };
   }
   if (time < reservationRules.overnightWeek.start) return { error: 'Para este pernoite, escolha entrada a partir das 20:00.' };
   const checkoutHour = String((Number(time.slice(0, 2)) + 12) % 24).padStart(2, '0');
-  return { price, label: 'Pernoite (12 horas)', rule: reservationRules.overnightWeek.text, arrivalDate: date, arrivalTime: time, checkoutDate: addDays(date, 1), checkoutTime: checkoutHour + time.slice(2) };
+  return { price, label: 'Pernoite (12 horas)', rule: reservationRules.overnightWeek.text, arrivalDate: date, arrivalTime: time, checkoutDate: addDays(date, 1), checkoutTime: checkoutHour + time.slice(2), tariffStartsAt: date >= octoberTariffStart ? octoberTariffStart : null };
 }

@@ -1,6 +1,9 @@
+import { fileURLToPath } from 'node:url';
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
  reactStrictMode: true, output: 'standalone',
+ outputFileTracingRoot: fileURLToPath(new URL('.', import.meta.url)),
  images: { domains: ['privatemotel.com.br', 'www.privatemotel.com.br'] },
  async redirects() { return [
  {source:'/politica-de-privacidade',destination:'/politica-privacidade',permanent:true},

@@ -1,0 +1,9 @@
+.popup{position:fixed;inset:0;margin:auto;background:var(--private-surface);color:var(--private-ivory);border:1px solid var(--private-border-strong);width:min(520px,calc(100vw - 32px));max-height:85svh;padding:0;overflow:auto;box-shadow:var(--shadow-modal);border-radius:var(--radius-block)}
+.popup::backdrop{background:#000b}
+.popup img{width:100%;display:block;max-height:44svh;object-fit:contain;background:var(--private-black)}
+.close{position:sticky;top:8px;float:right;margin:8px 8px -52px 0;width:44px;height:44px;background:rgba(5,5,5,.91);color:var(--private-ivory);border:1px solid var(--private-border-strong);font-size:28px;cursor:pointer;z-index:1}
+.close:focus-visible,.popup a:focus-visible{outline:var(--focus-ring);outline-offset:3px}
+.copy{padding:26px}
+.copy h2{font-family:var(--font-display);font-size:32px;line-height:1.25;margin-bottom:16px}
+.copy p{font-size:14px;line-height:1.8;white-space:pre-wrap;overflow-wrap:anywhere;margin-bottom:20px}
+@media(max-width:600px){.copy{padding:22px}.copy h2{font-size:28px}.popup img{max-height:36svh}}

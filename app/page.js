@@ -2,14 +2,17 @@ import Link from 'next/link';
 import {PageShell,Photo,ReservationLink,Arrow} from '../src/components/Editorial';
 import HomeMotion from '../src/components/HomeMotion';
 import PopupCookies from '../src/components/PopupCookies';
-import {suites,meals,experiences,promotions} from '../src/data/content';
+import CampaignPopup from '../src/components/CampaignPopup';
+import {getSuitesForDate,meals,experiences,promotions} from '../src/data/content';
+import {currentBusinessDate} from '../src/data/tariffs';
 import {homeMedia} from '../src/data/home';
 import {site} from '../src/data/site';
 import styles from './Home.module.css';
 export const metadata={alternates:{canonical:'/'}};
+export const dynamic='force-dynamic';
 const business={'@context':'https://schema.org','@type':'LodgingBusiness',name:'Private Motel',url:site.url,telephone:site.phone,image:site.url+'/images/motel-entrada.jpg',address:{'@type':'PostalAddress',streetAddress:'Rua Adelino Bianchini, 86',addressLocality:'Cambé',addressRegion:'PR',addressCountry:'BR'},sameAs:[site.instagram,site.facebook]};
 const PhotoLink=({href,media,className='',sizes})=><Link href={href} className={className}><Photo {...media} sizes={sizes}/></Link>;
-export default function Home(){return <PageShell><HomeMotion><div className={styles.home}>
+export default function Home(){const suites=getSuitesForDate(currentBusinessDate());return <PageShell><HomeMotion><div className={styles.home}>
 <script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify(business).replace(/</g,'\\u003c')}}/>
 <section className={styles.hero}><Photo {...homeMedia.hero} priority sizes="100vw" className={styles.heroMedia}/><div className={styles.heroShade}/><div className={styles.heroContent}><h1>Entre.<br/><em>O tempo é seu.</em></h1><p>Um encontro. Um refúgio.<br/>O mundo lá fora pode esperar.</p><div className={styles.heroActions}><ReservationLink/><Link className="button-secondary" href="/suites">Conheça as suítes <Arrow/></Link></div></div><div className={styles.heroFoot}><span>Private Motel · Cambé & Londrina</span><a href="#a-experiencia" aria-label="Descubra a experiência Private">Descubra <span aria-hidden="true">↓</span></a></div></section>
 <section id="a-experiencia" className={`${styles.manifesto} wrap`}><div data-reveal><p className="eyebrow">A arte de estar a dois</p><h2>Há lugares.<br/>E há <em>momentos.</em></h2><p className={styles.manifestoCopy}>O Private é um convite a desacelerar. À intimidade de um encontro, ao conforto de uma suíte, ao prazer de ficar um pouco mais.</p><Link className="text-link" href="/sobre-nos">Conheça nossa essência <Arrow/></Link></div><figure data-reveal data-delay="0.12"><Photo {...homeMedia.manifesto} sizes="(max-width: 767px) 90vw, 35vw"/><figcaption>Privacidade em cada detalhe.</figcaption></figure></section>
@@ -21,5 +24,5 @@ export default function Home(){return <PageShell><HomeMotion><div className={sty
 <section className={styles.structure}><div className="wrap"><div className={styles.structureHeading} data-reveal><p className="eyebrow">Conforto que acolhe</p><h2>O cuidado está<br/><em>nos detalhes.</em></h2><Link href="/estrutura" className="text-link">Conheça nossa estrutura <Arrow/></Link></div><Photo {...homeMedia.structure} sizes="90vw"/><div className={styles.structureFoot}><span>Seu refúgio em Cambé.</span><span>Atendimento 24 horas.</span></div></div></section>
 <section className={`${styles.offers} wrap`}><div data-reveal><p className="eyebrow">Mais motivos para voltar</p><h2>Encontros com<br/><em>algo a mais.</em></h2><Link className="text-link" href="/promocoes">Todas as promoções <Arrow/></Link></div><div>{promotions.map(promotion=><Link key={promotion.title} className={styles.offer} href="/experiencias"><div><h3>{promotion.title}</h3><p>{promotion.description}</p></div><Arrow/></Link>)}<p className="note">Promoções não cumulativas. Consulte condições e disponibilidade.</p></div></section>
 <section className={`${styles.location} wrap`} data-reveal><p className="eyebrow">Perto de você. Longe da rotina.</p><h2>Nos encontramos<br/><em>em Cambé.</em></h2><p>{site.address}</p><div className={styles.locationLinks}><a href={site.maps} target="_blank" rel="noopener noreferrer" className="text-link">Google Maps <Arrow/></a><a href={site.waze} target="_blank" rel="noopener noreferrer" className="text-link">Waze <Arrow/></a><Link href="/contato" className="text-link">Fale com a gente <Arrow/></Link></div></section>
-<section className={styles.closing} data-reveal><p className="eyebrow">O seu momento começa aqui</p><h2>Permita-se<br/><em>ficar.</em></h2><ReservationLink/><Link className="text-link" href="/reservas">Planeje sua reserva <Arrow/></Link></section><PopupCookies/>
+<section className={styles.closing} data-reveal><p className="eyebrow">O seu momento começa aqui</p><h2>Permita-se<br/><em>ficar.</em></h2><ReservationLink/><Link className="text-link" href="/reservas">Planeje sua reserva <Arrow/></Link></section><PopupCookies/>{process.env.DASHBOARD_CAMPAIGNS_ENABLED === 'true' && <CampaignPopup/>}
 </div></HomeMotion></PageShell>}

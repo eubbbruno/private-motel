@@ -1,0 +1,12 @@
+import assert from 'node:assert/strict';
+import { validateSocial, calendarDays, editorialCSV, editorialDay } from '../lib/social-planning.mjs';
+assert.deepEqual(validateSocial({}),{channel:'instagram',format:'feed',planned_at:null,media_path:'',media_alt:'',generation_prompt:''});
+assert.equal(validateSocial({channel:'both',format:'reel',planned_at:'2026-09-16T00:30:00Z'}).planned_at,'2026-09-16T00:30:00.000Z');
+for(const data of [{channel:'bad'},{format:'bad'},{planned_at:'2026-09-15'},{planned_at:123},{planned_at:'invalid'}]) assert.throws(()=>validateSocial(data));
+assert.deepEqual(validateSocial({media_path:'/images/suite-private-1.jpg',media_alt:'Suíte Private'}).media_path,'/images/suite-private-1.jpg');
+for(const data of [{media_path:'/api/secret',media_alt:'x'},{media_path:'/images/test.jpg',media_alt:''},{generation_prompt:'x'.repeat(2001)}]) assert.throws(()=>validateSocial(data));
+assert.equal(editorialDay('2026-09-16T00:30:00Z'),'2026-09-15');
+assert.equal(calendarDays('2028-02').length,29); assert.equal(calendarDays('2026-02').length,28); assert.equal(calendarDays('2026-12').at(-1),'2026-12-31');
+const csv=editorialCSV([{title:'=SUM(A1)',body:'linha "um"\nlinha dois',channel:'both',format:'reel',status:'draft'}]);
+assert.ok(csv.includes('"\'=SUM(A1)"')); assert.ok(csv.includes('""um""')); assert.ok(csv.includes('Instagram e Facebook'));
+console.log('PASS social planning: defaults, media validation, allowlists, timezone, leap calendar and spreadsheet formula/quote escaping.');

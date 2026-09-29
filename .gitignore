@@ -13,3 +13,6 @@ node_modules/
 
 # TypeScript build cache
 tsconfig.tsbuildinfo
+
+# Supabase CLI cache (not migrations)
+supabase/.temp/

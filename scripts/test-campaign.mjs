@@ -1,0 +1,13 @@
+import assert from 'node:assert/strict';
+import { validateCampaign, safeCampaignUrl, brasiliaISO, brasiliaInput } from '../lib/campaign.mjs';
+import { readLimitedBody } from '../lib/read-body.mjs';
+const good = { status: 'published', image_path: '00000000-0000-4000-8000-000000000001/00000000-0000-4000-8000-000000000002.webp', image_alt: 'Arte', popup_title: 'Convite', starts_at: '2026-09-15T12:00:00Z', ends_at: '2026-09-16T12:00:00Z', cta_label: 'Reservar', cta_url: '/reservas' };
+assert.equal(validateCampaign(good).priority, 0);
+for (const change of [{image_path:''},{image_alt:''},{popup_title:''},{starts_at:null},{ends_at:null},{ends_at:good.starts_at},{priority:101},{priority:1.5},{cta_url:'javascript:alert(1)'},{cta_label:''},{image_path:'../file.webp'},{popup_text:'x'.repeat(501)}]) assert.throws(()=>validateCampaign({...good,...change}));
+for (const url of ['javascript:alert(1)','//evil.invalid','https://user:pass@example.invalid','http://example.invalid','/\\evil.invalid','https://example.invalid/a b']) assert.equal(safeCampaignUrl(url),false,url);
+for (const url of ['/reservas?suite=private','https://wa.me/5543999936839','']) assert.equal(safeCampaignUrl(url),true,url);
+assert.equal(brasiliaISO('2026-09-15T09:30'),'2026-09-15T12:30:00.000Z');
+assert.equal(brasiliaInput('2026-09-15T12:30:00Z'),'2026-09-15T09:30');
+assert.equal((await readLimitedBody(new Request('https://example.invalid',{method:'POST',body:'1234'}),4)).length,4);
+await assert.rejects(readLimitedBody(new Request('https://example.invalid',{method:'POST',body:'12345'}),4),/BODY_LIMIT/);
+console.log('PASS campaign: publication requirements, dates, safe links, field limits, Brasília conversion and streamed body limit.');

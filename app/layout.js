@@ -1,4 +1,5 @@
 import {Playfair_Display,Manrope} from 'next/font/google';
+import './design-tokens.css';
 import './globals.css';
 const playfair=Playfair_Display({subsets:['latin'],weight:['400','500','600'],style:['normal','italic'],variable:'--font-playfair',display:'swap'});
 const manrope=Manrope({subsets:['latin'],variable:'--font-manrope',display:'swap'});
