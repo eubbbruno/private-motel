@@ -5,6 +5,8 @@ import { FaArrowLeft, FaChartLine, FaDatabase, FaExternalLinkAlt } from 'react-i
 import { dashboardClient } from '../client';
 import styles from '../dashboard.module.css';
 
+const publicSite = process.env.NEXT_PUBLIC_DASHBOARD_STANDALONE === 'true' ? (process.env.NEXT_PUBLIC_BASE_URL || 'https://www.privatemotel.com.br') : '/';
+
 export default function MotelPlusPanel() {
   const [state, setState] = useState({ loading: true, data: null, error: '' });
   async function load() {
@@ -19,7 +21,7 @@ export default function MotelPlusPanel() {
   }
   useEffect(() => { load(); }, []);
   const data = state.data;
-  return <main id="main-content" className={styles.shell}><aside className={styles.sidebar}><Link href="/" className={styles.wordmark}>PRIVATE</Link><p className={styles.kicker}>PAINEL EDITORIAL</p><nav aria-label="Painel editorial"><Link href="/dashboard"><FaArrowLeft />Social e campanhas</Link><Link href="/dashboard/finance"><FaChartLine />Financeiro</Link><Link href="/dashboard/motel-plus" aria-current="page"><FaDatabase />Motel+</Link><Link href="/" target="_blank" rel="noopener noreferrer"><FaExternalLinkAlt />Ver site</Link></nav><p className={styles.signature}>LEITURA SEGURA.<br />DECISÕES<br />COM CONTEXTO.</p></aside>
+  return <main id="main-content" className={styles.shell}><aside className={styles.sidebar}><Link href={publicSite} className={styles.wordmark}>PRIVATE</Link><p className={styles.kicker}>PAINEL EDITORIAL</p><nav aria-label="Painel editorial"><Link href="/dashboard"><FaArrowLeft />Social e campanhas</Link><Link href="/dashboard/finance"><FaChartLine />Financeiro</Link><Link href="/dashboard/motel-plus" aria-current="page"><FaDatabase />Motel+</Link><Link href={publicSite} target="_blank" rel="noopener noreferrer"><FaExternalLinkAlt />Ver site</Link></nav><p className={styles.signature}>LEITURA SEGURA.<br />DECISÕES<br />COM CONTEXTO.</p></aside>
     <section className={styles.workspace}><header className={styles.heading}><div><p className={styles.kicker}>INTEGRAÇÃO OPERACIONAL</p><h1>Motel+</h1><p>Disponibilidade e estrutura do sistema interno, sem alterar a recepção.</p></div><button className={styles.secondary} onClick={load} disabled={state.loading}>{state.loading ? 'Consultando…' : 'Atualizar leitura'}</button></header>
       {state.error && <section className={styles.integrationError} role="alert"><h2>Conexão não concluída</h2><p>{state.error}</p><Link className={styles.secondary} href="/dashboard">Voltar ao painel</Link></section>}
       {data && <><section className={styles.integrationHero}><div><span className={styles.connectionDot} />Conectado em modo somente leitura</div><p>Última consulta: {new Date(data.checkedAt).toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })}</p></section>

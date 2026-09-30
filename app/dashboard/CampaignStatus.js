@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
 import styles from './dashboard.module.css';
+const publicSite = process.env.NEXT_PUBLIC_DASHBOARD_STANDALONE === 'true' ? (process.env.NEXT_PUBLIC_BASE_URL || 'https://www.privatemotel.com.br') : '';
 export default function CampaignStatus({ draft, dirty }) {
   const [result,setResult] = useState('');
   const [checking,setChecking] = useState(false);
@@ -21,5 +22,5 @@ export default function CampaignStatus({ draft, dirty }) {
   }
   const now=Date.now();
   const state=draft.status!=='published'?'Não publicado':Date.parse(draft.starts_at)>now?'Agendado':Date.parse(draft.ends_at)<=now?'Encerrado':'Publicado agora';
-  return <aside className={styles.campaignCheck} aria-label="Verificação da campanha"><div className={styles.publicationState}><span>Estado no site</span><strong>{dirty ? `${state} · alterações não salvas` : state}</strong></div><div className={styles.actions}><button type="button" className={styles.secondary} disabled={!draft.id || dirty || checking} onClick={check}>{checking?'Verificando…':'Verificar exibição'}</button>{draft.id && draft.status === 'published' && !dirty && <a className={styles.secondary} target="_blank" rel="noopener noreferrer" href={`/?testarCampanha=${encodeURIComponent(draft.id)}`}>Testar popup na Home</a>}</div>{dirty && <p>Salve as alterações para atualizar o site.</p>}<p role="status">{result}</p></aside>;
+  return <aside className={styles.campaignCheck} aria-label="Verificação da campanha"><div className={styles.publicationState}><span>Estado no site</span><strong>{dirty ? `${state} · alterações não salvas` : state}</strong></div><div className={styles.actions}><button type="button" className={styles.secondary} disabled={!draft.id || dirty || checking} onClick={check}>{checking?'Verificando…':'Verificar exibição'}</button>{draft.id && draft.status === 'published' && !dirty && <a className={styles.secondary} target="_blank" rel="noopener noreferrer" href={`${publicSite}/?testarCampanha=${encodeURIComponent(draft.id)}`}>Testar popup na Home</a>}</div>{dirty && <p>Salve as alterações para atualizar o site.</p>}<p role="status">{result}</p></aside>;
 }

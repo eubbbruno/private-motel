@@ -12,9 +12,10 @@ const date = value => value ? new Date(`${value}T12:00:00`).toLocaleDateString('
 const money = value => currency.format(Number(value) || 0);
 const today = new Date().toISOString().slice(0, 10);
 const initialPeriod = Object.freeze({ mode: 'preset', months: 6, start: '', end: '' });
+const publicSite = process.env.NEXT_PUBLIC_DASHBOARD_STANDALONE === 'true' ? (process.env.NEXT_PUBLIC_BASE_URL || 'https://www.privatemotel.com.br') : '/';
 
 function Brand() {
-  return <Link href="/" className={styles.brand} aria-label="Private Motel — voltar ao site">
+  return <Link href={publicSite} className={styles.brand} aria-label="Private Motel — voltar ao site">
     <Image src="/images/logo.png" width={200} height={67} alt="Private Motel" priority />
     <span>ADMINISTRAÇÃO</span>
   </Link>;
@@ -119,7 +120,7 @@ export default function FinancePanel() {
 
   return <main id="main-content" className={styles.shell}>
     <aside className={styles.sidebar}><Brand /><p className={styles.kicker}>INTELIGÊNCIA FINANCEIRA</p>
-      <nav aria-label="Painel administrativo"><Link href="/dashboard"><FaArrowLeft />Social e campanhas</Link><Link href="/dashboard/finance" aria-current="page"><FaChartLine />Financeiro</Link><Link href="/dashboard/motel-plus"><FaDatabase />Motel+</Link><Link href="/" target="_blank" rel="noopener noreferrer"><FaExternalLinkAlt />Ver site</Link></nav>
+      <nav aria-label="Painel administrativo"><Link href="/dashboard"><FaArrowLeft />Social e campanhas</Link><Link href="/dashboard/finance" aria-current="page"><FaChartLine />Financeiro</Link><Link href="/dashboard/motel-plus"><FaDatabase />Motel+</Link><Link href={publicSite} target="_blank" rel="noopener noreferrer"><FaExternalLinkAlt />Ver site</Link></nav>
       <p className={styles.signature}>NÚMEROS CLAROS.<br />DECISÕES<br />COM CONTEXTO.</p>
     </aside>
     <section className={`${styles.workspace} ${styles.financeWorkspace}`}>
