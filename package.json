@@ -15,6 +15,7 @@
     "@react-three/drei": "^9.99.0",
     "@react-three/fiber": "^8.15.16",
     "@supabase/supabase-js": "^2.105.4",
+    "exceljs": "^4.4.0",
     "framer-motion": "^12.5.0",
     "gsap": "^3.12.7",
     "mongodb": "^6.15.0",
@@ -43,6 +44,7 @@
     "typescript": "6.0.3"
   },
   "overrides": {
+    "uuid": "11.1.1",
     "next": {
       "postcss": "$postcss"
     }

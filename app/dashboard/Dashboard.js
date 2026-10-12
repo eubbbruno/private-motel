@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { FaRegFileAlt, FaBullhorn, FaExternalLinkAlt, FaSignOutAlt, FaPlus, FaDatabase, FaChartLine } from 'react-icons/fa';
+import { FaRegFileAlt, FaBullhorn, FaExternalLinkAlt, FaSignOutAlt, FaPlus, FaDatabase, FaChartLine, FaTools, FaUsers } from 'react-icons/fa';
 import { dashboardClient } from './client';
 import styles from './dashboard.module.css';
 import CampaignEditor from './CampaignEditor';
@@ -156,7 +156,7 @@ export default function Dashboard() {
   const statuses = resource === 'posts' ? ['draft', 'review', 'approved'] : identity.role === 'owner' ? ['draft', 'published', 'paused'] : ['draft'];
   return <main id="main-content" className={styles.shell}>
     <aside className={styles.sidebar}><DashboardBrand /><p className={styles.kicker}>CENTRAL DE GESTÃO</p>
-      <nav aria-label="Painel editorial"><button aria-current={resource === 'posts' ? 'page' : undefined} onClick={() => changeResource('posts')} disabled={busy}><FaRegFileAlt />Social Media</button><button aria-current={resource === 'campaigns' ? 'page' : undefined} onClick={() => changeResource('campaigns')} disabled={busy}><FaBullhorn />Campanhas</button><Link href="/dashboard/finance"><FaChartLine />Financeiro</Link><Link href="/dashboard/motel-plus"><FaDatabase />Motel+</Link><Link href={publicSite} target="_blank" rel="noopener noreferrer"><FaExternalLinkAlt />Ver site</Link><button onClick={logout} disabled={busy}><FaSignOutAlt />Sair</button></nav>
+      <nav aria-label="Painel editorial"><button aria-current={resource === 'posts' ? 'page' : undefined} onClick={() => changeResource('posts')} disabled={busy}><FaRegFileAlt />Social Media</button><button aria-current={resource === 'campaigns' ? 'page' : undefined} onClick={() => changeResource('campaigns')} disabled={busy}><FaBullhorn />Campanhas</button><Link href="/dashboard/finance"><FaChartLine />Financeiro</Link><Link href="/dashboard/motel-plus"><FaDatabase />Motel+</Link><Link href="/dashboard/maintenance"><FaTools />Manutenção</Link><Link href="/dashboard/payroll"><FaUsers />Folha e RH</Link><Link href={publicSite} target="_blank" rel="noopener noreferrer"><FaExternalLinkAlt />Ver site</Link><button onClick={logout} disabled={busy}><FaSignOutAlt />Sair</button></nav>
       <p className={styles.signature}>DISCRIÇÃO TAMBÉM<br />É UMA FORMA<br />DE LIBERDADE.</p></aside>
     <section className={styles.workspace}><header className={styles.heading}><div><h1>{resource === 'posts' ? 'Social Media' : 'Campanhas'}</h1><p>Planeje. Escreva. Revise.</p></div><button className={styles.secondary} disabled={busy} onClick={() => { if (canLeave()) { select(blank()); titleInput.current?.focus(); } }}><FaPlus />Novo conteúdo</button></header>
       <div className={styles.columns}><section className={styles.list} aria-label="Conteúdos"><label className={styles.search}>Buscar conteúdo<input type="search" value={search} onChange={e => setSearch(e.target.value)} placeholder="Título ou texto" /></label><div className={styles.tabs}><button aria-pressed={!archived} onClick={() => setArchived(false)}>Ativos ({items.filter(i => i.status !== 'archived').length})</button><button aria-pressed={archived} onClick={() => setArchived(true)}>Arquivados ({items.filter(i => i.status === 'archived').length})</button></div>

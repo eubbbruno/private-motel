@@ -2,7 +2,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { FaArrowLeft, FaChartLine, FaDatabase, FaDownload, FaExternalLinkAlt, FaFilter, FaPrint, FaSearch, FaSyncAlt, FaWallet } from 'react-icons/fa';
+import { FaArrowLeft, FaChartLine, FaDatabase, FaDownload, FaExternalLinkAlt, FaFilter, FaPrint, FaSearch, FaSyncAlt, FaTools, FaUsers, FaWallet } from 'react-icons/fa';
 import { dashboardClient } from '../client';
 import styles from '../dashboard.module.css';
 
@@ -120,7 +120,7 @@ export default function FinancePanel() {
 
   return <main id="main-content" className={styles.shell}>
     <aside className={styles.sidebar}><Brand /><p className={styles.kicker}>INTELIGÊNCIA FINANCEIRA</p>
-      <nav aria-label="Painel administrativo"><Link href="/dashboard"><FaArrowLeft />Social e campanhas</Link><Link href="/dashboard/finance" aria-current="page"><FaChartLine />Financeiro</Link><Link href="/dashboard/motel-plus"><FaDatabase />Motel+</Link><Link href={publicSite} target="_blank" rel="noopener noreferrer"><FaExternalLinkAlt />Ver site</Link></nav>
+      <nav aria-label="Painel administrativo"><Link href="/dashboard"><FaArrowLeft />Social e campanhas</Link><Link href="/dashboard/finance" aria-current="page"><FaChartLine />Financeiro</Link><Link href="/dashboard/motel-plus"><FaDatabase />Motel+</Link><Link href="/dashboard/maintenance"><FaTools />Manutenção</Link><Link href="/dashboard/payroll"><FaUsers />Folha e RH</Link><Link href={publicSite} target="_blank" rel="noopener noreferrer"><FaExternalLinkAlt />Ver site</Link></nav>
       <p className={styles.signature}>NÚMEROS CLAROS.<br />DECISÕES<br />COM CONTEXTO.</p>
     </aside>
     <section className={`${styles.workspace} ${styles.financeWorkspace}`}>

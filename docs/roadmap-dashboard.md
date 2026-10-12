@@ -7,6 +7,7 @@
 - Motel+: conexão real somente leitura concluída para categorias, suítes, modalidades, disponibilidade agregada e caixa mensal.
 - GestãoClick: conexão real somente leitura concluída para contas a pagar e recebimentos.
 - Financeiro: filtros rápidos e por datas, comparativo mensal, DRE gerencial preliminar, fluxo de caixa, conciliação Motel+ × GestãoClick, categorias, agenda, busca, filtros, detalhe, CSV e impressão implementados.
+- Manutenção: módulo local implementado para histórico por suíte e equipamento, revisões vencidas/próximas, custos, fornecedores e última manutenção. A migração está pronta, mas o projeto Supabase precisa ser reativado para persistir os registros.
 - WhatsApp: ManyChat permanece ativo; substituição ainda não iniciada.
 - Produção: nenhuma publicação das alterações recentes. O trabalho está protegido por checkpoint local na branch de preview.
 
@@ -42,11 +43,26 @@ Em 16/09/2026, a chave OpenAI e o acesso a `gpt-image-2.5-flare` foram confirmad
 
 ## Próximos sprints, em ordem
 
-1. Geração de imagens validada em 16/09/2026 com `gpt-image-2.5-flare`, imagem de referência e qualidade econômica. O estúdio agora lista as criações recentes da biblioteca privada para reutilização; a próxima melhoria é a limpeza segura de artes sem uso. Biblioteca do site, referência, download, calendário, formatos, duplicação e CSV estão prontos. Rascunhos não publicam automaticamente.
-2. Geração assistida de legendas/artes, com escolha explícita de provedor e orçamento; revisão humana e preservação das fotografias reais. Depois conectar Meta, validar permissões e só então publicar/agendar em conta de teste. Ainda não há IA ou Meta conectadas ao módulo.
-3. Motel+: começar por leitura de categorias/disponibilidade em ambiente de teste, mapear tarifas aprovadas e tratar concorrência antes de criação/alteração de reservas. Solicitar PlugPlay apenas por configuração privada nesta fase.
-4. WhatsApp por último: painel de atendimento, histórico, distribuição para recepcionistas e integração oficial; manter ManyChat até migração comprovada. Não há corte de custos imediato antes dessa substituição.
-5. Preparação de produção ao final: envs separadas, rotação de secrets históricos, revisão de autorização/abuso, QA integrado e Preview aprovado. Nenhuma data ou economia garantida.
+1. Reativar o projeto Supabase existente e aplicar a migração de manutenção; validar no navegador criação, edição, cancelamento e filtros com o usuário proprietário.
+2. Motel+: transformar o mapeamento somente leitura em base do motor de reservas, começando por disponibilidade futura e regras de concorrência. Escrita de reservas somente após ambiente e contrato serem confirmados.
+3. Social Media: concluir QA editorial e depois conectar Meta, validar permissões e publicar/agendar primeiro em conta de teste. Rascunhos continuam sem publicação automática.
+4. Financeiro: conferir um mês fechado com os relatórios nativos e validar o plano de contas com a contabilidade antes de tratar a DRE como contábil.
+5. WhatsApp por último: painel de atendimento, histórico, distribuição para recepcionistas e integração oficial; manter ManyChat até migração comprovada.
+6. Preparação de produção ao final: envs separadas, rotação de secrets históricos, revisão de autorização/abuso e QA integrado. Nenhuma publicação antecipada.
+
+## Manutenção das suítes — 29/09/2026
+
+A rota `/dashboard/maintenance` registra, por suíte, o item ou equipamento, categoria, tipo de serviço, estado, data executada, próxima revisão, descrição, fornecedor, custo e observações. A tela destaca revisões vencidas e próximas, custo anual e a última manutenção de cada item. Pintura, gesso, hidro, sauna, ar-condicionado e TV entram como sugestões, sem limitar o cadastro de outros equipamentos.
+
+O acesso é exclusivo do proprietário e a API usa autenticação server-side e RLS. Registros são versionados; cancelamento preserva o histórico. Não há escrita no Motel+, envio de mensagem ou automação de pagamento. A migração `20260929120000_dashboard_maintenance.sql` foi aplicada após a reativação do projeto Supabase em 12/10/2026.
+
+## Folha e RH — 12/10/2026
+
+A rota `/dashboard/payroll` reúne cadastro de funcionários, contratos de experiência, competências mensais, conferência da folha e rescisões. Cartão-ponto, relação de holerites e pagamentos podem ser enviados em CSV, XLSX ou PDF para um bucket privado, limitado ao proprietário por Auth e RLS. Nenhum documento de funcionário é enviado a IA.
+
+A conferência automática usa arquivos estruturados e associa cada linha por matrícula ou nome. Compara horas noturnas, horas extras de 50% e 100%, faltas e atestados entre ponto e holerite, além do líquido do holerite contra o pagamento. PDFs ficam guardados como evidência e exigem planilha estruturada quando não houver extração confiável. O relatório detalha pendências e divergências por funcionário; o painel auxilia a conferência e não substitui validação contábil ou trabalhista.
+
+Rescisões registram datas, aviso, bruto, descontos, líquido esperado, valor e data do pagamento, com estados de preparação até pagamento. O painel não calcula verbas legais por suposição. Contratos de experiência usam a data cadastrada no funcionário e destacam prazos próximos ou vencidos.
 
 ## Ordem aprovada pelo proprietário
 

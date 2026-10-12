@@ -1,0 +1,8 @@
+begin;
+create index dashboard_employees_created_by_idx on public.dashboard_employees(created_by);
+create index dashboard_payroll_periods_created_by_idx on public.dashboard_payroll_periods(created_by);
+create index dashboard_payroll_entries_employee_idx on public.dashboard_payroll_entries(employee_id);
+create index dashboard_payroll_entries_created_by_idx on public.dashboard_payroll_entries(created_by);
+create index dashboard_payroll_documents_created_by_idx on public.dashboard_payroll_documents(created_by);
+create index dashboard_terminations_created_by_idx on public.dashboard_terminations(created_by);
+commit;

@@ -30,9 +30,13 @@ assert.equal((await authorizeDashboard(valid, editor, 'campaigns:write')).status
 assert.equal((await authorizeDashboard(valid, editor, 'campaigns:publish')).status, 403);
 assert.equal((await authorizeDashboard(valid, editor, 'motel-plus:read')).status, 403);
 assert.equal((await authorizeDashboard(valid, editor, 'finance:read')).status, 403);
+assert.equal((await authorizeDashboard(valid, editor, 'maintenance:read')).status, 403);
+assert.equal((await authorizeDashboard(valid, editor, 'maintenance:write')).status, 403);
 assert.equal((await authorizeDashboard(valid, verify, 'campaigns:publish')).status, 200);
 assert.equal((await authorizeDashboard(valid, verify, 'motel-plus:read')).status, 200);
 assert.equal((await authorizeDashboard(valid, verify, 'finance:read')).status, 200);
+assert.equal((await authorizeDashboard(valid, verify, 'maintenance:read')).status, 200);
+assert.equal((await authorizeDashboard(valid, verify, 'maintenance:write')).status, 200);
 assert.equal((await authorizeDashboard(valid, verify, 'unknown:permission')).status, 403);
 assert.equal((await authorizeDashboard(valid, verify)).role, 'owner');
 console.log('PASS dashboard access: invalid/missing token, configuration, provider failure, forged user metadata, unknown roles, editor/owner capabilities. No network.');

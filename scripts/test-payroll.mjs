@@ -1,0 +1,25 @@
+import assert from 'node:assert/strict';
+import ExcelJS from 'exceljs';
+import { detectColumns, mapPayrollRows, parseCsv, parseLocaleNumber, reconcilePayroll, validateEmployee, validatePeriod, validateTermination } from '../lib/payroll.mjs';
+
+const employeeFields = { employee_code: '001', full_name: 'Ana Souza', role_title: 'Recepção', department: 'Operação', admission_date: '2026-01-10', experience_end_date: '2026-04-10', status: 'active', termination_date: '', notes: '' };
+const employee = { id: '11111111-1111-4111-8111-111111111111', ...employeeFields };
+assert.equal(validateEmployee(employeeFields).full_name, 'Ana Souza');
+assert.throws(() => validateEmployee({ ...employeeFields, experience_end_date: '2025-12-01' }));
+assert.equal(validatePeriod({ reference_month: '2026-10-01', status: 'review', notes: '' }).status, 'review');
+assert.throws(() => validatePeriod({ reference_month: '2026-10-12', status: 'review', notes: '' }));
+assert.equal(validateTermination({ employee_id: employee.id, termination_date: '2026-10-10', last_workday: '2026-10-10', status: 'draft', notice_type: 'worked', gross_amount: '1000', deduction_amount: '100', expected_net_amount: '900', paid_amount: '', paid_on: '', notes: '' }).expected_net_amount, 900);
+assert.equal(parseLocaleNumber('10:30', 'hours'), 10.5);
+assert.equal(parseLocaleNumber('R$ 1.234,56', 'money'), 1234.56);
+assert.deepEqual(detectColumns(['Matrícula','Funcionário','Horas noturnas','Valor líquido']), { employee_code: 0, employee_name: 1, night_hours: 2, net_amount: 3 });
+const rows = parseCsv('Matrícula;Funcionário;Horas noturnas;Horas extras 50%;Horas de falta;Horas de atestado;Valor líquido\r\n001;Ana Souza;10:30;2,5;0;8;1.900,50');
+const mapped = mapPayrollRows(rows, [employee], 'payslip');
+assert.equal(mapped.entries.length, 1); assert.equal(mapped.entries[0].night_hours, 10.5); assert.equal(mapped.entries[0].net_amount, 1900.5);
+const sources = ['timecard','payslip','payment'].map(source => ({ ...mapped.entries[0], source, net_amount: source === 'timecard' ? null : 1900.5 }));
+assert.equal(reconcilePayroll([employee], sources)[0].status, 'ok');
+const mismatch = sources.map(entry => entry.source === 'payslip' ? { ...entry, overtime_50_hours: 4 } : entry);
+assert.equal(reconcilePayroll([employee], mismatch)[0].status, 'error');
+const workbook = new ExcelJS.Workbook(); const sheet = workbook.addWorksheet('Folha'); sheet.addRows(rows);
+const xlsxBuffer = await workbook.xlsx.writeBuffer(); const reopened = new ExcelJS.Workbook(); await reopened.xlsx.load(xlsxBuffer);
+assert.equal(reopened.worksheets[0].getCell('A2').value, '001');
+console.log('PASS payroll: validation, locale parsing, column mapping and reconciliation.');
