@@ -10,8 +10,9 @@ assert.deepEqual(validateMaintenance(valid), valid);
 assert.equal(validateMaintenance({ ...valid, cost: '' }).cost, null);
 assert.equal(validateMaintenance({ ...valid, status: 'scheduled' }).completed_on, null);
 assert.equal(validateMaintenance({ ...valid, description: '' }).description, '');
+assert.equal(validateMaintenance({ ...valid, suite: 'Áreas operacionais', suite_number: 'Cozinha' }).suite_number, 'Cozinha');
 for (const changed of [
-  { suite: 'Inexistente' }, { suite: 'Bronze' }, { suite_number: '999' }, { category: 'Inexistente' }, { status: 'deleted' },
+  { suite: 'Inexistente' }, { suite: 'Bronze' }, { suite_number: '999' }, { suite: 'Áreas operacionais', suite_number: 'Piscina' }, { category: 'Inexistente' }, { status: 'deleted' },
   { performed_on: '' }, { completed_on: '' }, { completed_on: '2026-01-01' }, { next_due_on: '2026-01-01' }, { cost: -1 }, { item: '' },
 ]) assert.throws(() => validateMaintenance({ ...valid, ...changed }));
 assert.throws(() => validateMaintenance({ ...valid, unexpected: true }));
