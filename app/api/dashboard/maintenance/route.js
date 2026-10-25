@@ -4,7 +4,7 @@ import { readLimitedBody } from '../../../../lib/read-body.mjs';
 import { validateMaintenance } from '../../../../lib/maintenance.mjs';
 
 export const dynamic = 'force-dynamic';
-const columns = 'id,suite,item,category,service_type,status,performed_on,next_due_on,description,provider,cost,notes,version,created_at,updated_at';
+const columns = 'id,suite,suite_number,item,category,service_type,status,performed_on,completed_on,next_due_on,description,provider,cost,notes,version,created_at,updated_at';
 const uuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 const reply = (body, status = 200) => NextResponse.json(body, {
   status, headers: { 'Cache-Control': 'private, no-store', Vary: 'Authorization' },
