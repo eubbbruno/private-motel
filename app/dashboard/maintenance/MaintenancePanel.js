@@ -91,10 +91,19 @@ export default function MaintenancePanel() {
     setBusy(true); setNotice(''); setState(current => ({ ...current, error: '' }));
     try {
       const payload = { ...draft, cost: draft.cost === '' ? null : Number(draft.cost) };
-      const result = await request(draft.id ? 'PATCH' : 'POST', payload);
-      const next = editable(result.record);
-      setDraft(next); setSaved(JSON.stringify(next)); updateRecord(result.record);
-      setNotice(draft.id ? 'Registro atualizado.' : 'Serviço adicionado ao checklist.');
+      const editing = Boolean(draft.id);
+      const result = await request(editing ? 'PATCH' : 'POST', payload);
+      updateRecord(result.record);
+      if (editing) {
+        const next = editable(result.record);
+        setDraft(next); setSaved(JSON.stringify(next));
+        setNotice('Registro atualizado.');
+      } else {
+        const next = blank();
+        setDraft(next); setSaved(JSON.stringify(next));
+        setNotice(`Serviço da suíte ${result.record.suite_number} adicionado. O formulário está pronto para o próximo item.`);
+        firstInput.current?.focus();
+      }
     } catch (error) { setState(current => ({ ...current, error: error.message })); }
     finally { setBusy(false); }
   }
@@ -163,7 +172,8 @@ export default function MaintenancePanel() {
           <header><div><p className={styles.kicker}>{draft.id ? 'EDITAR SERVIÇO' : 'NOVO SERVIÇO'}</p><h2>{draft.id ? draft.item : 'Adicionar ao checklist'}</h2></div></header>
           <fieldset disabled={busy}>
             <div className={styles.fieldPair}><label>Número da suíte<select required value={draft.suite_number} onChange={event => chooseRoom(event.target.value)}><option value="">Selecione</option>{maintenanceSuites.map(suite => <optgroup key={suite} label={suite}>{maintenanceRooms.filter(room => room.suite === suite).map(room => <option key={room.number} value={room.number}>Suíte {room.number}</option>)}</optgroup>)}</select></label><label>Categoria da suíte<input value={draft.suite} readOnly placeholder="Preenchida automaticamente" /></label></div>
-            <label>Item ou equipamento<input ref={firstInput} list="maintenance-items" required maxLength={120} value={draft.item} onChange={event => set('item', event.target.value)} placeholder="Ex.: Ar-condicionado" /><datalist id="maintenance-items">{itemSuggestions.map(item => <option key={item} value={item} />)}</datalist></label>
+            <fieldset className={styles.maintenanceItemPicker}><legend>Item ou equipamento</legend><div>{itemSuggestions.map(item => <button type="button" key={item} aria-pressed={draft.item === item} onClick={() => set('item', item)}>{item}</button>)}</div></fieldset>
+            <label>Item selecionado ou outro<input ref={firstInput} list="maintenance-items" required maxLength={120} value={draft.item} onChange={event => set('item', event.target.value)} placeholder="Selecione acima ou escreva outro" /><datalist id="maintenance-items">{itemSuggestions.map(item => <option key={item} value={item} />)}</datalist></label>
             <div className={styles.fieldPair}><label>Data do serviço<input type="date" required value={draft.performed_on} onChange={event => set('performed_on', event.target.value)} /></label><label>Estado<select value={draft.status} onChange={event => changeStatus(event.target.value)}>{maintenanceStatuses.map(item => <option key={item} value={item}>{statusLabel[item]}</option>)}</select></label></div>
             {draft.status === 'completed' && <label>Data de conclusão<input type="date" required min={draft.performed_on || undefined} value={draft.completed_on} onChange={event => set('completed_on', event.target.value)} /></label>}
             <details className={styles.maintenanceDetails}><summary>Detalhes adicionais <span>opcionais</span></summary><div className={styles.maintenanceDetailsBody}><div className={styles.fieldPair}><label>Área<select value={draft.category} onChange={event => set('category', event.target.value)}>{maintenanceCategories.map(item => <option key={item}>{item}</option>)}</select></label><label>Tipo<select value={draft.service_type} onChange={event => set('service_type', event.target.value)}>{maintenanceTypes.map(item => <option key={item} value={item}>{typeLabel[item]}</option>)}</select></label></div><label>Próxima revisão<input type="date" min={draft.performed_on || undefined} value={draft.next_due_on} onChange={event => set('next_due_on', event.target.value)} /></label><label>Serviço ou problema<textarea rows={3} maxLength={2000} value={draft.description} onChange={event => set('description', event.target.value)} placeholder="Opcional: descreva o que precisa ser feito." /></label><div className={styles.fieldPair}><label>Responsável / fornecedor<input maxLength={160} value={draft.provider} onChange={event => set('provider', event.target.value)} /></label><label>Custo (R$)<input type="number" min="0" max="99999999.99" step="0.01" inputMode="decimal" value={draft.cost} onChange={event => set('cost', event.target.value)} /></label></div><label>Observações<textarea rows={2} maxLength={2000} value={draft.notes} onChange={event => set('notes', event.target.value)} /></label></div></details>
