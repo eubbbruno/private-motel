@@ -37,7 +37,7 @@ export default function MaintenancePanel() {
   const [busy, setBusy] = useState(false);
   const [completing, setCompleting] = useState('');
   const [notice, setNotice] = useState('');
-  const [filters, setFilters] = useState({ suite: 'all', search: '' });
+  const [filters, setFilters] = useState({ location: 'all', status: 'all', search: '' });
   const firstInput = useRef(null);
   const dirty = JSON.stringify(draft) !== saved;
 
@@ -109,29 +109,29 @@ export default function MaintenancePanel() {
     finally { setBusy(false); }
   }
 
-  async function complete(record) {
+  async function changeRecordStatus(record, status) {
     if (completing) return;
     setCompleting(record.id); setNotice(''); setState(current => ({ ...current, error: '' }));
     try {
-      const payload = { ...editable(record), status: 'completed', completed_on: today() };
+      const payload = { ...editable(record), status, completed_on: status === 'completed' ? today() : '' };
       const result = await request('PATCH', payload);
       updateRecord(result.record);
       if (draft.id === record.id) {
         const next = editable(result.record);
         setDraft(next); setSaved(JSON.stringify(next));
       }
-      setNotice(`${record.item} — ${locationLabel(record)} foi movido para o histórico concluído.`);
+      setNotice(status === 'completed' ? `${record.item} — ${locationLabel(record)} foi movido para o histórico concluído.` : `${record.item} — ${locationLabel(record)} está em andamento.`);
     } catch (error) { setState(current => ({ ...current, error: error.message })); }
     finally { setCompleting(''); }
   }
 
-  const matches = useCallback(item => {
+  const matchesLocation = useCallback(item => {
     const haystack = `${item.suite_number} ${item.suite} ${item.item} ${item.category} ${item.description} ${item.provider}`.toLocaleLowerCase('pt-BR');
-    return (filters.suite === 'all' || item.suite === filters.suite) && haystack.includes(filters.search.toLocaleLowerCase('pt-BR'));
+    return (filters.location === 'all' || item.suite_number === filters.location) && haystack.includes(filters.search.toLocaleLowerCase('pt-BR'));
   }, [filters]);
-  const open = useMemo(() => state.records.filter(item => ['scheduled', 'in_progress'].includes(item.status) && matches(item)).sort((a,b) => (a.performed_on || '').localeCompare(b.performed_on || '')), [state.records, matches]);
-  const completed = useMemo(() => state.records.filter(item => item.status === 'completed' && matches(item)).sort((a,b) => (b.completed_on || '').localeCompare(a.completed_on || '')), [state.records, matches]);
-  const cancelled = useMemo(() => state.records.filter(item => item.status === 'cancelled' && matches(item)), [state.records, matches]);
+  const open = useMemo(() => state.records.filter(item => ['scheduled', 'in_progress'].includes(item.status) && matchesLocation(item) && (filters.status === 'all' || item.status === filters.status)).sort((a,b) => (a.performed_on || '').localeCompare(b.performed_on || '')), [state.records, matchesLocation, filters.status]);
+  const completed = useMemo(() => state.records.filter(item => item.status === 'completed' && matchesLocation(item)).sort((a,b) => (b.completed_on || '').localeCompare(a.completed_on || '')), [state.records, matchesLocation]);
+  const cancelled = useMemo(() => state.records.filter(item => item.status === 'cancelled' && matchesLocation(item)), [state.records, matchesLocation]);
   const metrics = useMemo(() => ({
     open: state.records.filter(item => ['scheduled', 'in_progress'].includes(item.status)).length,
     today: state.records.filter(item => item.status === 'completed' && item.completed_on === today()).length,
@@ -165,8 +165,8 @@ export default function MaintenancePanel() {
       <div className={styles.maintenanceColumns}>
         <section className={styles.maintenanceHistory}>
           <header><div><p className={styles.kicker}>PENDÊNCIAS</p><h2>Checklist em aberto</h2></div><span>{open.length} item(ns)</span></header>
-          <div className={styles.maintenanceFilters}><label><span className={styles.srOnly}>Buscar</span><FaSearch /><input type="search" value={filters.search} onChange={event => setFilters({ ...filters, search: event.target.value })} placeholder="Buscar suíte ou item" /></label><select aria-label="Filtrar por categoria de suíte" value={filters.suite} onChange={event => setFilters({ ...filters, suite: event.target.value })}><option value="all">Todas as suítes</option>{maintenanceSuites.map(item => <option key={item}>{item}</option>)}</select></div>
-          {state.loading ? <p className={styles.empty}>Carregando checklist…</p> : open.length ? <div className={styles.maintenanceChecklist}>{open.map(item => <article key={item.id} data-status={item.status}><button type="button" className={styles.checkAction} onClick={() => complete(item)} disabled={completing === item.id} aria-label={`Marcar ${item.item} em ${locationLabel(item)} como concluído`}><FaCheck /></button><button type="button" className={styles.checkContent} onClick={() => select(item)}><span><strong>{locationLabel(item)}</strong><small>{item.suite}</small></span><span><b>{item.item}</b><small>{statusLabel[item.status]} · {formatDate(item.performed_on)}</small>{item.description && <p>{item.description}</p>}</span></button></article>)}</div> : <p className={styles.empty}>Nenhum serviço em aberto com estes filtros.</p>}
+          <div className={styles.maintenanceFilters}><label><span className={styles.srOnly}>Buscar</span><FaSearch /><input type="search" value={filters.search} onChange={event => setFilters({ ...filters, search: event.target.value })} placeholder="Buscar item ou responsável" /></label><select aria-label="Filtrar por local" value={filters.location} onChange={event => setFilters({ ...filters, location: event.target.value })}><option value="all">Todos os locais</option>{maintenanceSuites.filter(suite => suite !== 'Áreas operacionais').map(suite => <optgroup key={suite} label={suite}>{maintenanceRooms.filter(room => room.suite === suite).map(room => <option key={room.number} value={room.number}>Suíte {room.number}</option>)}</optgroup>)}<optgroup label="Áreas operacionais">{maintenanceAreas.map(area => <option key={area}>{area}</option>)}</optgroup></select><select aria-label="Filtrar por estado" value={filters.status} onChange={event => setFilters({ ...filters, status: event.target.value })}><option value="all">Todos os estados</option><option value="scheduled">Agendadas</option><option value="in_progress">Em andamento</option></select></div>
+          {state.loading ? <p className={styles.empty}>Carregando checklist…</p> : open.length ? <div className={styles.maintenanceChecklist}>{open.map(item => <article key={item.id} data-status={item.status}><button type="button" className={styles.checkAction} onClick={() => changeRecordStatus(item, 'completed')} disabled={completing === item.id} aria-label={`Marcar ${item.item} em ${locationLabel(item)} como concluído`}><FaCheck /></button><button type="button" className={styles.checkContent} onClick={() => select(item)}><span><strong>{locationLabel(item)}</strong><small>{item.suite}</small></span><span><b>{item.item}</b><small>{formatDate(item.performed_on)}</small>{item.description && <p>{item.description}</p>}</span></button>{item.status === 'scheduled' ? <button type="button" className={styles.statusAction} data-status="scheduled" onClick={() => changeRecordStatus(item, 'in_progress')} disabled={completing === item.id}>Iniciar</button> : <span className={styles.statusPill} data-status="in_progress">Em andamento</span>}</article>)}</div> : <p className={styles.empty}>Nenhum serviço em aberto com estes filtros.</p>}
         </section>
 
         <form className={styles.maintenanceEditor} onSubmit={save}>
@@ -186,7 +186,7 @@ export default function MaintenancePanel() {
 
       <section className={styles.maintenanceOverview}>
         <header><div><p className={styles.kicker}>SERVIÇOS FINALIZADOS</p><h2>Histórico concluído</h2></div><button type="button" className={styles.secondary} onClick={downloadCompleted} disabled={!completed.length}><FaDownload />Baixar planilha</button></header>
-        {completed.length ? <div className={styles.financeTableWrap}><table className={styles.financeTable}><thead><tr><th>Local</th><th>Item</th><th>Data do serviço</th><th>Concluído em</th><th>Responsável</th><th></th></tr></thead><tbody>{completed.map(item => <tr key={item.id}><td><strong>{locationLabel(item)}</strong><small>{item.suite}</small></td><td><strong>{item.item}</strong><small>{item.category}</small></td><td>{formatDate(item.performed_on)}</td><td>{formatDate(item.completed_on)}</td><td>{item.provider || '—'}</td><td><button type="button" className={styles.tableAction} onClick={() => select(item)}>Ver</button></td></tr>)}</tbody></table></div> : <p className={styles.empty}>Os itens marcados no checklist aparecerão aqui com a data de conclusão.</p>}
+        {completed.length ? <div className={styles.financeTableWrap}><table className={styles.financeTable}><thead><tr><th>Local</th><th>Item</th><th>Estado</th><th>Data do serviço</th><th>Concluído em</th><th>Responsável</th><th></th></tr></thead><tbody>{completed.map(item => <tr key={item.id}><td><strong>{locationLabel(item)}</strong><small>{item.suite}</small></td><td><strong>{item.item}</strong><small>{item.category}</small></td><td><span className={styles.statusPill} data-status="completed"><FaCheck />Concluído</span></td><td>{formatDate(item.performed_on)}</td><td>{formatDate(item.completed_on)}</td><td>{item.provider || '—'}</td><td><button type="button" className={styles.tableAction} onClick={() => select(item)}>Ver</button></td></tr>)}</tbody></table></div> : <p className={styles.empty}>Os itens marcados no checklist aparecerão aqui com a data de conclusão.</p>}
         {!!cancelled.length && <details className={styles.cancelledRecords}><summary>{cancelled.length} registro(s) cancelado(s)</summary><div>{cancelled.map(item => <button type="button" key={item.id} onClick={() => select(item)}>{locationLabel(item)} · {item.item}</button>)}</div></details>}
       </section>
     </section>
